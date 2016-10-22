@@ -1,0 +1,82 @@
+Installation:
+
+/////////////////////////////
+// MPMissions - modify your mission pbo (epoch.Altis.pbo) as follows.
+1) Unpack the Zip file to a folder in a convenient location.
+2) Unpack your mission pbo (epoch.Altis.pbo or Exile.Altis.pbo). 
+3) Open the folder you just created.
+4) Copy the debug folder from MPMissions\epoch.Altis.
+5) Merge the line in MPMissions\epoch.Altis\init.sqf with your init.sqf, or use the one provided if you do not have one.
+6) Repack your mission.pbo.
+
+///////////////////////////
+//  @epochhive\addons
+7) pack @epochhive\addons\custom_server
+8) Copy custom_server.pbo to the @epochhive\addons folder on your server.
+
+/////////////////////////
+// Battleye Exceptions
+
+9) update the scripts.txt file in the Battleye directory in your server directory as directed below.
+
+7 deletemarker
+  
+    !"_MainMarker 
+	
+7 setMarker
+		!"_MainMarker"
+  
+7 createMarker
+		!"_MainMarker"
+10) Add the following to publicvariable.txt
+	!="blck_Message"
+	
+11) Start your server and join. By default missions will start spawning in around 5-10 min. 
+
+//////////////////////////
+// Adjusting configurations settings
+a) Unpack custom_server.pbo
+b) Make a backup of the relevant configuration file (custom_server\Configs\epoch_configs.sqf)
+c) open the configuration file custom_server\Configs\epoch_configs.sqf) in Notepad++ or another text editor
+d) Modify settings as desired.
+e) Repack custom_server.pbo
+
+
+///////////////////////
+//  Can I add map, mod or server-specific overrides for certain settings?
+
+Yes !
+You can use blck_custom_config.sqf to code any overrides you like. An example for changing some settings for Namalsk is provided.
+
+////////////////////////
+// What is this blck_debugON variable about?
+It turns on accelerated mission spawning by default and activated additional logging.
+You can turn it on or of in custom_server\Compiles\blck_variables.sqf.
+Be careful about what you change in this file. 
+
+///////////////////////////////////////////
+// Further customization
+
+Just about anything about the missions can be modified. The mission template (see Missions\Orange\supply_camp.sqf and Missions\Blue\default.sqf for examples) allow you to define mission specific parameters.
+To create a new mission, make a copy of a mission template (e.g., custom_server\Blue\default.sqf). Edit the parameters to your liking and rename to file appropriately.
+Add the file name (e.g., "newmissions.sqf") the the mission list found in custom_server\Missions. 
+That mission will now be spawned whenever it is selected from teh list.
+
+Items you can edit include includes:
+the objects that are spawned,
+The vehicles AI patrol in,
+The loot added to loot chests, which can either be that defined in the default configurations or something custom for that particular loot container or mission,
+The objects that are spawned with the AI, which could be a few objects as is the case with the default missions or an entire base,
+Whether the objects are spawned in a precise ordered way or randomly (see the Missions\Blue\default.sqf for an example of randomly spawned objects),
+The difficulty of the mission,
+
+Settings for the mission system as a whole, and default values for most variables, are found in the mod-specific config (blck_configs_epoch.sqf or blck_configs_exile.sqf).
+
+You can set whether:
+
+whether vehicles are spawned as loot and whether they have anything inside them,
+whether mines are spawned (better not have these if you have vehicle patrols),
+whether players get to keep the AI patrol vehicles,
+whether smoke is present to indicate the location of the mission,
+whether players are penalized for running over AI or killing them with certain vehicle guns,
+whether map markers are centered over the mission or not
