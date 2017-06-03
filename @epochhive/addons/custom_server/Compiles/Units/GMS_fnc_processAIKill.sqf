@@ -1,6 +1,6 @@
 /*
 	Handle AI Deaths
-	Last Modified 3/23/17
+	Last Modified 5/31/17
 	By Ghostrider-DBD-
 	Copyright 2016
 	--------------------------
@@ -17,14 +17,6 @@ params["_unit","_killer","_isLegal"];
 
 _unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, true];
 
-/*
-if (vehicle _unit != _unit) then {
-	if (count crew (vehicle _unit) isEqualTo 0) then
-	{
-		[vehicle _unit] call blck_fnc_releaseVehicleToPlayers;
-	};
-};*/
-
 blck_deadAI pushback _unit;
 _group = group _unit;
 [_unit] joinSilent grpNull;
@@ -33,13 +25,15 @@ if (blck_launcherCleanup) then {[_unit] spawn blck_fnc_removeLaunchers;};
 if (blck_removeNVG) then {[_unit] spawn blck_fnc_removeNVG;};
 if !(isPlayer _killer) exitWith {};
 //[_unit,_killer] call blck_fnc_alertNearbyUnits;
-[_unit,_killer] call blck_fnc_alertNearbyLeader;
+[_unit,_killer] call blck_fnc_alertNearbyLeader;  //  Should give a more natural, squad-based response to injuries or kills.
 _group = group _unit;
-//_group setBehavior "COMBAT";
 _wp = [_group, currentWaypoint _group];
 _wp setWaypointBehaviour "COMBAT";
 _group setCombatMode "RED";
 _wp setWaypointCombatMode "RED";
+{
+	_unit removeAllEventHandlers  _x;
+}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear","Hit"];
 
 _isLegal = [_unit,_killer] call blck_fnc_processIlleagalAIKills;
 
@@ -70,8 +64,6 @@ if (blck_useKillMessages) then
 	//diag_log format["[blck] unit killed message is %1",_message,""];
 	[["aikilled",_message,"victory"],playableUnits] call blck_fnc_messageplayers;
 };
-[_unit,_killer,_kills] call blck_fnc_rewardKiller;
-{
-	_unit removeAllEventHandlers  _x;
-}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear","Hit"]
+[_unit,_killer] call blck_fnc_rewardKiller;
+
 
