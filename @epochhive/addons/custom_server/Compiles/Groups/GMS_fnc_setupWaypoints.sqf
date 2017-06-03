@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 4/29/17
+	Last modified 6/1/17
 	
 	--------------------------
 	License
@@ -36,13 +36,14 @@ if (_soldierType isEqualTo "emplaced") then
 	_group setVariable["soldierType",_soldierType];
 	#ifdef blck_debugMode
 	_wp setWaypointStatements ["true","this call blck_fnc_emplacedWeaponWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to an emplaced weapon Waypoint',group this];"];
+	if (blck_debugLevel > 1) then {diag_log format["_fnc_setupWaypoints: configuring weapoints for group %2 for emplaced weapon with _soldierType = %1",_soldierType,_group];};	
 	#else
 	_wp setWaypointStatements ["true","this call blck_fnc_emplacedWeaponWaypoint;"];
 	#endif
-	if (blck_debugLevel > 1) then {diag_log format["_fnc_setupWaypoints: configuring weapoints for group %2 for emplaced weapon with _soldierType = %1",_soldierType,_group];};
 };
 if !(_soldierType isEqualTo "emplaced") then 
 {
+	_arc = 360/5;
 	_group setcombatmode "YELLOW";
 	_group setBehaviour "COMBAT";
 	_group setVariable["patrolCenter",_pos];
@@ -56,7 +57,7 @@ if !(_soldierType isEqualTo "emplaced") then
 	_group setVariable["wpArc",_arc];
 	_group setVariable["soldierType",_soldierType];
 	_dir = 0;
-	_arc = 360/5;
+
 	_wpradius = 30;
 	_dis = (_minDis) + random( (_maxDis) - (_minDis) );
 	_newPos = _pos getPos[_dis,_dir];
