@@ -18,7 +18,7 @@ _legal = true;
 
 _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
 	params["_unit","_vk"];
-	private
+	private["_unit"];
 	{
 		if ( ( (getPos _vk) distance2d (getPos _x) ) < 500 ) then 
 		{
@@ -70,7 +70,9 @@ if (typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehi
 		};
 		if (blck_VK_RunoverDamage) then {//apply vehicle damage
 			[vehicle _killer] call _fn_applyVehicleDamage;
-			if (blck_debugON) then{diag_log format[">>---<< %1's vehicle has had damage applied",_killer];};			
+			#ifdef blck_debugMode
+			if (blck_debugON) then{diag_log format[">>---<< %1's vehicle has had damage applied",_killer];};	
+			#endif
 			[_killer] call _fn_msgIED;
 		};
 		[_unit, vehicle _killer] call _fn_targetVehicle;
