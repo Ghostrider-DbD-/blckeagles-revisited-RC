@@ -54,7 +54,7 @@ while {true} do
 		_timer1min = diag_tickTime;
 		[] call blck_fnc_timeAcceleration;
 		[] call blck_fnc_spawnPendingMissions;
-;
+	};
 		if !(blck_useHC) then
 		{
 			diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
