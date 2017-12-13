@@ -5,7 +5,7 @@ Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
 Significant Changes:
-Version 6.72 Build 81
+Version 6.72 Build 88
 [Added] Support for headless clients. This functionality works for one HC regardless of the name used for HCs.
 [Added] Added an optional variable for mission patrol vehicles:  _missionPatrolVehicles
 		One can use this variable to defin the spawn position and types of vehicles spawned at missions.
@@ -14,7 +14,10 @@ Version 6.72 Build 81
 [Changed] Crates can now be lifted only AFTER a mission is completed.		
 [Changed] The client is now activated using remoteExec instead of a public variable.
 	      **** Please be sure to update the files in the debug folder on your client.
-
+		  
+Bug fixes from Build 87		  
+[Fixed] Typos (Thank you to Brian Soanes)
+[Fixed] setting blck_useTimeAcceleration = false did not disable this function.
 
 Version 6.71 Build 77
 [Added] HandleDamage Event Handler for Armed Vehicles to increase their interaction with players.
