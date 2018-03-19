@@ -62,7 +62,7 @@ if !(blck_preciseMapMarkers) then
 };
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
 [["start",_startMsg,_markerMissionName]] call blck_fnc_messageplayers;
-[_blck_localMissionMarker] call blck_fnc_spawnMarker;
+private _marker = [_blck_localMissionMarker] call blck_fnc_spawnMarker;
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (91) message players and spawn a mission marker";};
 if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (77) waiting for player to trigger the mission";};
