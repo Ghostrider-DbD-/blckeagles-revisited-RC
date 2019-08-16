@@ -350,7 +350,7 @@
 		];	
 	/////////////////////////////////////////////
 	
-	blck_groupBehavior = "SAD";  // Suggested choices are "SAD", "SENTRY", "AWARE"   https://community.bistudio.com/wiki/ArmA:_AI_Combat_Modes
+	blck_groupBehavior = "SAFE";  // Suggested choices are "CARELESS","SAFE","AWARE","COMBAT","STEALTH" https://community.bistudio.com/wiki/setWaypointBehaviour
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
 
