@@ -46,9 +46,12 @@ if (!isNull _client) then
 {
 	private _swapped = if (_AIType isEqualTo "OBJECT") then {_AI setOwner (owner _client)} else {_AI setGroupOwner (owner _client)};
 
-	if (!_swapped) then
-	{
-		ExileServerOwnershipSwapQueue pushBack [_AI,_client];
+	if (blck_modType isEqualTo "Exile") then
+    	{
+		if (!_swapped) then
+		{
+			ExileServerOwnershipSwapQueue pushBack [_AI,_client];
+		};
 	};
 
 	if (blck_ai_offload_notifyClient) then
