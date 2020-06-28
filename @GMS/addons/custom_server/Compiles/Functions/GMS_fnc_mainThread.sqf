@@ -54,7 +54,7 @@ while {true} do
 		_timer1min = diag_tickTime + 60;
 		[] call blck_fnc_spawnPendingMissions;
 		[] call blck_fnc_groupWaypointMonitor; 
-		if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then {[] spawn blck_fnc_addDyanamicUMS_Mission};
+		//if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then {[] spawn blck_fnc_addDyanamicUMS_Mission};
 		if (blck_useHC) then {[] call blck_fnc_HC_passToHCs};
 		if (blck_useTimeAcceleration) then {[] call blck_fnc_timeAcceleration};
 		if (blck_ai_offload_to_client) then {[] call blck_fnc_ai_offloadToClients};
