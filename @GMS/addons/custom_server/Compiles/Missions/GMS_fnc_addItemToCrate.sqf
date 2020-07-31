@@ -25,7 +25,7 @@
 	_isMagazine = false;
 	_isBackpack = false;
 	_quant = 0;
-	//diag_log format["_fn_addItemToCrate:: -- >> itemInfor = %1",_itemInfo];
+
 	if (typeName _itemInfo isEqualTo "STRING") then {_item = _itemInfo; _quant = 1};  // case where only the item descriptor was provided
 	if (typeName _itemInfo isEqualTo "ARRAY") then {
 		

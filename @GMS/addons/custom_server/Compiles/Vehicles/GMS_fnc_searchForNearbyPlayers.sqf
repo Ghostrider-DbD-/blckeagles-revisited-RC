@@ -19,9 +19,9 @@ _nearbyPlayers = [position _vehicle, _vehicle getVariable["blck_vehicleSearchRan
 		_cansee = [objNull, "VIEW"] checkVisibility [eyePos _x, _player];
 			if (_cansee > 0) then
 			{
-				//_knowledgeGained = (_searchRadius  - (_x distance _groupLeader))/_searchRadius;
+				_knowledgeGained = (_searchRadius  - (_x distance _groupLeader))/_searchRadius;
 				_knowsAbout = _x knowsAbout _player;
-				_groupLeader reveal [_x, _knowsAbout + _kno_canseewledgeGained];
+				_groupLeader reveal [_x, _knowsAbout + _knowledgeGained];
 			};
 		}foreEach crew _vehicle;
 	};

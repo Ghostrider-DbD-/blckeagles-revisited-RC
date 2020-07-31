@@ -28,26 +28,18 @@ _sunrise = _arr select 0;
 _sunset = _arr select 1;
 _time = dayTime;
 
-//diag_log "fnc_Time:: Debug settings ON";
-//diag_log format["_fnc_Time:: --> blck_useTimeAcceleration = %1", blck_useTimeAcceleration];
-//diag_log format["_fnc_Time::  -- > _sunrise = %1 | _sunset = %2 | _time = %3",_sunrise,_sunset,_time];
-
-
 // Night
 if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationNight; 
-	//diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];	
 };
 
 // Day
 if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
-	setTimeMultiplier blck_timeAccelerationDay; 
-	//diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];	
+	setTimeMultiplier blck_timeAccelerationDay; 	
 };
 
 // default
 setTimeMultiplier blck_timeAccelerationDusk; 
-//diag_log format["DUSK ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 
 
 

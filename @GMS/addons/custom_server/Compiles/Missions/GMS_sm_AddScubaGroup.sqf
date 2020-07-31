@@ -12,5 +12,4 @@
 
 params["_group"];
 blck_sm_scubaGroups pushBack [_group,grpNull,0];
-//diag_log format["_sm_AddScubaGroup:: blck_sm_scubaGroups = %1",blck_sm_scubaGroups];
 true

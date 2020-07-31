@@ -65,11 +65,10 @@ if ((toLower blck_modType) isEqualTo "default") then
 		"Exile_Boat_SDV_Grey"
 	];
 	
-	blck_UMS_crates =
-	[
+	blck_UMS_crates = blck_crateTypes;
 
-	];
 };
+
 blck_UMS_unarmedSurfaceVessels = 
 [
 	"B_Boat_Transport_01_F",

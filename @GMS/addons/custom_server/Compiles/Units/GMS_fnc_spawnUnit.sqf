@@ -22,19 +22,10 @@ if (_headGear  isEqualTo [])  then {_headGear = [_skillLevel] call blck_fnc_sele
 if (_vests  isEqualTo [])     then {_vests = [_skillLevel] call blck_fnc_selectAIVests};
 if (_backpacks  isEqualTo []) then {_backpacks = [_skillLevel] call blck_fnc_selectAIBackpacks};
 
-#ifdef blck_debugMode
-if (blck_debugLevel >= 2) then
-{
-	private _params = ["_pos","_aiGroup","_skillLevel","_uniforms","_headGear","_vests","_backpacks","_Launcher","_weaponList","_sideArms","_scuba","_garrison"];  //"_weaponList",  "_Launcher"
-	{
-		diag_log format["_fnc_spawnUnit::-> _this select %1 (%2) = %3",_forEachIndex, _params select _forEachIndex, _this select _forEachIndex];
-	}forEach _this;
-};
-#endif
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _unit = ObjNull;
-//private _unitType = "";
+
 if (blck_modType isEqualTo "Epoch") then
 {
 	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
@@ -46,7 +37,6 @@ if (blck_modType isEqualTo "Epoch") then
 		case "green":{_unit setVariable["Crypto",6 + floor(random(blck_maxMoneyGreen)),true];};
 		case "orange":{_unit setVariable["Crypto",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
-	//diag_log format["_fnc_spawnUnit: for unit %1 Crypto set to %2",_unit,_unit getVariable "Crypto"];	
 };
 if !(blck_modType isEqualTo "Epoch") then
 {
@@ -58,11 +48,10 @@ if !(blck_modType isEqualTo "Epoch") then
 		case "green":{_unit setVariable["ExileMoney",6 + floor(random(blck_maxMoneyGreen)),true];};
 		case "orange":{_unit setVariable["ExileMoney",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
-	//diag_log format["_fnc_spawnUnit: for unit %1 ExileMoney set to %2",_unit,_unit getVariable "ExileMoney"];
 };
-//  findEmptyPosition [minDistance, maxDistance, vehicleType] 
+
 private _tempPos = _pos findEmptyPosition [0.1, 3, typeOf _unit];
-//diag_log format["_fnc_spawnUnit: _pos = %1 | _tempPos = %2",_pos,_tempPos];
+
 if !(_tempPos isEqualTo []) then {_unit setPos _tempPos};
 
 [_unit] call blck_fnc_removeGear;
@@ -74,18 +63,8 @@ if (_scuba) then
 _skin = "";
 _counter = 1;
 
-while {_skin isEqualTo "" && _counter < 10} do
-{
-	_unit forceAddUniform (selectRandom _uniforms);
-	_skin = uniform _unit;
-	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
-	{
-		diag_log format["_fnc_spawnUnit::-->> for unit _unit % uniform is %2",_unit, uniform _unit];
-	};
-	#endif	
-	_counter = _counter + 1;
-};
+_unit forceAddUniform (selectRandom _uniforms);
+ 
 //Sets AI Tactics
 _unit enableAI "ALL";
 if(_garrison) then
@@ -99,33 +78,26 @@ _unit setunitpos "AUTO";
 if !(_headGear isEqualTo []) then 
 {
 	_unit addHeadgear (selectRandom _headGear);
-	//diag_log format["Headgear for unit %1 = %2",_unit, headgear _unit];
 };
 if !(_vests  isEqualTo []) then 
 {
 	_unit addVest (selectRandom _vests);
-	//diag_log format["Vest for unit %1 = %2",_unit, vest _unit];
 };
 
 if (_weaponList isEqualTo []) then {_weaponList = call blck_fnc_selectAILoadout};
 _weap = selectRandom _weaponList;  
 _unit addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
+_unit addMagazines[selectRandom _ammochoices,3];
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
 _pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "PointerSlot" >> "compatibleItems");
 _muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
 _underbarrel = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "UnderBarrelSlot" >> "compatibleItems");
-_legalOptics = _optics - blck_blacklistedOptics;
 
-if (typeName _ammoChoices isEqualTo "ARRAY" and !(_ammochoices isEqualTo [])) then 
-{
-	_unit addMagazines [selectRandom _ammoChoices, 3];
-} else {
-	diag_log format["<ERROR> _fnc_spawnUnit: _weap = %1 | _ammoChoices = %2 | time = %3",_weap,_ammoChoices,time];
-};
+
 
 if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _legalOptics)};
+if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _optics)};
 if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _pointers)};
 if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
 if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _underbarrel)};
@@ -137,7 +109,6 @@ if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) th
 if !(_sideArms  isEqualTo []) then
 {
 	_weap = selectRandom _sideArms;
-	//diag_log format["[spawnUnit.sqf] _weap os %1",_weap];
 	_unit addWeaponGlobal  _weap; 
 	_ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 	_unit addMagazines [selectRandom _ammoChoices, 2];
@@ -150,10 +121,9 @@ for "_i" from 1 to (1+floor(random(4))) do
 // Add  First Aid or Grenade 50% of the time
 if (round(random 10) <= 5) then 
 {
-	//diag_log format["spawnUnit.sqf] -- Item is %1", _item];
 	_unit addItem selectRandom blck_specialItems;
 };
-//diag_log format["_spawnUnit: _Launcher = %1",_Launcher];
+ 
 if ( !(_Launcher isEqualTo "none") && !(_backpacks  isEqualTo [])) then
 {
 	_unit addWeaponGlobal _Launcher;
@@ -181,7 +151,7 @@ else
 };
 
 _unit addWeapon selectRandomWeighted["",4,"Binocular",3,"Rangefinder",1];
-
+//_unit addEventHandler ["HandleDamage",{_this call blck_EH_handleDamage;}];
 _unit addEventHandler ["FiredNear",{_this call blck_EH_AIfiredNear;}];
 _unit addEventHandler ["Reloaded", {_this call blck_EH_unitWeaponReloaded;}];
 _unit addMPEventHandler ["MPKilled", {[(_this select 0), (_this select 1)] call blck_EH_AIKilled;}];

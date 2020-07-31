@@ -19,34 +19,24 @@ _units = [];
 _abort = false;
 _pos = [];
 
-//diag_log format["_sm_spawnEmplaced <Line 26>:: _missionEmplacedWeapons = %1",_missionEmplacedWeapons];
 // Define _missionEmplacedWeapons if not already configured.
 if (_missionEmplacedWeapons isEqualTo []) then
 {
 	_missionEmplacedWeaponPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
 	{
 		_static = selectRandom blck_staticWeapons;
-		//diag_log format["_fnc_spawnEmplacedWeaponArray: creating spawn element [%1,%2]",_static,_x];
 		_missionEmplacedWeapons pushback [_static,_coords vectorAdd _x,_aiDifficultyLevel];
-		//diag_log format["_fnc_spawnEmplacedWeaponArray: _mi updated to %1",_missionEmplacedWeapons];
 	} forEach _missionEmplacedWeaponPositions;
 };
-//diag_log format["_sm_spawnEmplaced<Line 38>:: _missionEmplacedWeapons = %1",_missionEmplacedWeapons];
+
 {
 	_wepnClassName = _x select 0;
 	_pos = _x select 1;
 	_difficulty = _x select 2;
-	
-	/// params["_pos",  "_center", _numai1,  _numai2,  _skillLevel, _minDist, _maxDist, _configureWaypoints, _uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms, _scuba ];
 	__empGroup = [_pos,_pos,1,1,_difficulty,1,2,false,_uniforms,_headGear] call blck_fnc_spawnGroup;
 	_empGroup setcombatmode "RED";
 	_empGroup setBehaviour "COMBAT";
-	// Not sure of the value of giving waypoints here.
-	//[_pos,0.01,0.02,_empGroup,"random","SAD","emplaced"] spawn blck_fnc_setupWaypoints;
-	//if (isNull _empGroup) exitWith {_abort = _true};
-	_wep = [_wepnClassName,[0,0,0],false] call blck_fnc_spawnVehicle;
-	//_empGroup setVariable["groupVehicle",_wep];
-	//_wep setVariable["vehicleGroup",_empGroup];
+	_wep = [_wepnClassName,[0,0,0]] call blck_fnc_spawnVehicle;
 	_wep setVariable["GRG_vehType","emplaced"];	
 	_wep setPosATL _pos;
 	[_wep,false] call blck_fnc_configureMissionVehicle;	

@@ -7,7 +7,16 @@ Many thanks for new Coding and ideas from Grahame.
 
 Significant Changes:
 =====================
-6.98 Build 204
+7.00 Build 212
+New: 
+Fixed: Don and Hostage missions could not be completed 
+Fixed: Missions tended to spawn all at once 
+Fixed: vehicles are spawned at a safe spot which should reduce unintended explosions 
+Added: The system has been upgreaded to a state-based system, meaning one scrpt is running once all missions are initialized.
+Changed: a lot of debugging was removed.
+
+
+6.98 Build 206
 FIXED: few minor bug fixes. 
 FIXED: Static Mission Loot vehicles are no longer deleted by Epoch servers when players enter them.
 FIXED: an error in coordinates for some randomly spawned missions tha added an extra 0 to the array with the coordinaates.
@@ -27,6 +36,11 @@ Added: a function to pull a list of all map markers belonging to DMS and avoid s
 Removed: some debugging and map sepcific settings from blck_custom_config.sqf 
 Changed: some code for finding locations for a new mission. 
 Added: all blckeagls map markers have the same prefix:  "blckeagls_marker"
+
+
+
+
+
 
 
 6.96 Build 199

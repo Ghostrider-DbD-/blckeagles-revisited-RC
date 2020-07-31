@@ -11,66 +11,62 @@
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-diag_log format["[blckeagls] blck_init_server started"];
+///////////////////////////////////////////////
+//  prevent the system from being started twice
+//////////////////////////////////////////////
+if !(isNil "blck_missionSystemRunning") exitWith {};
+blck_missionSystemRunning = true;
 
 // Only run this on a dedicated server
 if ( !(isServer) || hasInterface) exitWith{};
-
-// Only run this once 
-if !(isNil "blck_Initialized") exitWith{};
-
-// This is just a flag so we know if blckeagls has been started or not.
-blck_Initialized = true;
 
 // find and set Mod
 blck_modType = "";
 if (!isNull (configFile >> "CfgPatches" >> "exile_server")) then {blck_modType = "Exile"};
 if (!isnull (configFile >> "CfgPatches" >> "a3_epoch_server")) then {blck_modType = "Epoch"}; 
 if (!(blck_modType in ["Exile","Epoch"] )) then {blck_modType = "default"};
-diag_log format["[blckeagls] blck_modType = %1",blck_modtype];
 publicVariable "blck_modType";
+
+
+// Just some housekeeping for ghost.
+private _blck_loadingStartTime = diag_tickTime;
+#include "\q\addons\custom_server\init\build.sqf";
+
+// compile functions
+[] call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_functions.sqf";
+
+// Load Configs
+[] call compile preprocessfilelinenumbers "\q\addons\custom_server\Configs\blck_configs.sqf";
+waitUntil{(!isNil "blck_useHC") && (!isNil "blck_simulationManager") && (!isNil "blck_debugOn") && (!isNil "blck_AI_Side")};
+if (blck_debugOn) then {diag_log format["[blckeagls]  blck_AI_Side = %1",blck_AI_Side]};
 
 // This block waits for the mod to start but is disabled for now
 if ((tolower blck_modType) isEqualto "epoch") then {
 	diag_log "[blckeagls] Waiting until EpochMod is ready...";
-	//waituntil {!isnil "EPOCH_SERVER_READY"};
+	if !(blck_debugOn) then {waitUntil {!isnil "EPOCH_SERVER_READY"}};
 	diag_log "[blckeagls] EpochMod is ready...loading blckeagls";
 };
 if ((toLower blck_modType) isEqualTo "exile") then
 {
 	diag_log "[blckeagls] Waiting until ExileMod is ready ...";
-	//waitUntil {!PublicServerIsLoaded};
+	if !(blck_debugOn) then {waitUntil {!isNil "PublicServerIsLoaded"}};
 	diag_log "[blckeagls] Exilemod is ready...loading blckeagls";	
 };
 if ((toLower blck_modType) isEqualTo "default") then 
 {
 	diag_log "[blckeagls] Configuring Mission System for Default Settings...";
 };
-// Just some housekeeping for ghost.
-private _blck_loadingStartTime = diag_tickTime;
-#include "\q\addons\custom_server\init\build.sqf";
-diag_log format["[blckeagls] build information loaded at %1",diag_tickTime];
-
-
-// compile functions
-[] call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_functions.sqf";
-diag_log format["[blckeagls] functions compiled at %1",diag_tickTime];
-
-
-[] call compile preprocessfilelinenumbers "\q\addons\custom_server\Configs\blck_configs.sqf";
-diag_log format["[blckeagls] blck_configs.sqf run at %1",diag_tickTime];
-waitUntil{(!isNil "blck_useHC") && (!isNil "blck_simulationManager") && (!isNil "blck_debugOn") && (!isNil "blck_AI_Side")};
-uiSleep 10;
 
 // Load any user-defined specifications or overrides
+//  HINT: Use these for map-specific settings
 #include "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
-diag_log format["[blckeagls] Custom Configurations Loaded at %1",diag_tickTime];
-diag_log format["[blckeagls] debug mode settings:blck_debugON = %1 | blck_debugLevel = %3",blck_debugON,blck_debugLevel];
+if (blck_debugOn) then {diag_log format["[blckeagls] Custom Configurations Loaded at %1",diag_tickTime]};
+if (blck_debugOn) then {diag_log format["[blckeagls] debug mode settings:blck_debugON = %1 | blck_debugLevel = %2",blck_debugON,blck_debugLevel]};
 
 // Load vaariables used to store information for the mission system.
 [] call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
-diag_log format["[blckeagls] Variables loaded at %1",diag_tickTime];
+if (blck_debugOn) then {diag_log format["[blckeagls] Variables loaded at %1",diag_tickTime]};
 
 // configure dynamic simulation management is this is being used.
 if (blck_simulationManager == 2) then 
@@ -84,45 +80,44 @@ if (blck_spawnMapAddons) then
 {
 	call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
 }else{
-	diag_log "[blckeagls] Map Addons disabled";
+	["Map Addons disabled"] call blck_fnc_log;
 };
 
 // find and set Mapcenter and size
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\init\GMS_fnc_findWorld.sqf";
-diag_log "[blckeagls] Map-specific information defined";
+if (blck_debugOn) then {diag_log "[blckeagls] Map-specific information defined"};
 
 // set up the lists of available missions for each mission category
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
-diag_log "[blckeagls] Mission Lists Loaded Successfully";
-
+if (blck_debugOn) then {diag_log "[blckeagls] Mission Lists Loaded Successfully"};
 call compile preprocessfilelinenumbers "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
 call compile preprocessfilelinenumbers "q\addons\custom_server\Missions\UMS\GMS_UMS_init.sqf";  // loads functions and spawns any static missions.
-diag_log "[blckeagls] blck_init_server: ->> Static and UMS systems initialized.";
+if (blck_debugOn) then {diag_log "[blckeagls] blck_init_server: ->> Static and UMS systems initialized."};
 
 switch (blck_simulationManager) do
 {
-	case 2: {diag_log "[blckeagls] dynamic simulation manager enabled"}; 
-	case 1: {diag_log "[blckeagls] blckeagls simulation manager enabled"};
-	case 0: {diag_log "[blckeagls] simulation management disabled"};
+	case 2: {["dynamic simulation manager enabled"] call blck_fnc_log}; 
+	case 1: {["blckeagls simulation manager enabled"] call blck_fnc_log};
+	case 0: {["[blckeagls] simulation management disabled"] call blck_fnc_log};
 };
 
-diag_log format["[blckeagls] version %1 Build %2 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
-diag_log format["[blckeagls] waiting for players to join ----    >>>>"];
+[format["[blckeagls] version %1 Build %2 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime]] call blck_fnc_log;
+[format["[blckeagls] waiting for players to join ----    >>>>"]] call blck_fnc_log;
 
 if ( !(blck_debugON) && (blck_debugLevel isEqualTo 0)) then
 {
 	waitUntil{{isPlayer _x}count allPlayers > 0};
-	diag_log "[blckeagls] Player Connected, spawning missions";
+	["]Player Connected, spawning missions"] call blck_fnc_log;
 } else {
-	diag_log "[blckeagls] Debug mode ON, proceding without players";
+	["Debug mode ON, proceding without players"] call blck_fnc_log;
 };
 
 if (blck_spawnStaticLootCrates) then
 {
 	[] spawn compile preprocessfilelinenumbers "\q\addons\custom_server\SLS\SLS_init.sqf";
-	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner Done";
+	["SLS::  -- >>  Static Loot Spawner Done"] call blck_fnc_log;
 }else{
-	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
+	["SLS::  -- >>  Static Loot Spawner disabled"] call blck_fnc_log;
 };
 
 if (blck_blacklistTraderCities) then
@@ -135,7 +130,7 @@ if (blck_ai_offload_to_client) then
 	if (blck_useHC) then 
 	{
 		blck_useHC = false;
-		diag_log "[blckeagls] <WARNING> blck_useHC has been diabled to allow offloading to clients";
+		["blck_useHC has been diabled to allow offloading to clients",'warning'] call blck_fnc_log;
 	};
 	// Broadcast some code to clients
 	publicVariable "blck_fnc_setNextWaypoint";
@@ -158,6 +153,8 @@ _fn_setupLocationType = {
 	_locations	
 };
 
+if (isNil "blck_crateMoveAllowed") then {blck_crateMoveAllowed = false};
+
 private _villages = ["NameVillage"] call _fn_setupLocationType;
 private _cites = ["NameCity"] call _fn_setupLocationType;
 private _capitals = ["NameCityCapital"] call _fn_setupLocationType;
@@ -169,56 +166,26 @@ blck_townLocations = _villages + _cites + _capitals + _marine + _other + _airpor
 {
 	blck_locationBlackList pushBack [locationPosition _x, blck_minDistanceFromTowns];
 } forEach blck_townLocations;
-diag_log format["_init_server: count blck_townLocations = %1 || blck_townLocations = %2",count blck_townLocations, blck_townLocations];
 
 //Start the mission timers
 if (blck_enableOrangeMissions > 0) then
 {
-	//[_missionListOrange,_pathOrange,"OrangeMarker","orange",blck_TMin_Orange,blck_TMax_Orange] spawn blck_fnc_missionTimer;//Starts major mission system (Orange Map Markers)
 	[_missionListOrange,_pathOrange,"OrangeMarker","orange",blck_TMin_Orange,blck_TMax_Orange,blck_enableOrangeMissions] call blck_fnc_addMissionToQue;
 };
 if (blck_enableGreenMissions > 0) then
 {
-	//[_missionListGreen,_pathGreen,"GreenMarker","green",blck_TMin_Green,blck_TMax_Green] spawn blck_fnc_missionTimer;//Starts major mission system 2 (Green Map Markers)
 	[_missionListGreen,_pathGreen,"GreenMarker","green",blck_TMin_Green,blck_TMax_Green,blck_enableGreenMissions] call blck_fnc_addMissionToQue;
 };
 if (blck_enableRedMissions > 0) then
 {
-	//[_missionListRed,_pathRed,"RedMarker","red",blck_TMin_Red,blck_TMax_Red] spawn blck_fnc_missionTimer;//Starts minor mission system (Red Map Markers)//Starts minor mission system 2 (Red Map Markers)
 	[_missionListRed,_pathRed,"RedMarker","red",blck_TMin_Red,blck_TMax_Red,blck_enableRedMissions] call blck_fnc_addMissionToQue;
 };
 if (blck_enableBlueMissions > 0) then
 {
-	//[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
 
-#ifdef GRGserver
-diag_log "[blckeagls] Running GhostriderGaming Version";
-//diag_log format["[blckeagls] _init_server: blck_enableScoutsMissions = %1",blck_enableScoutsMissions];
-if (blck_enableScoutsMissions > 0) then
-{
-	//[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts] spawn blck_fnc_missionTimer;
-	[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts,blck_enableScoutsMissions,false] call blck_fnc_addMissionToQue;
-};
 
-//diag_log format["[blckeagls] _init_server: blck_enableHunterMissions = %1",blck_enableHunterMissions];
-if (blck_enableHunterMissions > 0) then
-{
-	//[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter] spawn blck_fnc_missionTimer;
-	//  params["_missionList","_path","_marker","_difficulty","_tMin","_tMax","_noMissions"];
-	[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter,blck_enableHunterMissions,false] call blck_fnc_addMissionToQue;
-};
-
-// Running new version of Crash sites.
-//diag_log format["[blckeagls] _init_server: blck_maxCrashSites = %1",blck_maxCrashSites];
-if (blck_maxCrashSites > 0) then
-{
-	[] execVM "\q\addons\custom_server\Missions\HeliCrashs\Crashes2.sqf";
-};
-//diag_log "loading DLS System";
-call compile preprocessfilelinenumbers "\q\addons\custom_server\DLS\DLS_init.sqf";
-#endif
 
 // Setup a group for AI corpses
 blck_graveyardGroup = createGroup [blck_AI_Side,false];
@@ -229,40 +196,5 @@ blck_graveyardGroup setVariable ["blck_group",1];
 [] spawn blck_fnc_mainThread;
 blck_pvs_version = blck_versionNumber;
 publicVariable "blck_pvs_version";
-diag_log format["[blckeagls] version %1 Build %2 Date %4 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime,blck_buildDate]; //,blck_modType];
+[format["[blckeagls] version %1 Build %2 Date %4 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime,blck_buildDate]] call blck_fnc_log;
 
-/*
-if (blck_debugOn || (blck_debugLevel >= 1)) then 
-{
-	private _pos = [] call blck_fnc_findSafePosn;
-	private _root = "";
-	private _path = "Orange";
-	private _mission = "officeComplex"; //"bunkerMission";
-	private _compiledMission = compilefinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\%1\%2.sqf",_path,_mission];
-	diag_log format["[blckeagls] mission test sequence run for mission path %1 name %2",_path,_mission];
-	[_pos,"testMarkerGRG","blue"] spawn _compiledMission;
-	diag_log format["testmarker mission spawned at %1",diag_tickTime];
-	{
-		diag_log format["<GRG-TEST.Here are some settings: %1 = %2", ['blck_MinDistanceFromMission','blck_minDistanceToBases','blck_minDistanceToPlayer','blck_minDistanceFromTowns'] select _forEachIndex,_x];
-	} forEach [blck_MinDistanceFromMission,blck_minDistanceToBases,blck_minDistanceToPlayer,blck_minDistanceFromTowns];
-};
-*/
-if (blck_debugOn) then 
-{
-	diag_log "blck_init_server:  <BEGIN> findSafePosn speed tests";
-	private _allCoords = [];
-	private _t1 = diag_tickTime;
-	for "_i" from 1 to 25 do 
-	{
-		private _coords = [] call blck_fnc_FindSafePosn;
-
-	};
-	diag_log format["blck_init_server: time elapsed for 10000 calls to blck_fnc_findSafePosn = %1",diag_tickTime - _t1];
- 	_t1 = diag_tickTime;
-	 _allCoords = [];
-	for "_j" from 1 to 25 do 
-	{
-		private _coords = [] call blck_fnc_FindSafePosn_2;
-	};
-	diag_log format["blck_init_server: time elapsed for 10000 calls to blck_fnc_findSafePosn_2 = %1",diag_tickTime - _t1];	
-};

@@ -25,15 +25,11 @@ private _leader = _this;
 private _pos = _group getVariable "patrolCenter";  			//  Center of the area to be patroleld.
 private _minDis = _group getVariable "minDis";			//  minimum distance between waypoints
 private _maxDis = _group getVariable "maxDis";  				// maximum distance between waypoints
-// _group getVariable "timeStamp";		// used to check that waypoints are being completed
-//private _wpRadisu _group getVariable "wpRadius";					// Always set to 0 to force groups to move a bit
 private _patrolRadius = _group getVariable "patrolRadius";	// radius of the area to be patrolled
 private _wpMode = _group getVariable "wpMode";					//  The default mode used when the waypoint becomes active  https://community.bistudio.com/wiki/AI_Behaviour
-//_group getVariable "wpPatrolMode";   //  Not used; the idea is to allow two algorythms: randomly select waypoints so groups move back and forth along the perimiter of the patrool area or sequenctioal, hoping along the perimeter
 private _wpTimeout = _group getVariable "wpTimeout";			//  Here to alow you to have the game engine pause before advancing to the next waypoing. a timout of 10-20 sec is recommended for infantry and land vehicles, and 1 sec for aircraft
 private _wpDir = _group getVariable "wpDir";						//  Used to note the degrees along the circumference of the patrol area at which the last waypoint was positioned.
 private _arc = _group getVariable "wpArc";					// Increment in degrees to be used when advancing the position of the patrol to the next position along the patrol perimeter
-//_group getVariable "soldierType";		// infantry, vehicle, air or emplaced. Note that there is no need to have more than one waypoint for emplaced units.
 private _wp = [_group,0];
 private _nearestEnemy = _leader findNearestEnemy (getPosATL _leader);
 private _maxTime = _group getVariable["maxTime",300];

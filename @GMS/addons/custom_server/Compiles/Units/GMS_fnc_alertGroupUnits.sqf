@@ -14,11 +14,11 @@
 
 params[["_unit",objNull],["_target",objNull]];
 if (isNull _unit) exitWith {};
-//diag_log format["_fnc_alertGroupUnits: _unit = %1 | _target = %2",_unit,_target];
+
 {
-	_x reveal [_target,(_x knowsAbout _target) + (_unit getVariable ["intelligence",1])];
-	_x doSuppressiveFire _target;
+	if (random(1) < -.33) then {_x reveal [_target,(_x knowsAbout _target) + random(_unit getVariable ["intelligence",1]) ]};
+	//_x doSuppressiveFire _target;
 }forEach (units (group _unit));
-//leader(group _target) doSuppressiveFire _target;
+leader(group _target) doSuppressiveFire _target;
 
 

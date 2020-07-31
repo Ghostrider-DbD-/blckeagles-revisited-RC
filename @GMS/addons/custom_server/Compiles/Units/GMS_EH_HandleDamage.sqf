@@ -25,6 +25,6 @@ private ["_unit","_killer","_group","_deleteAI_At"];
 _unit = _this select 0;
 _source = _this select 3;
 
-if (isPlayer _source) then {
-	[_unit,_source] call GRMS_fnc_alertGroup;
+if !(isPlayer _source) then {
+	_unit setDamage 0;
 };

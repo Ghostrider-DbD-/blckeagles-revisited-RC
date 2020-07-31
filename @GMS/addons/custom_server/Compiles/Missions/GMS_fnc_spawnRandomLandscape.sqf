@@ -26,6 +26,7 @@ _wreck enableSimulationGlobal false;
 _wreck enableDynamicSimulation false;
 _objects pushBack _wreck;
 {
+
 	private _dir = random(360);
 	private _radius = minObjectSpawnRadius + random(maxObjectSpawnRadius);
 	_wreck = createVehicle[_x, _coords getPos[_radius,_dir], [], 2];	

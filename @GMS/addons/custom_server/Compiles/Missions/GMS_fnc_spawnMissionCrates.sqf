@@ -17,7 +17,6 @@ _fnc_dropMissionCrates = {
 	_markers = [];
 	
 	{
-		// params["_pos","_crate",["_crateVisualMarker",true],["_dropHeight", 150]];
 		[(getPos _x), _x, true, 150] call blck_fnc_paraDropObject;
 	} forEach _crates;
 	
@@ -26,7 +25,6 @@ _fnc_dropMissionCrates = {
 	{
 		uiSleep 1;
 		{
-			//  (((getPos _crate) select 2) < 3)
 			if ((getPos _x) select 2 < 5) then 
 			{
 				_airborneCrates = _airborneCrates - [_x];
@@ -36,12 +34,9 @@ _fnc_dropMissionCrates = {
 				_location = getPos _x;
 				_blck_localMissionMarker = [format["crateMarker%1%2",_location select 0, _location select 1],_location,"","","ColorBlack",["mil_dot",[]]];
 				_marker = [_blck_localMissionMarker] call blck_fnc_spawnMarker;
-				//_markers pushBack _marker; 
 				blck_temporaryMarkers pushBack [_marker,diag_tickTime + 300];
-				//uiSleep 0.5;
 				_curPosCrate = getPos _x;
 				_x setPos [_curPosCrate select 0, _curPosCrate select 1, 0.3];
-				//_x setVectorDirAndUp[[0,1,0],[0,0,1]];
 			};
 		} forEach _crates;
 	};
@@ -49,12 +44,8 @@ _fnc_dropMissionCrates = {
 
 params[ ["_coords", [0,0,0]], ["_cratesToSpawn",[]], ["_loadCrateTiming","atMissionSpawn"],["_spawnCrateTiming","atMissionSpawn"],["_missionState","start"], ["_difficulty","red"] ];
 
-/*
+
 private _params = ["_coords","_cratesToSpawn","_loadCrateTiming","_spawnCrateTiming","_missionState","_difficulty"];
-{
-	diag_log format["_fnc_spawnMissionCrates: %1 = %2 with _foreachindex = %3",_params select _foreachindex, _this select _foreachindex, _foreachindex];
-}forEach _this;
-*/
 
 if ((count _coords) == 2) then // assume only X and Y offsets are provided
 {
@@ -64,6 +55,7 @@ private _cratesSpawned = [];
 
 {
 	_x params["_crateType","_crateOffset","_lootArray","_lootCounts",["_crateDir",0]];
+	
 	private _pos = _coords vectorAdd _crateOffset;
 	private _crate = [_pos,_crateType] call blck_fnc_spawnCrate;
 	_crate setDir _crateDir;
@@ -72,26 +64,15 @@ private _cratesSpawned = [];
 	_crate setVariable["difficulty",_difficulty];
 	if (_loadCrateTiming isEqualTo "atMissionSpawn" || _missionState isEqualTo "end") then
 	{
-		//diag_log format["_fnc_spawnMissionCrates: calling blck_fnc_loadMissionCrate for _crate = %1",_crate];
 		[_crate] call blck_fnc_loadMissionCrate;
 	};
 	_cratesSpawned pushback _crate;
-	#define blck_debugMode
-	#ifdef blck_debugMode
-	if (blck_debugLevel >= 2) then
-	{
-		//diag_log format["_fnc_spawnMissionCrates: _crateType = %1 | _crateOffset = %2 | _lootArray = %3 | _lootCounts = %4",_crateType,_crateOffset,_lootArray,_lootCounts];
-		_marker = createMarker [format["crateMarker%1",random(1000000)], _pos];
-		_marker setMarkerType "mil_triangle";
-		_marker setMarkerColor "colorGreen";	
-		_crate setVariable["crateMarker",_marker];
-	};
-	#endif	
+	
 }forEach _cratesToSpawn;
 
 if (_spawnCrateTiming in ["atMissionEndAir","atMissionStartAir"]) then 
 {
 	[_cratesSpawned] spawn _fnc_dropMissionCrates;
 };
-//diag_log format["_fnc_spawnMissionCrates: _cratesSpawned = %1",_cratesSpawned];
+
 _cratesSpawned

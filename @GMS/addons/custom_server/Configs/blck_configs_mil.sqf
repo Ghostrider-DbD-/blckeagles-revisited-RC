@@ -52,7 +52,7 @@
 	blck_useHC = false; // Experimental (should be working).
 	
 										//  Credit to Defent and eraser for their excellent work on scripts to transfer AI to clients for which these settings are required.
-	blck_ai_offload_to_client = true; // forces AI to be transfered to player's PCs.  Disable if you have players running slow PCs.
+	blck_ai_offload_to_client = false; // forces AI to be transfered to player's PCs.  Disable if you have players running slow PCs.
 										// *******************************************************
 										//  Experimental; may cause issues with waypoints 
 										// *******************************************************
@@ -76,10 +76,10 @@
 	blck_showCountAliveAI = true;	
 
 	//Minimum distance between missions
-	blck_MinDistanceFromMission = 1000;
-	blck_minDistanceToBases = 1000;
-	blck_minDistanceToPlayer = 800;
-	blck_minDistanceFromTowns = 500;
+	blck_MinDistanceFromMission = 800;
+	blck_minDistanceToBases = 500;
+	blck_minDistanceToPlayer = 500;
+	blck_minDistanceFromTowns = 300;
 	blck_minDistanceFromDMS = 500;  // minimum distance for a blackeagls mission from any nearby DMS missions. set to -1 to disable this check.
 	
 	///////////////////////////////
@@ -430,6 +430,11 @@
 		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",blck_modType];
 		execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
 	};	
+	if (toLower(blck_modType) isEqualTo "default") then 
+	{
+		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",blck_modType];
+		execVM "\q\addons\custom_server\Configs\blck_configs_default_mil.sqf";
+	};
 	//waitUntil{!isNil "blck_useConfigsGeneratedLoadouts"};
 	//waitUntil {!isNil "blck_maximumItemPriceInAI_Loadouts"};
 	uiSleep 10;

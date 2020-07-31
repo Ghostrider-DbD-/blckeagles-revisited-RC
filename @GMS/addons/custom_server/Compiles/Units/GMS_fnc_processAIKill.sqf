@@ -9,7 +9,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-//  TODO: check that emplaced weapons that should be deleted are added to the scheduler.
+
 // assumptions: this is always and only run on the server regardless if th event is triggered on an HC or other client.
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
@@ -42,7 +42,6 @@ if (count(units (group _unit)) isEqualTo 0) then
 	deleteGroup _group;
 };
 
-//diag_log format["_fnc_processAIKill: unit linked to crew of vehicle %1 | typeOf (vehicle _unit = %2)",vehicle _unit,typeOf (vehicle _unit)];
 if !((vehicle _unit) isKindOf "Man") then 
 {
 	[_unit, ["Eject", vehicle _unit]] remoteExec ["action",(owner _unit)];
@@ -58,14 +57,6 @@ _wp setWaypointBehaviour "COMBAT";
 (group _unit) setCombatMode "RED";
 _wp setWaypointCombatMode "RED";
 
-if (blck_showCountAliveAI) then
-{
-	{
-		diag_log format["_fnc_processAIKill: _x = %1",_x];
-		_x call blck_fnc_updateMarkerAliveCount;
-	} forEach blck_missionLabelMarkers;
-};
-
 if ([_unit,_killer] call blck_fnc_processIlleagalAIKills) then {
-	[_unit,_killer] call GMS_fnc_handlePlayerUpdates;
+	[_unit,_killer] call blck_fnc_handlePlayerUpdates;
 };

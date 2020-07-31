@@ -41,7 +41,6 @@ blck_connectedHCs = [];
 blck_missionMarkerRootName = "blckeagls_marker";
 DMS_missionMarkerRootName = "DMS_MissionMarker";
 blck_missionLabelMarkers = [];
-
 blck_temporaryMarkers = [];
 blck_illuminatedCrates = []; // [crate,duration,freq of replacement]
 blck_mainThreadUpdateInterval = 60;

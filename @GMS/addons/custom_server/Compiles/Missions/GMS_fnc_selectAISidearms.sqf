@@ -12,7 +12,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_aiDifficultyLevel"];  //[["_aiDifficultyLevel",selectRandom["Red","Green"]]];
-//diag_log format["_fnc_selectAISidearms: _aiDifficultyLevel = %1",_aiDifficultyLevel];
+
 private["_sideArms"];
 switch (toLower (_aiDifficultyLevel)) do
 {

@@ -28,7 +28,7 @@ private["_vehGroup","_vehiclePatrolSpawns","_missionAI","_missiongroups","_vehic
 _vehicles = [];
 _missionAI = [];
 _abort = false;
-//diag_log format["fnc_spawnMissionVehiclePatrols(29):  _missionPatrolVehicles = %1",_missionPatrolVehicles];
+
 if (_missionPatrolVehicles isEqualTo []) then
 {
 	_useRelativePos = false;
@@ -37,7 +37,6 @@ if (_missionPatrolVehicles isEqualTo []) then
 		_v = [_skillAI] call blck_fnc_selectPatrolVehicle;
 		_missionPatrolVehicles pushBack [_v, _x];
 	}forEach _vehiclePatrolSpawns;
-	//diag_log format["fnc_spawnMissionVehiclePatrols(38):  _missionPatrolVehicles updated to %1",_missionPatrolVehicles];
 };
 #define configureWaypoints false
 {

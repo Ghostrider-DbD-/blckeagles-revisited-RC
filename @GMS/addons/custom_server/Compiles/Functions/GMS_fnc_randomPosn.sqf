@@ -15,6 +15,7 @@
 
 private["_newX","_newY"];
 params["_pos","_range"];
+
 _newX = ((_pos select 0) + (random(_range)) * (selectRandom [1,-1]));
 _newY = ((_pos select 1) + (random(_range)) * (selectRandom [1,-1]));
 

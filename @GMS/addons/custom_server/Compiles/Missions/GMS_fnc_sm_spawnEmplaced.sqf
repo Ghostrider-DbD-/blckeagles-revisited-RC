@@ -19,38 +19,28 @@ _units = [];
 _abort = false;
 _pos = [];
 
-//diag_log format["_sm_spawnEmplaced <Line 26>:: _missionEmplacedWeapons = %1",_missionEmplacedWeapons];
 // Define _missionEmplacedWeapons if not already configured.
 if (_missionEmplacedWeapons isEqualTo []) then
 {
 	_missionEmplacedWeaponPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
 	{
 		_static = selectRandom blck_staticWeapons;
-		//diag_log format["_fnc_spawnEmplacedWeaponArray: creating spawn element [%1,%2]",_static,_x];
 		_missionEmplacedWeapons pushback [_static,_coords vectorAdd _x,_aiDifficultyLevel];
-		//diag_log format["_fnc_spawnEmplacedWeaponArray: _mi updated to %1",_missionEmplacedWeapons];
 	} forEach _missionEmplacedWeaponPositions;
 };
-//diag_log format["_sm_spawnEmplaced<Line 38>:: _missionEmplacedWeapons = %1",_missionEmplacedWeapons];
+
 {
 	_wepnClassName = _x select 0;
 	_pos = _x select 1;
 	_difficulty = _x select 2;
 	
-	//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
 	private _empGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
 	if !(_empGroup) then 
 	{
 		[_empGroup,_pos,1,1,_difficulty,_pos,1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
 		_empGroup setcombatmode "RED";
 		_empGroup setBehaviour "COMBAT";
-		//  // params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAFE"],["_soldierType","null"],["_patrolRadius",30],["_wpTimeout",[5.0,7.5,10]]];	
-		// Not sure of the value of giving waypoints here	
-		//[_pos,0.01,0.02,_empGroup,"random","SAD","emplaced"] spawn blck_fnc_setupWaypoints;
-		//if (isNull _empGroup) exitWith {_abort = _true};
-		_wep = [_wepnClassName,[0,0,0],false] call blck_fnc_spawnVehicle;
-		//_empGroup setVariable["groupVehicle",_wep];
-		//_wep setVariable["vehicleGroup",_empGroup];
+		_wep = [_wepnClassName,[0,0,0],"NONE",0] call blck_fnc_spawnVehicle;
 		_wep setVariable["GRG_vehType","emplaced"];	
 		_wep setPosATL _pos;
 		[_wep,false] call blck_fnc_configureMissionVehicle;	

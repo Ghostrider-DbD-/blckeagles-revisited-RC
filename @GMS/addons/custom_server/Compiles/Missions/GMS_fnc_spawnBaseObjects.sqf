@@ -34,13 +34,9 @@ _newObjs pushBack _obj;
 		_dam = _x select 4;
 	};
 
-	//diag_log format["_fnc_spawnBaseObjects: className %1 | _center %2 | _offset %3 | element %4",_x select 0,_center,_x select 1,_forEachIndex];
-
 	_obj = createVehicle[(_x select 0),_center vectorAdd (_x select 1),[],0,"CAN_COLLIDE"];
-	//diag_log format["_fnc_spawnBaseObjects::-->> _x = %1 | _obj = %2",_x,_obj];	
 	_newObjs pushback _obj;
 	_obj setDir (_x select 2);
-	
 	_obj enableDynamicSimulation _sim;
 	_obj allowDamage _dam;	
 	if ((typeOf _obj) isKindOf "LandVehicle" || (typeOf _obj) isKindOf "Air" || (typeOf _obj) isKindOf "Sea") then

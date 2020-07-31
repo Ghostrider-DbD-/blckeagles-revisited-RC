@@ -20,12 +20,6 @@ if (_backpacks  isEqualTo []) 		then {_backpacks = [_aiDifficultyLevel] call blc
 if (_weaponList  isEqualTo []) 	then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
 if (_sideArms isEqualTo []) 		then {[_aiDifficultyLevel] call blck_fnc_selectAISidearms};
 
-/*
-{
-	diag_log format["_fnc_spawnEmplacedWeaponArray: _this %1 varName %2 = %3",_forEachIndex,_x,_this select _forEachIndex];
-} forEach ["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel"];
-*/
-
 private["_return","_emplacedWeps","_emplacedAI","_wep","_units","_gunner","_abort","_pos","_mode","_useRelativePos","_useRelativePos"];
 _emplacedWeps = [];
 _emplacedAI = [];
@@ -58,8 +52,7 @@ if (_missionEmplacedWeapons isEqualTo []) then
 	#define maxAI 1
 	#define minDist 1
 	#define maxDist 2
-	
-	/// // params["_pos",  "_center", _numai1,  _numai2,  _skillLevel, _minDist, _maxDist, _configureWaypoints, _uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms, _scuba ];
+
 	private _empGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
 	if !(isNull _empGroup) then 
 	{

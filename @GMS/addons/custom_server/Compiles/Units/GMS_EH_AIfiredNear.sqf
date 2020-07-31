@@ -27,7 +27,6 @@
     Introduced with Arma 3 version 1.65
     gunner: Object - gunner, whose weapons are fired
 */
-//#include "\q\addons\custom_server\Configs\blck_defines.hpp";
-//if (isServer) then {_this remoteExec ["blck_fnc_processAIKill",2]};
-//if (local (_this select 0)) then {_this call blck_fnc_processAIFiredNear};
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 _this call blck_fnc_processAIFiredNear

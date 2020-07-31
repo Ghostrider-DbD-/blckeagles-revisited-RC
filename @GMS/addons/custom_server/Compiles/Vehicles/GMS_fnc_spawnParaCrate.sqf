@@ -36,21 +36,15 @@ _offset =  _supplyHeli getPos [10, _dir];
 _chute = createVehicle ["I_Parachute_02_F", [100, 100, 100], [], 0, "FLY"];
 [_chute] call blck_fnc_protectVehicle;
 _chute setPos [_offset select 0, _offset select 1, 100  ];  //(_offset select 2) - 10];
-
-diag_log format["_fnc_spawnParaCrate:: chute spawned yielding object %1 at postion %2", _chute, getPos _chute];
 	
 //create the parachute and crate
 private["_crateSelected"];
 _crateSelected = selectRandom["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_IND_AmmoVeh_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F"];
 _crate = [getPos _chute, _crateSelected] call blck_fnc_spawnCrate;
-//_crate = createVehicle [_crateSelected, position _chute, [], 0, "CAN_COLLIDE"];
 _crate setPos [position _supplyHeli select 0, position _supplyHeli select 1, 250];  //(position _supplyHeli select 2) - 10];	
 _crate attachTo [_chute, [0, 0, -1.3]];
 _crate allowdamage false;
 _crate enableRopeAttach true;  // allow slingloading where possible
-
-diag_log format["_fnc_spawnParaCrate:: crate spawned %1 at position %2 and attached to %3",_crate, getPos _crate, attachedTo _crate];
-
 
 switch (_lootSetting) do
 {
@@ -60,8 +54,6 @@ switch (_lootSetting) do
 	case "blue": {[_crate, blck_BoxLoot_Blue, _lootCounts] call blck_fnc_fillBoxes;};
 	default {[_crate, blck_BoxLoot_Red, _lootCounts] call blck_fnc_fillBoxes;};
 };
-	
-diag_log format["_fnc_spawnParaCrate:: crate loaded and now at position %1 and attached to %2", getPos _crate, attachedTo _crate];
 
 _fn_monitorCrate = {
 	params["_crate","_chute"];
@@ -71,7 +63,6 @@ _fn_monitorCrate = {
 	while {!_crateOnGround} do
 	{
 		uiSleep 1;  
-		diag_log format["_fnc_spawnParaCrate::  Crate Altitude: %1  Crate Velocity: %2  Crate Position: %3 Crate attachedTo %4", getPos _crate select 2, velocityModelSpace _crate select 2, getPosATL _crate, attachedTo _crate];
 		if ( (((velocity _crate) select 2) < 0.1)  || ((getPosATL _crate select 2) < 0.1) ) exitWith 
 		{
 			uiSleep 10; // give some time for everything to settle

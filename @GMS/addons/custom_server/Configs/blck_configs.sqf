@@ -17,8 +17,8 @@
 		changing any of these variables may break the mission systemChat
 	*/
 	blck_locationBlackList = [];  // Do not touch ...
-	blck_debugON = false;  //  Do not touch ... 
-	blck_debugLevel = 0;  //  Do not touch ... 
+	blck_debugON = true;  //  Do not touch ... 
+	blck_debugLevel = 3;  //  Do not touch ... 
 	#ifdef blck_milServer
 	if (true) exitWith 
 	{
@@ -42,8 +42,8 @@
 		3) A time acceleration module.
 	*/
 
-	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	blck_simulationManager = blck_useBlckeaglsSimulationManager; 
 	//diag_log format["[blckeagls] blck_configs:  blck_simulationManager = %1",blck_simulationManager];
 	/*
@@ -53,7 +53,7 @@
 	*/
 
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 2;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 12;  // Nighttim time acceleration	
@@ -100,11 +100,11 @@
 	blck_showCountAliveAI = true;
 
 	//Minimum distance between missions
-	blck_MinDistanceFromMission = 1000;
+	blck_MinDistanceFromMission = 800;
 	blck_minDistanceToBases = 1000;
 	blck_minDistanceToPlayer = 800;
-	blck_minDistanceFromTowns = 500;
-	blck_minDistanceFromDMS = 500;  // minimum distance for a blackeagls mission from any nearby DMS missions. set to -1 to disable this check.	
+	blck_minDistanceFromTowns = 400;
+	blck_minDistanceFromDMS = 800;  // minimum distance for a blackeagls mission from any nearby DMS missions. set to -1 to disable this check.	
 	
 	///////////////////////////////
 	// Mission Smoke and Signals
@@ -113,7 +113,7 @@
 	// global loot crate options
 	// Options to spawn a smoking wreck near the crate.  When the first parameter is true, a wreck or junk pile will be spawned. 
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
-	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
+	blck_SmokeAtMissions = [true,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
 	blck_missionEndCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 
@@ -245,18 +245,18 @@
 	blck_maxSpawnedMissions = 9;
 		
 	// Reduce to 1 sec for immediate spawns, or longer if you wish to space the missions out	
-	blck_TMin_Orange = 250;
-	blck_TMin_Green = 200;
-	blck_TMin_Blue = 120;
-	blck_TMin_Red = 150;
-	blck_TMin_UMS = 180;	
+	blck_TMin_Orange = 480;
+	blck_TMin_Green = 420;
+	blck_TMin_Blue = 300;
+	blck_TMin_Red = 360;
+	blck_TMin_UMS = 300;	
 	
 
 	//Maximum Spawn time between missions in seconds
-	blck_TMax_Orange = 360;
-	blck_TMax_Green = 300;
-	blck_TMax_Blue = 200;
-	blck_TMax_Red = 250;
+	blck_TMax_Orange = 520;
+	blck_TMax_Green = 500;
+	blck_TMax_Blue = 340;
+	blck_TMax_Red = 400;
 	blck_TMax_UMS = 400;
 
 
@@ -387,7 +387,7 @@
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
-	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9];  
+	blck_AIIntelligence = [0.1, 0.2, 0.3, 0.4];  
 	
 	blck_baseSkill = 1.0;  // The overal skill of the AI - range 0.1 to 1.0.
 	
@@ -494,14 +494,18 @@
 	
 	if (toLower(blck_modType) isEqualTo "epoch") then
 	{
-		diag_log format["[blckeagls] Loading Mission System using Parameters for %1",blck_modType];
+
 		execVM "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
 	};
 	if (toLower(blck_modType)  isEqualTo "exile") then
 	{
-		diag_log format["[blckeagls] Loading Mission System using Parameters for %1",blck_modType];
+
 		execVM "\q\addons\custom_server\Configs\blck_configs_exile.sqf";
 	};	
+	if (toLower(blck_modType) isEqualTo "default") then 
+	{
+		execVM "\q\addons\custom_server\Configs\blck_configs_default.sqf";		
+	};
 	uiSleep 10;
 	if (blck_useConfigsGeneratedLoadouts) then
 	{

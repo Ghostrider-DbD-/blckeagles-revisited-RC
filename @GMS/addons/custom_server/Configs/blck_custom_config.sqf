@@ -1227,3 +1227,5 @@ diag_log format["[blckeagls] blck_CUPHeadgear = %1",if (isNil "blck_CUPHeadgear"
 diag_log "[blckeagls]  end of Custom Configurations for RHS 5/2/20";
 blck_customConfigsLoaded = 1;
 
+
+

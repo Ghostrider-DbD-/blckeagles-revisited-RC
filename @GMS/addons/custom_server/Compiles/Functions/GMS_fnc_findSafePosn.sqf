@@ -13,7 +13,6 @@
 
 if (isNil "blck_locationBlackList") then {blck_locationBlackList = []};
 
-
 _fn_buildBlacklistedLocationsList = {
 	params["_minToBases","_minToPlayers","_minToMissions","_minToTowns","_minToRecentMissionLocation"];
 	/* locations of villages / cities / others already included in blck_locationBlackList so we do not need to add it here.  */
@@ -32,15 +31,13 @@ _fn_buildBlacklistedLocationsList = {
 		_blacklistedLocs pushBack [_x,_minToMissions];
 	} forEach blck_ActiveMissionCoords;	
 
-	private "_bases";
+	private _bases = [];
 	if (blck_modType isEqualTo "Epoch") then {_bases = nearestObjects[blck_mapCenter, ["PlotPole_EPOCH"], blck_mapRange + 25000]};
 	if (blck_modType isEqualTo "Exile") then {_bases = nearestObjects[blck_mapCenter, ["Exile_Construction_Flag_Static"], blck_mapRange + 25000]};
 
 	{
 		_blacklistedLocs pushBack [getPosATL _x,_minToBases];
 	} forEach _bases;	
-
-
 
 	{
 		_blacklistedLocs pushBack [getPosATL _x,_minToPlayers];
@@ -61,7 +58,7 @@ private _mindistToMissions = blck_MinDistanceFromMission;
 private _minToRecentMissionLocation = 200;
 private _coords = [];
 private _blacklistedLocations = [_minDistToBases,_minDistToPlayers,_minDistToTowns,_mindistToMissions,_minToRecentMissionLocation] call _fn_buildBlacklistedLocationsList;
-
+//diag_log format["_blacklistedLocations = %1",_blacklistedLocations];
 private _count = 25;
 while {_coords isEqualTo [] && _count > 0} do 
 {
@@ -73,6 +70,7 @@ while {_coords isEqualTo [] && _count > 0} do
 	*/
 
 	_coords = [blck_mapCenter,0,blck_mapRange,10,0,0.5,0,_blacklistedLocations] call BIS_fnc_findSafePos;
+
 	/* Check whether the location is flat enough: returns [] if not. */
 	private _isFlat = _coords isFlatEmpty [20,0,0.5,100,0,false];
 	if (_coords isEqualTo [] || !(_isFlat isEqualTo [])) then 

@@ -13,9 +13,9 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_unit","_killer"];
 
-private["_units"];
+private "_units";
 if (toLower(blck_modType) isEqualTo "epoch") then {_units = _unit nearEntities ["I_Soldier_EPOCH", (_unit getVariable ["alertDist",300])]};
 if !(toLower(blck_modType) isEqualTo "epoch") then {_units = _unit nearEntities ["i_g_soldier_unarmed_f", (_unit getVariable ["alertDist",300])]};
 {
-	_x reveal[_killer, (_x knowsAbout _killer) + (_unit getVariable ["intelligence",1])]
+	_x reveal[_killer, (_x knowsAbout _killer) + random(_unit getVariable ["intelligence",1])]
 }forEach _units;

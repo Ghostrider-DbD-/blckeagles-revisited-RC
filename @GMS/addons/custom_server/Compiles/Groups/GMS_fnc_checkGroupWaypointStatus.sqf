@@ -17,7 +17,4 @@ params["_group","_maxTime","_radius"];
 if (diag_tickTime > (_group getVariable "timeStamp") + _maxTime) then // || ( (getPos (leader)) distance2d (_group getVariable "patrolCenter") > _radius)) then
 {
 	(leader _group) call blck_fnc_setNextWaypoint;
-	#ifdef blck_debugMode
-	if (blck_debugLevel > 1) then {diag_log format["_fnc_checkGroupWaypointStatus: group %1 stuck, waypoint reset",_group];};
-	#endif
 };

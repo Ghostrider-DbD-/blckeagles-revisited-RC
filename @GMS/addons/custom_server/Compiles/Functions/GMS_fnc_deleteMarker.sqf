@@ -11,6 +11,5 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params[["_markerName",""]];
 
-
 deleteMarker _markerName;
 deleteMarker (_markerName + "label");

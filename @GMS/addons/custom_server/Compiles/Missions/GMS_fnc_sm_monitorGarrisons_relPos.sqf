@@ -11,7 +11,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 private["_mode","_sm_groups","_pos","_element"];
 if (blck_fnc_sm_spawnBuildingGarrison_relPos isEqualTo []) exitWith {};
-_sm_groups = +blcl_sm_garrisonBuilding_relPos;
+_sm_groups = +blck_sm_garrisonBuilding_relPos;
  
 {
 	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt"];
