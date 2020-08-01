@@ -34,8 +34,8 @@ switch (toLower worldName) do
 			blck_mapRange = 6000;
 		};		
 		case "livonia":{
-			blck_mapCenter = [6500,6500,0];  
-			blck_mapRange = 6100;
+			blck_mapCenter = [6500,6000,0];  
+			blck_mapRange = 5800;
 		};
 		case "gm_weferlingen_summer":{
 			blck_mapCenter = [10000,10000,0];

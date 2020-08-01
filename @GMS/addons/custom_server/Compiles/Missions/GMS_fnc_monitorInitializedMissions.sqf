@@ -306,6 +306,7 @@ _missionParameters params[
 				// Everything spawned withouth serous errors so lets keep the mission active for future monitoring
 
 				blck_activeMissionsList pushBack _el;	
+				if (blck_debugOn) then {[format["Spawned Mission %1 | description %2 | difficulty %3 at %4",_markerName, _markerMissionName, _difficulty, diag_tickTime]] call blck_fnc_log;}
 			} 
 			
 			catch 
@@ -477,6 +478,7 @@ _missionParameters params[
 								_waitTime = diag_tickTime + _tMin + random(_tMax - _tMin);
 								_missionCategoryDescriptors set [noActive,_noActive - 1];
 								_missionCategoryDescriptors set [waitTime,_waitTime];
+								if (blck_debugOn) then {[format["Ended Mission %1 | description %2 | difficulty %3 at %4",_markerName, _markerMissionName, _difficulty, diag_tickTime]] call blck_fnc_log;}
 					};
 					case 2: { // Abort, crate moved.
 								_endMsg = "Crate Removed from Mission Site Before Mission Completion: Mission Aborted";

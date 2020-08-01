@@ -47,7 +47,7 @@ _fn_buildBlacklistedLocationsList = {
 	{
 		_blacklistedLocs append ([] call blck_fnc_getAllDMSMarkers);
 	};
-	//diag_log format["_blacklistedLocs = %1",_blacklistedLocs];
+
 	_blacklistedLocs
 };
 
@@ -58,36 +58,47 @@ private _mindistToMissions = blck_MinDistanceFromMission;
 private _minToRecentMissionLocation = 200;
 private _coords = [];
 private _blacklistedLocations = [_minDistToBases,_minDistToPlayers,_minDistToTowns,_mindistToMissions,_minToRecentMissionLocation] call _fn_buildBlacklistedLocationsList;
-//diag_log format["_blacklistedLocations = %1",_blacklistedLocations];
 private _count = 25;
-while {_coords isEqualTo [] && _count > 0} do 
+private "_isFlatCoords";
+private _slope = 0.10;
+	
+_coords = [blck_mapCenter,0,blck_mapRange,10,0,_slope,0,_blacklistedLocations] call BIS_fnc_findSafePos;
+if !(_coords isEqualTo []) then 
 {
-	/*
-		6-13-20
-		Notes 
-		increased min distance to objects from 3 to 10 
-		decreased max slope from 5 to 0.5
-	*/
+	_isFlatCoords = _coords isFlatEmpty [10,0,_slope,30,0,false];
+};
 
-	_coords = [blck_mapCenter,0,blck_mapRange,10,0,0.5,0,_blacklistedLocations] call BIS_fnc_findSafePos;
+while { (_isFlatCoords isEqualTo [] || _coords isEqualTo []) && _count > 0} do 
+{
 
+	_coords = [blck_mapCenter,0,blck_mapRange,10,0,_slope,0,_blacklistedLocations] call BIS_fnc_findSafePos;
 	/* Check whether the location is flat enough: returns [] if not. */
-	private _isFlat = _coords isFlatEmpty [20,0,0.5,100,0,false];
-	if (_coords isEqualTo [] || !(_isFlat isEqualTo [])) then 
+	//  position isFlatEmpty [minDistance, mode, maxGradient, maxGradientRadius, overLandOrWater, shoreLine, ignoreObject] 
+
+	if !(_coords isEqualTo []) then 
+	{
+		_isFlatCoords = _coords isFlatEmpty [10,0,_slope,30,0,false];
+	};
+
+	if (_coords isEqualTo [] || !(_isFlatCoords isEqualTo [])) then 
 	{
 		{
 			//private _range = (_x select 1) * 0.7;
 			_x set[1,(_x select 1) * 0.75];
 		} forEach _blackListedLocations;
 		_count = _count - 1;
+		_slope = _slope + 0.02;
+		uiSleep 0.1;
 	};
 };
 
-if (_coords isEqualTo []) then 
+if (_coords isEqualTo [] || _isFlatCoords isEqualTo []) then 
 {
 	diag_log format["[blckeagls] <ERROR> Could not find a safe position for a mission, consider reducing values for minimum distances between missions and players, bases, other missions or towns"];
+} else {
+	_isFlatCoords set[2, 0];
 };
-_coords
 
+_isFlatCoords
 
 
