@@ -5,9 +5,23 @@ Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by He-Man, Vampire and KiloSwiss have been used for certain functions.
 Many thanks for new Coding and ideas from Grahame.
 
+
+
 Significant Changes:
+
 =====================
-6.98 Build 205
+7.00 Build 212
+New: 
+Fixed: Don and Hostage missions could not be completed 
+Fixed: Missions tended to spawn all at once 
+Fixed: vehicles are spawned at a safe spot which should reduce unintended explosions 
+Fixed: Missions sometimes spawned on steep hillsides.
+Fixed: Vehicles sometimes blew up on spawn.
+Added: The system has been upgreaded to a state-based system, meaning one scrpt is running once all missions are initialized.
+Changed: a lot of debugging was removed.
+
+
+6.98 Build 206
 FIXED: few minor bug fixes. 
 FIXED: Static Mission Loot vehicles are no longer deleted by Epoch servers when players enter them.
 FIXED: an error in coordinates for some randomly spawned missions tha added an extra 0 to the array with the coordinaates.
@@ -28,8 +42,11 @@ Removed: some debugging and map sepcific settings from blck_custom_config.sqf
 Changed: some code for finding locations for a new mission. 
 Added: all blckeagls map markers have the same prefix:  "blckeagls_marker"
 
-Known Issues 
-  - Live AI Counts are sometimes inaccurate at UMS Dynamic Missions
+
+
+
+
+
 
 6.96 Build 199
 Added support for Arma servers not running Epoch or Exile 
