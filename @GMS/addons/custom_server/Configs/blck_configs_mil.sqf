@@ -76,8 +76,8 @@
 	blck_showCountAliveAI = true;	
 
 	//Minimum distance between missions
-	blck_MinDistanceFromMission = 800;
-	blck_minDistanceToBases = 500;
+	blck_MinDistanceFromMission = 2000;
+	blck_minDistanceToBases = 800;
 	blck_minDistanceToPlayer = 500;
 	blck_minDistanceFromTowns = 300;
 	blck_minDistanceFromDMS = 500;  // minimum distance for a blackeagls mission from any nearby DMS missions. set to -1 to disable this check.
@@ -89,7 +89,7 @@
 	// global loot crate options
 	// Options to spawn a smoking wreck near the crate.  When the first parameter is true, a wreck or junk pile will be spawned. 
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
-	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
+	blck_SmokeAtMissions = [true,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
 	
 	///////////////////////////////
