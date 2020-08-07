@@ -184,7 +184,10 @@ if (blck_enableBlueMissions > 0) then
 {
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
-
+if (blck_numberUnderwaterDynamicMissions > 0) then 
+{
+	[_missionListUMS,_pathUMS,"UMSMarker","Red",blck_TMin_UMS,blck_TMax_UMS,blck_numberUnderwaterDynamicMissions] call blck_fnc_addMissionToQue;
+};
 
 
 // Setup a group for AI corpses

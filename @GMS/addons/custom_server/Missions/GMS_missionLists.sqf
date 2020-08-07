@@ -24,3 +24,6 @@ private  _missionListGreen = ["default","medicalCamp","redCamp","resupplyCamp","
 
 private _pathOrange = "Orange";
 private _missionListOrange = ["default","medicalCamp","redCamp","resupplyCamp","bunker","dashq","tko_camp"];
+
+private _pathUMS = "UMS\dynamicMissions";
+private _missionListUMS = ["default"];
