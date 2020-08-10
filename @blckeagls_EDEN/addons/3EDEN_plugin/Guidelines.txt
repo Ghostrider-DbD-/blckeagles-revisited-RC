@@ -1,0 +1,21 @@
+Variables to define
+marker parameters
+Marker Text
+
+Mission start message
+Mission end message
+Mission level
+
+To pull units:
+private _units = allUnits;
+
+
+To pull objects:
+_center = allMissionObejcts "RoadCone_L_F";
+_buildings = allMissionObjects "Building";
+_things = allMissionObjects "ThingX";
+_baseObjects = _buildings append _things;
+
+_static = allMissionObejcts "StaticWeapon";
+_vehicles = allMissionObejcts "Car" + allMissionObejcts "Tank" + allMissionObejcts "Ship";
+_air = allMissionObejcts "Air";

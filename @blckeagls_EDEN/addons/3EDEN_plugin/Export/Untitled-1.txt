@@ -1,0 +1,90 @@
+
+
+/*
+	Output from GRG Plugin for blckeagls
+	For Credits and Acknowledgements see the Readme and comments
+*/
+
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
+
+_markerType = [,[0,0],];
+_markerColor = ;
+_startMsg = TODO: Change approiately;
+_endMsg = TODO: Change Appropriately;
+_markerMissionName = TODO: Update appropriately;
+_crateLoot = blck_BoxLoot_Blue;
+_lootCounts = blck_lootCountsBlue;
+
+_missionLandscape = [
+
+];
+
+_simpleObjects = [
+
+];
+
+_missionPatrolVehicles = [
+     ["B_MRAP_01_hmg_F",array,0],
+     ["B_Truck_01_mover_F",array,0]
+];
+
+_submarinePatrolParameters = [
+
+];
+
+_airPatrols = [
+     ["B_Heli_Light_01_dynamicLoadout_F",array,0]
+];
+
+_missionEmplacedWeapons = [
+     ["B_GMG_01_F",array,0],
+     ["B_HMG_01_F",array,0]
+];
+
+_missionGroups = [
+     ,[array,3,6,"Red",30,45],
+     ,[array,3,6,"Red",30,45]
+];
+
+_scubaGroupParameters = [
+
+];
+
+_missionLootBoxes = [
+     ["Box_IND_Wps_F",array,_crateLoot,_lootCounts,0],
+     ["Box_AAF_Equip_F",array,_crateLoot,_lootCounts,0],
+     ["Box_IND_AmmoOrd_F",array,_crateLoot,_lootCounts,0],
+     ["Box_IND_WpsLaunch_F",array,_crateLoot,_lootCounts,0]
+];
+
+_missionLandscapeMode = "precise";
+_useMines = blck_useMines;
+_minNoAI = blck_MinAI_Blue];
+_maxNoAI = blck_MaxAI_Blue;
+_noAIGroups = blck_AIGrps_Blue;
+_noVehiclePatrols = blck_SpawnVeh_Blue;
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
+_minNoAI = blck_MinAI_Blue;
+_maxNoAI = blck_MaxAI_Blue;
+_noAIGroups = blck_AIGrps_Blue;
+_noVehiclePatrols = blck_SpawnVeh_Blue;
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
+_uniforms = blck_SkinList;
+_headgear = blck_headgear;
+_vests = blck_vests;
+_backpacks = blck_backpacks;
+_weaponList = ['Blue'] call blck_fnc_selectAILoadout;
+_sideArms = blck_Pistols;
+_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
+_noChoppers = blck_noPatrolHelisBlue;
+_missionHelis = blck_patrolHelisBlue;
+
+_chancePara = blck_chanceParaBlue;
+_noPara = blck_noParaBlue;
+_paraTriggerDistance = 400;
+_paraSkill = 'Blue';
+_chanceLoot = 0.0;
+_paraLoot = blck_BoxLoot_Blue;
+_paraLootCounts = blck_lootCountsBlue;
+#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";
