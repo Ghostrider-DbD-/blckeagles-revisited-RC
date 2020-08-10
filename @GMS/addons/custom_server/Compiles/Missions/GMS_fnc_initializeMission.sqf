@@ -115,9 +115,20 @@ if !(blck_preciseMapMarkers) then
 {
 	_markerPos = [_coords,75] call blck_fnc_randomPosition;
 };
+private _markerData = [_markerType,_markerColor,_markerSize,_markerBrush];
 
-_markerType params["_type",["_size",[250,250]],["_brush","GRID"]];
-private _markers = [_markerName,_markerPos,_markerMissionName,_markerColor,_type,_size,_brush] call blck_fnc_createMissionMarkers;
+if (blck_debugLevel >= 3) then 
+{
+	{
+		diag_log format["_initializeMission: %1 = %2",_x,_markerData select _forEachIndex];
+	} forEach [	
+		"_markerType", 
+		"_markerColor", 
+		"_markerSize",
+		"_markerBrush"
+	];
+};
+private _markers = [_markerName,_markerPos,_markerMissionName,_markerColor,_markerType,_markerSize,_markerBrush] call blck_fnc_createMissionMarkers;
 
 /*
 	Send a message to players.
