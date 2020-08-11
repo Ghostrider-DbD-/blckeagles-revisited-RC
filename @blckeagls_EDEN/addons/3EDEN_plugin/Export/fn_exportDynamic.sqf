@@ -55,15 +55,25 @@ private _entities = all3DENEntities;
 private _markers = _entities select 5;
 diag_log format["_markers = %1",_markers];
 private ["_m1","_type","_shape","_size","_color","_brush"];
-_m1 = _markers select 0;
+
+/*
+{
+	diag_log format["_m1 get3EDENAttribute %1 = %2",_x, _m1 get3DENAttribute _x];
+} forEch ["markerType","markerColor","markerBrush","position","size2","text"];
+*/
+private["_m1","_markerType","_markerShape","_markerColor","_markerText","_markerBrush","_markerPos","_markerSize","_markerAlpha"];
 if !(_markers isEqualTo []) then 
 {
-	_type = markerType _m1;
-	_shape = markerShape _m1;
-	_size = markerSize _m1;
-	_color = markerColor _m1;
-	_brush = markerBrush _m1;
-	CENTER = markerPos _m1;
+	_m1 = _markers select 0;
+	_markerType = (_m1 get3DENAttribute "itemClass") select 0;
+	_markerShape = (_m1 get3DENAttribute "markerType") select 0;
+	_markerColor = (_m1 get3DENAttribute "baseColor") select 0;
+	_markerText = (_m1 get3DENAttribute "text") select 0;
+	if !(_markerText isEqualTo "") then {blck_dynamicmarkerMissionName = _markerText};
+	_markerBrush = (_m1 get3DENAttribute "markerBrush") select 0;
+	_markerPos = (_m1 get3DENAttribute "position") select 0;
+	_markerSize = (_m1 get3DENAttribute "size2") select 0;
+	_markerText = (_m1 get3DENAttribute "text") select 0;
 	if (CENTER isEqualTo [0,0,0]) then {CENTER = markerPos _m1};
 } else {
 	_type = "mil_square";
@@ -73,7 +83,7 @@ if !(_markers isEqualTo []) then
 	_brush = "null";
 	CENTER = [0,0,0];
 };
-diag_log format["_m1 = %1 | _type = %2 | _shape = %3 | _size = %4 | _color = %5 | _brush = %6",_m1,markerType _m1,markerShape _m1,MarkerSize _m1, markercolor _m1,markerbrush _m1];
+diag_log format["_m1 = %1 | _type = %2 | _shape = %3 | _size = %4 | _color = %5 | _brush = %6 | _text = %7",_m1,_markerType,_markerShape,_markerSize,_markerColor,_markerBrush,_markerText];
 private _garrisonedBuildings = [];
 private _missionLootVehicles = [];
 
@@ -165,8 +175,8 @@ _lines pushBack '#include "\q\addons\custom_server\Missions\privateVars.sqf";';
 _lines pushBack "";
 
 
-_lines pushBack format["_markerType = %1",format["[%1,%2,%3];",_type,_size,_brush]];
-_lines pushBack format["_markerColor = %1;",_color];
+_lines pushBack format["_markerType = %1",format["[%1,%2,%3];",_markerType,_markerSize,_markerBrush]];
+_lines pushBack format["_markerColor = %1;",_markerColor];
 _lines pushBack format['_startMsg = "%1";',blck_dynamicStartMessage];
 _lines pushBack format['_endMsg = "%1;',blck_dynamicEndMessage];
 _lines pushBack format['_markerMissionName = %1;',blck_dynamicmarkerMissionName];
