@@ -45,10 +45,11 @@ if (isNil "blck_dynamicMissionDifficulty") then
 	blck_dynamicMissionDifficulty = "Blue";
 };
 private _centerMarkers = allMissionObjects objectAtMissionCenter;
+diag_log format["_centerMarkers = %1",_centerMarkers];
 if !(_centerMarkers isEqualTo []) then 
 {
-	CENTER = getPosATL _centerMarkers select 0;
-	diag_log format["CENTER defined by object %1 typeOf %2",_centerMarker,typeOf _centerMarker];
+	CENTER = getPosATL (_centerMarkers select 0);
+	diag_log format["CENTER defined by object %1 typeOf %2",_centerMarker,typeOf (_centerMarkers select 0)];
 };
 
 private _entities = all3DENEntities;

@@ -1,5 +1,11 @@
 /*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
 
+	Parts of config.cpp were derived from the Exile_3EDEN editor plugin 
+	* and is licensed as follows:
+	* This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+	* To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 */
 
 class CfgPatches
@@ -31,10 +37,6 @@ class CfgFunctions
 			//class isInfantry {};
 			//class isInside {};
 
-			//class saveInitPlayerLocal {};
-			//class saveWeather {};
-			//class saveMarkers {};
-			//class exportCheck {};
 		};
 
 		class Core 
@@ -42,9 +44,6 @@ class CfgFunctions
 			file = "3EDEN_plugin\Core";
 			class help {};
 			class about {};
-			class init {
-				postInit = 1;
-			};
 		};
 
 	};
@@ -55,7 +54,55 @@ class CfgFunctions
 
 class ctrlCombo;
 
-///////////////////////////////////////////////////////////////////////////////
+class cfg3EDEN 
+{
+	class EventHandlers 
+	{
+		class blck 
+		{
+
+		};
+	};
+
+	class Attributes 
+	{
+		class Default;
+
+		class Title: Default 
+		{
+			class Controls 
+			{
+				class Title;
+			};
+		};
+
+		class Combo: Title 
+		{
+			class Controls: Controls 
+			{
+				class Title: Title {};
+				class Value: ctrlCombo {};
+			};
+		};
+
+		class missionDifficulty: Combo 
+		{
+			class Controls: Controls 
+			{
+				class Title: Title {};
+				class Value: Value 
+				{
+					onLoad = "\
+					{\
+						_index = _control lbAdd _x;\
+						_control lbsetdata [_index,_x];\
+					}\
+					forEach['','Blue (Easy)','Red (Medium)','Green (Hard)','Orange (Very Hard)'];";
+				};
+			};
+		};
+	};
+};
 
 class ctrlMenuStrip;
 
