@@ -18,8 +18,8 @@
 #define objectAtMissionCenter "RoadCone_L_F"
 #define lootVehicleMarker "Sign_Arrow_F"
 #define landVehicles "LandVehicle"
+CENTER = [0,0,0];
 
-private _entities = all3DENEntities;
 diag_log format["Dynamic Export called at %1",diag_tickTime];
 if (isNil "blck_dynamicStartMessage") then 
 {
@@ -44,18 +44,27 @@ if (isNil "blck_dynamicMissionDifficulty") then
 {
 	blck_dynamicMissionDifficulty = "Blue";
 };
+private _centerMarkers = allMissionObjects objectAtMissionCenter;
+if !(_centerMarkers isEqualTo []) then 
+{
+	CENTER = getPosATL _centerMarkers select 0;
+	diag_log format["CENTER defined by object %1 typeOf %2",_centerMarker,typeOf _centerMarker];
+};
 
+private _entities = all3DENEntities;
 private _markers = _entities select 5;
 diag_log format["_markers = %1",_markers];
 private ["_m1","_type","_shape","_size","_color","_brush"];
-if !(_markers isEqualTo []) then {
-	_m1 = _markers select 0;
+_m1 = _markers select 0;
+if !(_markers isEqualTo []) then 
+{
 	_type = markerType _m1;
 	_shape = markerShape _m1;
 	_size = markerSize _m1;
 	_color = markerColor _m1;
 	_brush = markerBrush _m1;
 	CENTER = markerPos _m1;
+	if (CENTER isEqualTo [0,0,0]) then {CENTER = markerPos _m1};
 } else {
 	_type = "mil_square";
 	_shape = "null";
@@ -68,15 +77,23 @@ diag_log format["_m1 = %1 | _type = %2 | _shape = %3 | _size = %4 | _color = %5 
 private _garrisonedBuildings = [];
 private _missionLootVehicles = [];
 
-private _staticObjects = allMissionObjects "Static" select {!(isSimpleObject _x) && (_x in _garrisonedBuildings) && !((typeOf _x) isEqualTo unitMarkerObject) && !((typeOf _x) isEqualTo garrisonMarkerObject)};
-if (CENTER isEqualTo [0,0,0]) then {CENTER = getPosATL (_staticObjects select 0)};
-private _missionLandscape = [];
-diag_log format["_missionLandscape: %1",_staticObjects];
+private _staticObjects = (_entities select 0) select {(_x isKindOf "Static") && !(isSimpleObject _x)};
+diag_log format["_staticObjects: %1",_staticObjects];
+if (CENTER isEqualTo [0,0,0]) then 
 {
-	_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER,getDir _x, 'true','true'];
+	CENTER = getPosATL (_staticObjects select 0);
+};
+diag_log format["CENTER = %1",CENTER];
+private _missionLandscape = [];
+
+{
+	if !(_x in _garrisonedBuildings && !((typeOf _x) isEqualTo unitMarkerObject) && !((typeOf _x) isEqualTo garrisonMarkerObject)) then
+	{
+		_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER,getDir _x, 'true','true'];
+	};
 }forEach _staticObjects;
 
-private _simpleObjects = allMissionObjects "Static" select {isSimpleObject _x};
+private _simpleObjects = (_entities select 0) select {isSimpleObject _x};
 diag_log format["_simpleObjects = %1",_simpleObjects];
 private _missionSimpleObjects = [];
 {
@@ -146,10 +163,12 @@ _lines pushBack "";
 _lines pushBack '#include "\q\addons\custom_server\Configs\blck_defines.hpp";';
 _lines pushBack '#include "\q\addons\custom_server\Missions\privateVars.sqf";';
 _lines pushBack "";
+
+
 _lines pushBack format["_markerType = %1",format["[%1,%2,%3];",_type,_size,_brush]];
 _lines pushBack format["_markerColor = %1;",_color];
-_lines pushBack format['_startMsg = %1;',blck_dynamicStartMessage];
-_lines pushBack format['_endMsg = %1;',blck_dynamicEndMessage];
+_lines pushBack format['_startMsg = "%1";',blck_dynamicStartMessage];
+_lines pushBack format['_endMsg = "%1;',blck_dynamicEndMessage];
 _lines pushBack format['_markerMissionName = %1;',blck_dynamicmarkerMissionName];
 _lines pushBack format['_crateLoot = blck_BoxLoot_%1;',blck_dynamicMissionDifficulty];
 _lines pushBack format['_lootCounts = blck_lootCounts%1;',blck_dynamicMissionDifficulty];
@@ -190,65 +209,42 @@ _lines pushBack "_missionLootBoxes = [";
 _lines pushback (_lootContainers joinString (format [",%1", _lineBreak]));
 _lines pushBack "];";
 _lines pushBack "";
-_lines pushBack '_missionLandscapeMode = "precise";'; // acceptable values are "none","random","precise"';
-_lines pushBack "_useMines = blck_useMines;";
+_lines pushBack "/*";
+_lines pushBack "	Use the parameters below to customize your mission - see the template or blck_configs.sqf for details about each them";
+_lines pushBack "*/";
+_lines pushBack format["_chanceHeliPatrol = blck_chanceHeliPatrol%1;",blck_dynamicMissionDifficulty];  
+_lines pushBack format["_noChoppers = blck_noPatrolHelis%1;",blck_dynamicMissionDifficulty];
+_lines pushBack format["_missionHelis = blck_patrolHelis%1;",blck_dynamicMissionDifficulty];
+_lines pushBack format["_chancePara = blck_chancePara%1;",blck_dynamicMissionDifficulty]; 
+_lines pushBack format["_noPara = blck_noPara%1;",blck_dynamicMissionDifficulty];  
+_lines pushBack format["_paraTriggerDistance = 400;"]; 				
+_lines pushBack format["_paraSkill = '%1';",blck_dynamicMissionDifficulty];  
+_lines pushBack format["_chanceLoot = 0.0;"]; 
+_lines pushBack format["_paraLoot = blck_BoxLoot_%1;",blck_dynamicMissionDifficulty];
+_lines pushBack format["_paraLootCounts = blck_lootCounts%1;",blck_dynamicMissionDifficulty];  
+_lines pushBack format['_missionLandscapeMode = "precise";'];
+_linse pushBack "_useMines = blck_useMines;";  
+_lines pushBack "_uniforms = blck_SkinList;";  
+_lines pushBack "_headgear = blck_headgear;";  
+_lines pushBack "_vests = blck_vests;";
+_lines pushBack "_backpacks = blck_backpacks;";
+_lines pushBack "_sideArms = blck_Pistols;";
+_lines pushBack '_spawnCratesTiming = blck_spawnCratesTiming;';
+_lines pushBack '_loadCratesTiming = blck_loadCratesTiming;';
+_lines pushBack '_endCondition = blck_missionEndCondition;';
 _lines pushBack format["_minNoAI = blck_MinAI_%1;",blck_dynamicMissionDifficulty];
 _lines pushBack format["_maxNoAI = blck_MaxAI_%1;",blck_dynamicMissionDifficulty];
 _lines pushBack format["_noAIGroups = blck_AIGrps_%1;",blck_dynamicMissionDifficulty];
 _lines pushBack format["_noVehiclePatrols = blck_SpawnVeh_%1;",blck_dynamicMissionDifficulty];
 _lines pushBack format["_noEmplacedWeapons = blck_SpawnEmplaced_%1;",blck_dynamicMissionDifficulty];
-_lines pushBack format ["_minNoAI = blck_MinAI_%1;",blck_dynamicMissionDifficulty];  // Setting this in the mission file overrides the defaults such as blck_MinAI_Blue
-_lines pushBack format["_maxNoAI = blck_MaxAI_Blue;",blck_dynamicMissionDifficulty]; // Setting this in the mission file overrides the defaults 
-_lines pushBack format["_noAIGroups = blck_AIGrps_%1;",blck_dynamicMissionDifficulty];  // Setting this in the mission file overrides the defaults 
-_lines pushBack format["_noVehiclePatrols = blck_SpawnVeh_%1;",blck_dynamicMissionDifficulty];  // Setting this in the mission file overrides the defaults 
-_lines pushBack format["_noEmplacedWeapons = blck_SpawnEmplaced_%1;",blck_dynamicMissionDifficulty];  // Setting this in the mission file overrides the defaults 
-//  Change _useMines to true/false below to enable mission-specific settings.
-_linse pushBack "_useMines = blck_useMines;";  // Setting this in the mission file overrides the defaults 
-_lines pushBack "_uniforms = blck_SkinList;";  // Setting this in the mission file overrides the defaults 
-_lines pushBack "_headgear = blck_headgear;";  // Setting this in the mission file overrides the defaults 
-_lines pushBack "_vests = blck_vests;";
-_lines pushBack "_backpacks = blck_backpacks;";
-_lines pushBack format["_weaponList = ['%1'] call blck_fnc_selectAILoadout;",blck_dynamicMissionDifficulty];
-_lines pushBack "_sideArms = blck_Pistols;";
-_lines pushBack format["_chanceHeliPatrol = blck_chanceHeliPatrol%1;",blck_dynamicMissionDifficulty];  // Setting this in the mission file overrides the defaults 
-_lines pushBack format["_noChoppers = blck_noPatrolHelis%1;",blck_dynamicMissionDifficulty];
-_lines pushBack format["_missionHelis = blck_patrolHelis%1;",blck_dynamicMissionDifficulty];
-_lines pushBack "";
-_lines pushBack format["_chancePara = blck_chancePara%1;",blck_dynamicMissionDifficulty]; // Setting this in the mission file overrides the defaults 
-_lines pushBack format["_noPara = blck_noPara%1;",blck_dynamicMissionDifficulty];  // Setting this in the mission file overrides the defaults 
-_lines pushBack format["_paraTriggerDistance = 400;"]; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
-_lines pushBack format["_paraSkill = '%1';",blck_dynamicMissionDifficulty];  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
-_lines pushBack format["_chanceLoot = 0.0;"]; // The chance that a loot crate will be dropped with paratroops.
-_lines pushBack format["_paraLoot = blck_BoxLoot_%1;",blck_dynamicMissionDifficulty];
-_lines pushBack format["_paraLootCounts = blck_lootCounts%1;",blck_dynamicMissionDifficulty];  // Throw in something more exotic than found at a normal blue mission.
+_lines pushBack format["_minNoAI = blck_MinAI_%1;",blck_dynamicMissionDifficulty];  
+_lines pushBack format["_maxNoAI = blck_MaxAI_%1",blck_dynamicMissionDifficulty]; 
+_lines pushBack format["_noAIGroups = blck_AIGrps_%1;",blck_dynamicMissionDifficulty];  
+_lines pushBack format["_noVehiclePatrols = blck_SpawnVeh_%1;",blck_dynamicMissionDifficulty];  
+_lines pushBack format["_noEmplacedWeapons = blck_SpawnEmplaced_%1;",blck_dynamicMissionDifficulty];
+diag_log format["blck_dynamicMissionDifficulty = %1",blck_dynamicMissionDifficulty];
 
 _lines pushBack '#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";';
 
-// As found in fn_3DENExportTerrainBuilder.sqf
 uiNameSpace setVariable ["Display3DENCopy_data", ["dynamicMission.sqf", _lines joinString _lineBreak]];
 (findDisplay 313) createdisplay "Display3DENCopy";
-/*
-_missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
-
-_chancePara = blck_chanceParaBlue; // Setting this in the mission file overrides the defaults 
-_noPara = blck_noParaBlue;  // Setting this in the mission file overrides the defaults 
-_paraTriggerDistance = 400; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
-_paraSkill = "red";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
-_chanceLoot = 0.0; // The chance that a loot crate will be dropped with paratroops.
-_paraLoot = blck_BoxLoot_Blue;
-_paraLootCounts = blck_lootCountsRed;  // Throw in something more exotic than found at a normal blue mission.
-
-_spawnCratesTiming = blck_spawnCratesTiming; // Choices: "atMissionSpawnGround","atMissionEndGround","atMissionEndAir". 
-						 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
-						 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
-_loadCratesTiming = blck_loadCratesTiming; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
-						// Pertains only to crates spawned at mission spawn.
-						// This sets the default but can be overridden for specific missions by defining _loadCratesTiming
-						
-						// Examples:
-						// To spawn crates at mission start loaded with gear set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionSpawn"
-						// To spawn crates at mission start but load gear only after the mission is completed set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionCompletion"
-						// To spawn crates on the ground at mission completion set blck_spawnCratesTiming = "atMissionEndGround" // Note that a loaded crate will be spawned.
-						// To spawn crates in the air and drop them by chutes set blck_spawnCratesTiming = "atMissionEndAir" // Note that a loaded crate will be spawned.
-_endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
-									// Setting this in the mission file overrides the defaults 
