@@ -19,7 +19,7 @@ switch (toLower worldName) do
 		case "stratis":{blck_mapCenter = [3900,4500,0]; blck_mapRange = 4500;}; 
 		case "tanoa":{blck_mapCenter = [9000,9000,0];  blck_mapRange = 10000;};
 		case "malden":{	blck_mapCenter = [6000,7000,0];	blck_mapRange = 6000;};		
-		case "livonia":{blck_mapCenter = [6500,6000,0];  blck_mapRange = 5800;};
+		case "enoch":{blck_mapCenter = [6500,6000,0];  blck_mapRange = 5800;};
 		case "gm_weferlingen_summer":{blck_mapCenter = [10000,10000,0];	blck_mapRange = 10000;};
 		case "chernarus":{blck_mapCenter = [7100, 7750, 0]; blck_mapRange = 5300;};	
 		case "namalsk":{blck_mapCenter = [5700, 8700, 0]; blck_mapRange = 10000;};		
