@@ -1,8 +1,8 @@
 
 
 This update includes an optional ability to spawn static missions.
-This can be done by laying out everything for your static mission in the editor, 
-then using a simple copy - paste - edit strategy.
+This can be done by laying out everything for your static mission in the 3DEN editor, 
+then using a an editor plugin.
 
 I have provided one example editor mission (staticMissionExamples.Altis) 
 which I have used to configure a static mission ( ).
@@ -15,32 +15,30 @@ My approach to doing this as follows:
 2) Start the Eden Editor.
 3) Lay out your static mission. You should:
 	place a marker indicating where it will spawn (save your work)
+	Set the icon/shape, color and any text for your marker 
+
 	Place all buldings, sandbags, etc (save your work)
-	Place any vehicle or air patrols - note that they will patrol using the postion at which you place them as the centerpoint of their patrol.
+	Place any vehicle or air patrols - 
+		Note that they will patrol using the postion at which you place them as the centerpoint of their patrol.
 	(save your work).
 	Place any static weapons.
 	(save your work).
 	Place a unit at each location you wish to have a group patrol.
+		Note: The mission spawner will attempt to spawn an entire group at these locations using the weapons, uniforms, 
+		etc defined in blck_config.sqf or its derivatives.
+
 	Place some sort of ammo box, cardboard box, or other loot container. 
 	Save your work.
 	
 	Note the postion of your marker.
-	Export all of the objects, units, and vehicles using the function supplied by M3EDEN Editor.
-	You want to use the export absolute position functions for this.
+
+	Set Difficulty level as desired using the dropdown menu at the right of the toolbar.
 	
-	Now, create a copy of one of the example missions.
-	Set the mission center to the position of your marker.
-	Carefully copy the data for your structures into the appropriate array.
-	Do the same for all other objects, vehicles, loot vehicles and so forth.
-	Note that you will need to edit the fields for AI, vehicle patrols etc to ensure that all require information is present.
-	
-	Once you have done this, add the file to the custom_server\Missions\Static\missions directory then
-	add an entry for your static mission to GMS_StaticMissionLists.sqf
+	Select Export Static Mission from the blckeagls dropdown menu.
+	Select Copy, then paste the text into a text editor.
+	Change any settings including numbers of AI, AI respawn times, or patrol radii.
+
+	Save the file to the custom_server\Missions\Static\missions directory then
+	add filename for your new static mission to custom_server\Missions\Static\GMS_StaticMissionLists.sqf
 	
 in order to specify additional options. Use the information provided in the example static missions to guide you.
-
-OPTIONAL
-
-Directly call functions to add units, vehicle patrols, air patrols etc.
-
-More to come on this.
