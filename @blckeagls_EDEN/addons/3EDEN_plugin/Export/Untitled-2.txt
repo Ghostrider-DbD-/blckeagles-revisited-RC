@@ -1,0 +1,3 @@
+
+private _success = "blck_missions" set3DENAttribute ["mission_Dificulty","Blue"];
+[format["Difficulty Set to: %1",_difficulty],"Mission Difficulty","OK","Cancel"] call BIS_fnc_3DENShowMessage;

@@ -1,95 +1,51 @@
 
+class CfgVehicles
+{
+	class Object 
+	{
+		class AttributeCategories 
+		{
+			class LandVehicle;
+			class blckLandVehicle: LandVehicle;
+			{
+				class Attributes 
+				{
+					class blckLootVehicle 
+					{
+							// https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Scenario 
+							displayName = "Loot Vehicle";
+							toolTip = "Enable/Disable Use as Loot Vehicle";
+							property = "blckLootVehicle";
+							control = "Edit";
+							expression = "_this setVariable['%s',_value];";
+							defaultValue = 'false';
+							unique = 0;
+							validate = "BOOL";
+							typeName = "BOOL";
+					};
+				};
+			};
 
-/*
-	Output from GRG Plugin for blckeagls
-	For Credits and Acknowledgements see the Readme and comments
-*/
-
-#include "\q\addons\custom_server\Configs\blck_defines.hpp";
-#include "\q\addons\custom_server\Missions\privateVars.sqf";
-
-_markerType = [,[0,0],];
-_markerColor = ;
-_startMsg = "TODO: Change approiately";
-_endMsg = "TODO: Change Appropriately;
-_markerMissionName = TODO: Update appropriately;
-_crateLoot = blck_BoxLoot_Blue;
-_lootCounts = blck_lootCountsBlue;
-
-_missionLandscape = [
-     ["Land_Unfinished_Building_01_F",[0,0,0],0,true,true],
-     ["Land_u_Shed_Ind_F",[-61.9277,-7.80664,-0.0579567],0,true,true],
-     ["Land_Shed_08_brown_F",[-47.9512,26.3086,-0.0630035],0,true,true],
-     ["Land_Shed_02_F",[-6.22852,78.9766,-0.0466728],0,true,true],
-     ["Land_Wreck_AFV_Wheeled_01_F",[-38.0176,-20.6309,-0.0216446],0,true,true]
-];
-
-_simpleObjects = [
-
-];
-
-_missionPatrolVehicles = [
-     ["B_Truck_01_mover_F",[-8.7207,13.8828,-0.0554924],0],
-     ["B_MRAP_01_hmg_F",[-29.7793,16.5488,-0.054863],0]
-];
-
-_submarinePatrolParameters = [
-
-];
-
-_airPatrols = [
-     ["B_Heli_Light_01_dynamicLoadout_F",[-39.4199,9.21094,-0.0559273],0]
-];
-
-_missionEmplacedWeapons = [
-     ["B_GMG_01_F",[-37.9668,-4.69336,-0.0563164],0],
-     ["B_HMG_01_F",[11.2852,43.7969,-0.0578575],0]
-];
-
-_missionGroups = [
-     ,[[-27.1387,-8.02148,-0.0584373],3,6,"Red",30,45],
-     ,[[-2.74414,46.5508,-0.0565186],3,6,"Red",30,45]
-];
-
-_scubaGroupParameters = [
-
-];
-
-_missionLootBoxes = [
-     ["Box_IND_Wps_F",[-22.0605,2.1543,-0.0577888],_crateLoot,_lootCounts,0],
-     ["Box_AAF_Equip_F",[-19.5859,7.62695,-0.0575409],_crateLoot,_lootCounts,0],
-     ["Box_IND_AmmoOrd_F",[-17.8203,13.4805,-0.0576591],_crateLoot,_lootCounts,0],
-     ["Box_IND_WpsLaunch_F",[-22.6543,-1.80859,-0.0577736],_crateLoot,_lootCounts,0]
-];
-
-_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
-_noChoppers = blck_noPatrolHelisBlue;
-_missionHelis = blck_patrolHelisBlue;
-
-_chancePara = blck_chanceParaBlue;
-_noPara = blck_noParaBlue;
-_paraTriggerDistance = 400;
-_paraSkill = 'Blue';
-_chanceLoot = 0.0;
-_paraLoot = blck_BoxLoot_Blue;
-_paraLootCounts = blck_lootCountsBlue;
-_missionLandscapeMode = "precise";
-_uniforms = blck_SkinList;
-_headgear = blck_headgear;
-_vests = blck_vests;
-_backpacks = blck_backpacks;
-_sideArms = blck_Pistols;
-_spawnCratesTiming = blck_spawnCratesTiming;
-_loadCratesTiming = blck_loadCratesTiming;
-_endCondition = blck_missionEndCondition;
-_minNoAI = blck_MinAI_Blue;
-_maxNoAI = blck_MaxAI_Blue;
-_noAIGroups = blck_AIGrps_Blue;
-_noVehiclePatrols = blck_SpawnVeh_Blue;
-_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
-_minNoAI = blck_MinAI_Blue;
-_maxNoAI = blck_MaxAI_Blue
-_noAIGroups = blck_AIGrps_Blue;
-_noVehiclePatrols = blck_SpawnVeh_Blue;
-_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
-#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";
+			class Static;
+			class blckHouse: Static 
+			{
+				class Attributes 
+				{
+					class blckGarison
+					{
+							// https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Scenario 
+							displayName = "Garison Building";
+							toolTip = "Enable/Disable ?Garisoned Building";
+							property = "blckGarison";
+							control = "Edit";
+							expression = "_this setVariable['%s',_value];";
+							defaultValue = 'false';
+							unique = 0;
+							validate = "BOOL";
+							typeName = "BOOL";
+					};
+				};
+			};
+		};
+	};
+};

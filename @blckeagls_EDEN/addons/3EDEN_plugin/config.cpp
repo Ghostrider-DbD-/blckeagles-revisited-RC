@@ -7,169 +7,53 @@
 	* This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
 	* To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 */
-
-class CfgPatches
+#include "defines.h"
+class CfgBlck3DEN 
 {
-	class blckeagls_3den
+	class configs 
 	{
-		requiredVersion = 0.1;
-		requiredAddons[] = {"3den"};
-		units[] = {};
-		weapons[] = {};
-		magazines[] = {};
-		ammo[] = {};
+		objectAtMissionCenter = "RoadCone_L_F";
+		minAI = 3;
+		maxAI = 6;
+		minPatroRadius = 30;
+		maxPatrolRadius = 45;
+		maxVehiclePatrolRadius = 75;
+		aircraftPatrolRadius = 1000;
+		oddsOfGarison = 0.67;
+		maxGarrisonStatics = 3;
+		typesGarrisonStatics = [];
+		defaultMissionDifficulty = "Blue";
+		defaultLootcrateSpawnTiming = "atMissionSpawnGround";
+		defaultLootcrateLoadTiming = "atMissionSpawn";
+		defaultMissionEndState = "allKilledOrPlayerNear";
+
+		// Enter the string shown here under Atributes\Variable Name
+		// to demarcate this vehicle as a loot vehicle
+		lootVehicleVariableName = "lootVehicle";
+
+		// Enter the string shown here under Atributes\Variable Name
+		// To indicate that a garrison should be placed at standard Arma
+		// building positions
+		buildingPosGarrisonVariableName = "pos";
+
+		// Enter the string shown here under Atributes\Variable Name
+		// To indicate that a garrison should be placed using setPosATL
+		// relative to the spawn position of the building
+		buildingATLGarrisionVariableName = "atl";
+
+		aiRespawnTime = 600;  // respawn time for infantry 
+		vehicleRespawnTime = 900; // respawn time for vehicle patrols
+		aircraftRespawnTime = 1200;	// respawn time for aircraft patrols
+	};
+
+	/****************************************
+		DO NOT TOUCH ANYTHING BELOW THIS LINE 
+	*****************************************/
+	class CfgVersion 
+	{
+		version = 1.0;
+		build = 2;
+		date = "08/15/20";
 	};
 };
 
-///////////////////////////////////////////////////////////////////////////////
-
-class CfgFunctions
-{
-
-	class blck3EDEN
-	{
-		class Export
-		{
-			file = "3EDEN_plugin\Export";
-			class exportDynamic {};
-			class exportStatic {};
-			//class buildingContainer {};			
-			//class isInfantry {};
-			//class isInside {};
-
-		};
-
-		class Core 
-		{
-			file = "3EDEN_plugin\Core";
-			class help {};
-			class about {};
-		};
-
-	};
-	
-};
-
-///////////////////////////////////////////////////////////////////////////////
-
-class ctrlCombo;
-
-class cfg3EDEN 
-{
-	class EventHandlers 
-	{
-		class blck 
-		{
-
-		};
-	};
-
-	class Attributes 
-	{
-		class Default;
-
-		class Title: Default 
-		{
-			class Controls 
-			{
-				class Title;
-			};
-		};
-
-		class Combo: Title 
-		{
-			class Controls: Controls 
-			{
-				class Title: Title {};
-				class Value: ctrlCombo {};
-			};
-		};
-
-		class missionDifficulty: Combo 
-		{
-			class Controls: Controls 
-			{
-				class Title: Title {};
-				class Value: Value 
-				{
-					onLoad = "\
-					{\
-						_index = _control lbAdd _x;\
-						_control lbsetdata [_index,_x];\
-					}\
-					forEach['','Blue (Easy)','Red (Medium)','Green (Hard)','Orange (Very Hard)'];";
-				};
-			};
-		};
-	};
-};
-
-class ctrlMenuStrip;
-
-class display3DEN
-{
-	class Controls
-	{
-		class MenuStrip: ctrlMenuStrip
-		{
-			class Items
-			{
-				items[] += {"Blackeagls"};
-
-				class Blackeagls
-				{
-					text = "Blackeagls";
-					items[] = {
-						"blckAbout3EDENPlugin",
-						"blckSeparator",
-						"blckSaveStaticMission", 
-						"blckSaveDynamicMission",
-						"blck3EDENPluginHelp"
-					 };
-				};
-
-				class blckAbout3EDENPlugin 
-				{
-					text = "3EDEN Plugin Version 1.0 for BlckEagls by Ghostrider-GRG-";
-					action = "call blck3EDEN_fnc_about";
-				};
-
-				class blckSeparator 
-				{
-					value = 0;
-				};
-
-				class blckSaveStaticMission
-				{
-					text = "Save StaticMission";
-					action = "call blck3EDEN_fnc_exportStatic";
-					picture = "\a3\3DEN\Data\Displays\Display3DEN\ToolBar\save_ca.paa";
-				};
-
-				class blckSaveDynamicMission
-				{
-					text = "Save Dynamic Mission";
-					action = "call blck3EDEN_fnc_exportDynamic";
-					picture = "\a3\3DEN\Data\Displays\Display3DEN\ToolBar\save_ca.paa";
-				};
-
-				class Blck3EDENPluginHelp
-				{
-					text = "Help";
-					action = "call blck3EDEN_fnc_Help";
-					//picture = "\a3\3DEN\Data\Displays\Display3DEN\ToolBar\save_ca.paa";
-				};
-
-			};
-		};
-	};
-};
-
-///////////////////////////////////////////////////////////////////////////////
-
-class CfgVehicles
-{
-	class B_Soldier_base_F;
-	//
-
-};

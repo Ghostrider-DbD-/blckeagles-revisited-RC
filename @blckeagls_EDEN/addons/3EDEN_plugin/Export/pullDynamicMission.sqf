@@ -75,7 +75,7 @@ diag_log format["<<  ----  pullDynamicMision: START  %1  ----  >>",diag_tickTime
 //   Begin pulling data here
 ///////////////////////
 
-_cb = _cb + format["_garrisonedBuildings_BuildingPosnSystem = [",endl];
+_cb = _cb + format["blck_garrisonedBuildings_BuildingPosnSystem = [",endl];
 
 _helpers = allMissionObjects garrisonMarkerObject; 
 //diag_log format["_helpers = %1",_helpers];
@@ -86,8 +86,8 @@ _helpers = allMissionObjects garrisonMarkerObject;
 		if (_isInside) then
 		{
 			_building = [_x] call _fn_buildingContainer;
-			_garrisonedBuildings pushbackunique _building;
-			_garrisonedBuildings pushbackunique _x;			
+			blck_garrisonedBuildings pushbackunique _building;
+			blck_garrisonedBuildings pushbackunique _x;			
 			//  data structure ["building Classname",[/*building pos*/],/*building dir*/,/*odds of garrison*/, /*Max Statics*/,/*types statics*/,/*max units*/],
 														// 1				2								3			4	  5			6			7					8						9
 			_line = format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, 'true','true',oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
@@ -104,7 +104,7 @@ _helpers = allMissionObjects garrisonMarkerObject;
 } forEach _helpers;
 _cb = _cb + format["%1];%1%1",endl];
 
-_logging = format["_garrisonedBuildings = %1",_garrisonedBuildings];
+_logging = format["blck_garrisonedBuildings = %1",blck_garrisonedBuildings];
 diag_log _logging;
 systemChat _logging;
 //diag_log format["_cb = %1%2",endl,_cb];
@@ -119,7 +119,7 @@ _fn_configureGarrisonForBuildingATL = {
 	private["_b","_staticsInBuilding","_unitsInBuilding","_staticsText","_unitsText","_buildingGarrisonATL","_staticsInBuilding","_unitsInBuilding","_count"];
 	_b = _this select 0;
 	_count = 0;
-	if (_b in _garrisonedBuildings) exitWith {""};
+	if (_b in blck_garrisonedBuildings) exitWith {""};
 	_staticsText = "";
 	_unitsText = "";
 	_buildingGarrisonATL = "";
@@ -166,7 +166,7 @@ _fn_configureGarrisonForBuildingATL = {
 	if ( !(_staticsText isEqualTo "") || !(_unitsText isEqualTo "")) then
 	{
 		_buildingGarrisonATL = format['     ["%1",%2,%3,%4,%5,[%6],[%7]]',typeOf _b,(getPosATL _b) vectorDiff CENTER,getDir _b,'true','true',_staticsText,_unitsText];
-		_garrisonedBuildings pushBackUnique _b;
+		blck_garrisonedBuildings pushBackUnique _b;
 	};
 	_buildingGarrisonATL
 };
@@ -178,7 +178,7 @@ _cb = _cb + "_garrisonedBuilding_ATLsystem = [";
 	if (_isInside) then
 	{
 		private _building = [_x] call _fn_buildingContainer;
-		private _include = if ( !(_building in _garrisonedBuildings) && !((typeOf _building) isEqualTo unitMarkerObject) && !((typeOf _building) isEqualTo garrisonMarkerObject)) then {true} else {false};
+		private _include = if ( !(_building in blck_garrisonedBuildings) && !((typeOf _building) isEqualTo unitMarkerObject) && !((typeOf _building) isEqualTo garrisonMarkerObject)) then {true} else {false};
 		if (_include) then
 		{
 			//diag_log format["_x = %1 | _building = %1",_x,_building];
@@ -209,7 +209,7 @@ _cb = _cb + format["_missionLandscape = [",endl];
 {
 	diag_log format["evaluating mission landscape: _x = %1 | typeOf _x = %1",_x, typeOf _x];
 	//diag_log format["evaluating mission landscape: _x %1 | typeOf _x %1",_x, _x isKindOf "Helper_Base_F"];
-	if !(_x in _garrisonedBuildings && !((typeOf _x) isEqualTo unitMarkerObject) && !((typeOf _x) isEqualTo garrisonMarkerObject)) then
+	if !(_x in blck_garrisonedBuildings && !((typeOf _x) isEqualTo unitMarkerObject) && !((typeOf _x) isEqualTo garrisonMarkerObject)) then
 	{
 		_line = format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER,getDir _x, 'true','true'];
 		systemChat _line;
