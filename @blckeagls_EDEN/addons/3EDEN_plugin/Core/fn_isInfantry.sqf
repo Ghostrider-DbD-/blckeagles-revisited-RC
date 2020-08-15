@@ -1,8 +1,9 @@
 
 /*
-	Returns true if a unit is on foot otherwise returns false.
-	By Ghostrider-GRG-
-	Copyright 2020 
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
 */
 
 	private _u = _this select 0;

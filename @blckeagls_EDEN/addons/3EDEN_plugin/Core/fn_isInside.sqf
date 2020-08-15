@@ -1,14 +1,9 @@
 /*
-	Determine if an object is inside or ontop of another object base on line of sight.
-	Returns true if this is the case, false otherwise. 
-	By Ghostrider-GRG-
-	Copyright 2020 
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
 */
-
-// returns true if an object is inside, underneath or on top of a building otherwise returns false.
-//////////////////////
-//  Determin if a unit is inside a building using two separate checkVisibility
-//////////////////////
 
 params["_u",["_category","House"]];
 
@@ -23,7 +18,7 @@ if (_above) then // test if any surfaces above are from buildingPos
 	private  _surfacesAbove = lineInterSectsSurfaces [_pos, [_pos select 0, _pos select 1, (_pos select 2) + 100],_u,_u,true,100];
 	_above = false;
 	{
-		//diag_log format["_fn_isInside: _x-2 = %2 | typeOf _x = %3",_x,_x select 2,typeOf (_x select 2)];
+		//diag_log format["_fn_isInside: _x = %2 | typeOf _x = %3",_x,_x select 2,typeOf (_x select 2)];
 		if ((_x select 2) isKindOf _category) then {_above = true};
 	}forEach _surfacesAbove;
 };
@@ -33,7 +28,7 @@ if (_below) then
 	private _surfacesBelow = lineInterSectsSurfaces [_pos, [_pos select 0, _pos select 1, (_pos select 2) - 10],_u,_u,true,100];
 	_above = false;
 	{
-		//diag_log format["_fn_isInside: _x-2 = %2 | typeOf _x = %3",_x,_x select 2,typeOf (_x select 2)];
+		//diag_log format["_fn_isInside: _x = %2 | typeOf _x = %3",_x,_x select 2,typeOf (_x select 2)];
 		if ((_x select 2) isKindOf _category) then {_above = true};
 	}forEach _surfacesBelow;
 };	

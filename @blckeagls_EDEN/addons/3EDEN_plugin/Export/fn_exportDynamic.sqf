@@ -1,4 +1,9 @@
-
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+*/
 
 objectAtMissionCenter = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "objectAtMissionCenter");
 blck_minAI = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "minAI");
@@ -10,9 +15,7 @@ aircraftPatrolRadius = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "a
 oddsOfGarison = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "oddsOfGarison");
 maxGarrisonStatics = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "maxGarrisonStatics");
 typesGarrisonStatics = getArray(configFile >> "CfgBlck3DEN"  >> "configs" >> "typesGarrisonStatics");
-//blck_MissionDifficulty = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "defaultMissionDifficulty");
 blck_MissionDifficulty = missionNamespace getVariable["blck_difficulty",getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "defaultMissionDifficulty")];
-
 lootVehicleVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "lootVehicleVariableName");
 buildingPosGarrisonVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "buildingPosGarrisonVariableName");
 buildingATLGarrisionVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "buildingATLGarrisionVariableName");
@@ -66,17 +69,14 @@ if (isNil "blck_dynamicmarkerMissionName") then
 if (isNil "blck_spawnCratesTiming") then 
 {
 	blck_spawnCratesTiming = missionNamespace getVariable["blck_lootTiming","atMissionStartGround"];
-	diag_log format["blck_loadCratesTiming set to default value of %1",blck_spawnCratesTiming];
 }; 
 if (isNil "blck_loadCratesTiming") then 
 {
 	 blck_loadCratesTiming = missionNamespace getVariable["blck_loadTiming","atMissionStart"];
-	 diag_log format["blck_loadCratesTiming set to default value of %1",blck_loadCratesTiming];
 };
 if (isNil "blck_missionEndCondition") then 
 {
 	blck_missionEndCondition = missionNamespace getVariable["blck_endState","allUnitsKilled"];
-	diag_log format["blck_missionEndCondition set to default value of %1",blck_missionEndCondition];
 };
 
 /*
@@ -162,10 +162,28 @@ private _landscape =  _objects select{
     ((typeOf _x) isKindOf "Static")
 };
 
-diag_log format["CENTER = %1 | _landscape = %2",CENTER,_landscape];
+
+//diag_log format["CENTER = %1 | _landscape = %2",CENTER,_landscape];
+private _garrisonATL = [];
+{
+	_atl = [_x,CENTER] call blck3DEN_fnc_configureGarrisonATL;
+	// format["_fnc_exportDynamic: _building = %1 | _atl = %2",_x,_atl];
+	//diag_log format["_fnc_exportDynamic: typeName _atl = %1",typeName _atl];
+	if (typeName _atl isEqualTo "STRING") then {diag_log format["_fnc_exportDynamic: length _atl = %1 | _atl = '' is %2",count _atl, _atl isEqualTo ""]};
+	if !(_atl isEqualTo "") then {
+		_garrisonATL pushBack _atl;
+		_garisonedBuildings pushBack _x;
+		//diag_log format["_fnc_exportDynamic: garrisoned building added: %1",_atl];
+	};
+} forEach _landscape;
+diag_log format["_garrisonATL = %1",_garrisonATL];
+
 private _missionLandscape = [];
 {
-	_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER,getDir _x, 'true','true'];
+	if !(_x in _garisonedBuildings) then 
+	{
+		_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER,getDir _x, 'true','true'];
+	};
 }forEach _landscape;
 
 private _simpleObjects = _objects select {isSimpleObject _x};
@@ -258,7 +276,11 @@ diag_log format["_ammoBoxes = %1",_ammoboxes];
 {
 	_lootContainers pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER, '_crateLoot','_lootCounts',getDir _x];
 }forEach _ammoBoxes;
-
+private _missionCoords = [];
+if (toLower(missionNamespace getVariable["blck_missionLocations","random"]) isEqualTo "fixed") then
+{
+	_missionCoords pushBack CENTER;
+};
 private _lines = [];
 private _lineBreak = toString [10];
 
@@ -272,6 +294,7 @@ _lines pushBack "";
 _lines pushBack '#include "\q\addons\custom_server\Configs\blck_defines.hpp";';
 _lines pushBack '#include "\q\addons\custom_server\Missions\privateVars.sqf";';
 _lines pushBack "";
+_lines pushBack format["_defaultMissionLocations = %1;",_missionCoords];
 _lines pushBack format["_markerType = %1",format["[%1,%2,%3];",_markerType,_markerSize,_markerBrush]];
 _lines pushBack format["_markerColor = %1;",_markerColor];
 _lines pushBack format['_startMsg = "%1";',blck_dynamicStartMessage];
@@ -279,6 +302,10 @@ _lines pushBack format['_endMsg = "%1;',blck_dynamicEndMessage];
 _lines pushBack format['_markerMissionName = "%1";',blck_dynamicmarkerMissionName];
 _lines pushBack format['_crateLoot = blck_BoxLoot_%1;',blck_MissionDifficulty];
 _lines pushBack format['_lootCounts = blck_lootCounts%1;',blck_MissionDifficulty];
+_lines pushBack "";
+_lines pushBack "_garrisonedBuilding_ATLsystem = [";
+_lines pushBack (_garrisonATL joinString (format[",%1", _lineBreak]));
+_lines pushBack "];";
 _lines pushBack "";
 _lines pushBack "_missionLandscape = [";
 _lines pushback (_missionLandscape joinString (format [",%1", _lineBreak]));

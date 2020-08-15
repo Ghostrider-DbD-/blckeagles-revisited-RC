@@ -1,7 +1,9 @@
-
-
-
-
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+*/
 
 objectAtMissionCenter = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "objectAtMissionCenter");
 blck_minAI = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "minAI");

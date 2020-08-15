@@ -1,5 +1,13 @@
 // defines.h
-
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	Parts of defines.h were derived from the Exile_3EDEN editor plugin 
+	* and is licensed as follows:
+	* This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+	* To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.	
+*/
 
 /*
 	**************************************
@@ -45,13 +53,15 @@ class CfgFunctions
 			class display {};
 			class setDifficulty {};
 			class setCompletionMode {}
+			class setSpawnLocations {};
 			class spawnCratesTiming {};
 			class loadCratesTiming {};
+			class endMessage {};
+			class startMessage {};
+			class configureGarrisonATL {};
             class versionInfo {};
 		};
-
 	};
-	
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -74,19 +84,77 @@ class cfg3DEN
 	
 	class Attributes 
 	{
+		class Default;
+
+		class Title: Default 
+		{
+			class Controls 
+			{
+				class Title;
+			};
+		};
 		
+		class Combo: Title
+		{
+			class Controls: Controls 
+			{
+				class Title: Title {};
+				class Value: ctrlCombo {};
+			};
+		};
+
+		class blck_garison: Combo 
+		{
+			class Value
+			{
+				text = "Set Garison State";
+				items[] = {"No_Garison","Has_garison"};
+			};
+			class no_garison 
+			{
+				text = "No Garison";
+				//action = "_this setVariable['garison',0];";
+			};
+			class has_garison 
+			{
+				text = "Has Garison";
+				//action = "_this setVariable['garison',1];";
+			};
+		};
 	};
+
 
 	class Mission 
 	{
 
+	};
+
+	class Object 
+	{
+		class AttributeCategories 
+		{
+
+		};
 	};
 };	
 	
 
 class CfgVehicles
 {
-	
+	class Static;
+
+	class blck_static: Static
+	{
+		class Attributes 
+		{
+			class garison 
+			{
+				displayName = "Garrison";
+				toolTip = "Define Garisoned Buildings";
+				control = "blck_garison";
+			};
+		};
+	};
 };
 
 class ctrlMenuStrip;
@@ -113,7 +181,8 @@ class display3DEN
 						"loadCratesTiming",
 						"blckSeparator",
 						//"blckMissionMessages",
-						//"blckSeparator",
+						"blckMissionLocation",
+						"blckSeparator",
 						"blckSaveStaticMission", 
 						"blckSaveDynamicMission",
 						"blckSeparator",
@@ -130,13 +199,6 @@ class display3DEN
 				class blckSeparator 
 				{
 					value = 0;
-				};
-
-				class Attributes 
-				{
-					items[] += {
-						"blck_setDifficulty"
-					};
 				};
 
 				class blck_setDifficulty 
@@ -223,7 +285,7 @@ class display3DEN
 					text = "Units Dead / Player @ Center";
 					toolTip = "Mission is Complete when all units are dead or a player reaches mission center";
 					action = "['allKilledOrPlayerNear'] call blck3DEN_fnc_setCompletionMode;";
-					value = "allUnitsKilled";
+					value = "allKilledOrPlayerNear";
 				};
 
 				class lootSpawnTiming 
@@ -276,6 +338,7 @@ class display3DEN
 					action = "['atMissionCompletion'] call blck3DEN_fnc_loadCratesTiming";
 				};
 
+				/*
 				/////////////////////////////
 				class blckMissionMessages 
 				{
@@ -285,17 +348,45 @@ class display3DEN
 						"blckEndMessage"
 					};
 				};
-				class blckStartMessage 
+				//  ["Title","Default","ctrlControlsGroupNoScrollbars","ctrlControlsGroup","ctrlDefault"]
+				class Edit;
+				class blckEdit: Edit
+				{
+					control = "Edit";
+					value = "";
+				};
+				class blckStartMessage: blckEdit
 				{
 					text = "Misstion Start Message";
-					//action = "edit3DENMissionAttributes 'MissionStartMsg';";
+					action = "[_value] call blck3DEN_startMessage";
 				};
-				class blckEndMessage 
+				class blckEndMessage: blckEdit
 				{
 					text = "Mission End Message";
-					//action = "edit3DENMissionAttributes 'MissionEndMsg';";
+					action = "[_value] call blck3DEN_endMessage";
 				};
-				
+				*/
+
+				class blckMissionLocation 
+				{
+					text = "Toggle Random or Fixed Location"
+					toolTip = "Set whether mission spawns at random or fixed locations";
+					items[] = {
+						"blck_randomLocation",
+						"blck_fixedLocation"
+					};
+				};
+				class blck_randomLocation 
+				{
+					text = "Spawn at Random Locations (Default)";
+					action = "['randm'] call blck3DEN_fnc_setSpawnLocations";
+				};
+				class blck_fixedLocation 
+				{
+					text = "Always spawn at the same location";
+					toolTip = "Use to have mission respawn at same location";
+					action = "['fixed'] call blck3DEN_fnc_setSpawnLocations";
+				};
 				/////////////////////////////
 				class blckSaveStaticMission
 				{
@@ -318,6 +409,33 @@ class display3DEN
 					//picture = "\a3\3DEN\Data\Displays\Display3DEN\ToolBar\save_ca.paa";
 				};
 
+			};
+
+			class Attributes 
+			{
+				//items[] += {"blck_messages"};
+				text = "blckeagls: Mission Messages"
+			};
+			class blck_messages 
+			{
+				text = "Mission Messages";
+				items[] = {"blck_startMessage","blck_endMessage"};
+			};
+			class Edit;
+			class blck_editMessages 
+			{
+				control = Edit;
+				value = "";
+			};
+			class blck_startMessage: blck_editMessages 
+			{
+				text = "Set start Message";
+				action = "['_value'] call blck3DEN_fnc_startMessage";
+			};
+			class blck_endMessage: blck_editMessages 
+			{
+				text = "Set end message";
+				action = "['_value'] call blck3DEN_fnc_endMessage";
 			};
 		};
 	};
