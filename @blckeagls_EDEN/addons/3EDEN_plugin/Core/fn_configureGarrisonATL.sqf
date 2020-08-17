@@ -24,7 +24,8 @@ private _lineBreak = toString [10];
 		if (_isInside && (_container isEqualTo _building)) then
 		{
 			_configuredStatics pushBackUnique _x;
-			_staticsText pushBack format['["%1",%2,%3]',typeOf _x,(getPosATL _x) vectorDiff (_pos),getDir _x];
+			diag_log format["Building %1 | buildingPos %2 | _pos %3",typeOf _x, getPosATL _x,_pos];
+			_staticsText pushBack [format['%1',typeOf _x],(getPosATL _x) vectorDiff (_pos),getDir _x];
 		};
 	};
 } forEach _statics;
@@ -40,7 +41,7 @@ private _units = nearestObjects[getPosATL _building,["Man"],sizeOf (typeOf _buil
 		if (_isInside && (_container isEqualTo _building)) then 
 		{
 			_configuredUnits pushBackUnique _x;
-			_unitsText pushBack format["[%1,%2]",(getPosATL _x) vectorDiff (_pos),getDir _x];
+			_unitsText pushBack [(getPosATL _x) vectorDiff (_pos),getDir _x];
 		};
 	};
 } forEach _units;	
@@ -50,12 +51,13 @@ _unitsText joinString _lineBreak;
 //diag_log format["_unitsText for building %1 = %2",_building,_unitsText];
 if !((_staticsText isEqualTo []) && (_unitsText isEqualTo [])) then
 {
-	_buildingGarrisonATL = format['     ["%1",%2,%3,%4,%5,[%6],[%7]]', 
-		typeOf _building, 
+	_buildingGarrisonATL = [
+		format["%1", 
+		typeOf _building], 
 		(getPosATL _building) vectorDiff _pos, 
 		getDir _building,
-		'true',
-		'true',
+		true,
+		true,
 		_staticsText,
 		_unitsText
 	];

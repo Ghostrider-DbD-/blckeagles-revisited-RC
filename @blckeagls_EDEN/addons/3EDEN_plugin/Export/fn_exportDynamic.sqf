@@ -206,10 +206,8 @@ diag_log format["_lootVehicles = %1",_lootVehicles];
 
 _missionPatrolVehicles = [];
 private _patrolVehicles = _objects select {
-	((typeOf _x) isKindOf "AllVehicles") && 
-	!((typeOf _x) isKindOf "Man") &&
+	(((typeOf _x) isKindOf "Car") || ((typeOf _x) isKindOf "Tank") || ((typeOf _x) isKindOf "Ship")) && 
 	!((typeOf _x) isKindOf "SDV_01_base_F") && 
-	!((typeOf _x) isEqualTo "Air") &&
 	!(_x in _lootVehicles)
 };
 diag_log format["_patrolVehicles = %1",_patrolVehicles];
@@ -229,7 +227,7 @@ diag_log format["_subs = %1",_subs];
 
 private _airPatrols = [];
 private _airVehicles = _objects select {
-	(typeOf _x) isKindOf "Air"
+	((typeOf _x) isKindOf "Air")
 };
 diag_log format["_airVehicles = %1",_airvehicles];
 {
@@ -254,12 +252,12 @@ private _infantry = _units select {
 diag_log format["_infantry = %1",_infantry];
 _infantryGroups = [];
 {
-	_infantryGroups pushBack format['     ,[%1,%2,%3,"%4",%5,%6]',(getPosATL _x) vectorDiff CENTER,blck_minAI,blck_maxAI,blck_MissionDifficulty,minPatrolRadius,maxPatrolRadius];
+	_infantryGroups pushBack format['     [%1,%2,%3,"%4",%5,%6]',(getPosATL _x) vectorDiff CENTER,blck_minAI,blck_maxAI,blck_MissionDifficulty,minPatrolRadius,maxPatrolRadius];
 } forEach  _units;
 
 private _scuba = _units select {
 	(surfaceIsWater (getPos _x)) && 
-	!(_x in _garisonedUnits)	
+	!([_x] call blck3DEN_fnc_isInside)	
 	// checck _x get3EDENAtribute "name" != "garrison";	
 };
 diag_log format["_scuba = %1",_scuba];
@@ -295,10 +293,10 @@ _lines pushBack '#include "\q\addons\custom_server\Configs\blck_defines.hpp";';
 _lines pushBack '#include "\q\addons\custom_server\Missions\privateVars.sqf";';
 _lines pushBack "";
 _lines pushBack format["_defaultMissionLocations = %1;",_missionCoords];
-_lines pushBack format["_markerType = %1",format["[%1,%2,%3];",_markerType,_markerSize,_markerBrush]];
-_lines pushBack format["_markerColor = %1;",_markerColor];
+_lines pushBack format["_markerType = %1",format['["%1",%2,"%3"];',_markerType,_markerSize,_markerBrush]];
+_lines pushBack format['_markerColor = "%1";',_markerColor];
 _lines pushBack format['_startMsg = "%1";',blck_dynamicStartMessage];
-_lines pushBack format['_endMsg = "%1;',blck_dynamicEndMessage];
+_lines pushBack format['_endMsg = "%1";',blck_dynamicEndMessage];
 _lines pushBack format['_markerMissionName = "%1";',blck_dynamicmarkerMissionName];
 _lines pushBack format['_crateLoot = blck_BoxLoot_%1;',blck_MissionDifficulty];
 _lines pushBack format['_lootCounts = blck_lootCounts%1;',blck_MissionDifficulty];
@@ -367,16 +365,16 @@ _lines pushBack "_headgear = blck_headgear;";
 _lines pushBack "_vests = blck_vests;";
 _lines pushBack "_backpacks = blck_backpacks;";
 _lines pushBack "_sideArms = blck_Pistols;";
-_lines pushBack format['_spawnCratesTiming = %1',blck_spawnCratesTiming];
-_lines pushBack format['_loadCratesTiming = %1',blck_loadCratesTiming];
-_lines pushBack format['_endCondition = %1;',blck_missionEndCondition];
+_lines pushBack format['_spawnCratesTiming = "%1";',blck_spawnCratesTiming];
+_lines pushBack format['_loadCratesTiming = "%1";',blck_loadCratesTiming];
+_lines pushBack format['_endCondition = "%1";',blck_missionEndCondition];
 _lines pushBack format["_minNoAI = blck_MinAI_%1;",blck_MissionDifficulty];
 _lines pushBack format["_maxNoAI = blck_MaxAI_%1;",blck_MissionDifficulty];
 _lines pushBack format["_noAIGroups = blck_AIGrps_%1;",blck_MissionDifficulty];
 _lines pushBack format["_noVehiclePatrols = blck_SpawnVeh_%1;",blck_MissionDifficulty];
 _lines pushBack format["_noEmplacedWeapons = blck_SpawnEmplaced_%1;",blck_MissionDifficulty];
 _lines pushBack format["_minNoAI = blck_MinAI_%1;",blck_MissionDifficulty];  
-_lines pushBack format["_maxNoAI = blck_MaxAI_%1",blck_MissionDifficulty]; 
+_lines pushBack format["_maxNoAI = blck_MaxAI_%1;",blck_MissionDifficulty]; 
 _lines pushBack format["_noAIGroups = blck_AIGrps_%1;",blck_MissionDifficulty];  
 _lines pushBack format["_noVehiclePatrols = blck_SpawnVeh_%1;",blck_MissionDifficulty];  
 _lines pushBack format["_noEmplacedWeapons = blck_SpawnEmplaced_%1;",blck_MissionDifficulty];
