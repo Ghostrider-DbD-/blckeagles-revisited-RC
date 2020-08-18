@@ -9,7 +9,7 @@ private _garrisonedBuildings = missionNamespace getVariable["blck_garrisonedBuil
 private _count = 0;
 private _staticsText = [];
 private _unitsText = [];
-private _buildingGarrisonATL = "";
+private _buildingGarrisonATL = [];
 private _configuredStatics = [];
 private _configuredUnits = [];
 private _statics = nearestObjects[getPosATL _building,["StaticWeapon"],sizeOf (typeOf _building)];
@@ -24,7 +24,7 @@ private _lineBreak = toString [10];
 		if (_isInside && (_container isEqualTo _building)) then
 		{
 			_configuredStatics pushBackUnique _x;
-			diag_log format["Building %1 | buildingPos %2 | _pos %3",typeOf _x, getPosATL _x,_pos];
+			//diag_log format["Building %1 | buildingPos %2 | _pos %3",typeOf _x, getPosATL _x,_pos];
 			_staticsText pushBack [format['%1',typeOf _x],(getPosATL _x) vectorDiff (_pos),getDir _x];
 		};
 	};
@@ -62,6 +62,5 @@ if !((_staticsText isEqualTo []) && (_unitsText isEqualTo [])) then
 		_unitsText
 	];
 };
-
 //diag_log format["_buildingGarrisonATL = %1",_buildingGarrisonATL];
-_buildingGarrisonATL
+[_buildingGarrisonATL,_configuredStatics,_configuredUnits]

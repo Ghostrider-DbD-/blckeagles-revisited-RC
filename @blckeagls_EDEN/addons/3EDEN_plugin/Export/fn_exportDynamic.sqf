@@ -20,6 +20,7 @@ lootVehicleVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "
 buildingPosGarrisonVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "buildingPosGarrisonVariableName");
 buildingATLGarrisionVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "buildingATLGarrisionVariableName");
 
+/*
 {
 	diag_log format["param %1 = %2",_forEachIndex,_x];
 } forEach [
@@ -37,7 +38,7 @@ buildingATLGarrisionVariableName = getText(configFile >> "CfgBlck3DEN"  >> "conf
 	lootVehicleVariableName,
 	buildingPosGarrisonVariableName,
 	buildingATLGarrisionVariableName	
-];
+];*/
 
 CENTER = [0,0,0];
 
@@ -167,13 +168,19 @@ private _landscape =  _objects select{
 private _garrisonATL = [];
 {
 	_atl = [_x,CENTER] call blck3DEN_fnc_configureGarrisonATL;
+
 	// format["_fnc_exportDynamic: _building = %1 | _atl = %2",_x,_atl];
 	//diag_log format["_fnc_exportDynamic: typeName _atl = %1",typeName _atl];
 	if (typeName _atl isEqualTo "STRING") then {diag_log format["_fnc_exportDynamic: length _atl = %1 | _atl = '' is %2",count _atl, _atl isEqualTo ""]};
-	if !(_atl isEqualTo "") then {
-		_garrisonATL pushBack _atl;
-		_garisonedBuildings pushBack _x;
-		//diag_log format["_fnc_exportDynamic: garrisoned building added: %1",_atl];
+	if !(_atl isEqualTo []) then {
+		if !((_atl select 0) isEqualTo []) then 
+		{
+			_garrisonATL pushBack (_atl select 0);
+			_garisonedBuildings pushBack _x;
+			_garisonedStatics append (_atl select 1);
+			_garisonedUnits append (_atl select 2)
+			//diag_log format["_fnc_exportDynamic: garrisoned building added: %1",_atl];
+		};
 	};
 } forEach _landscape;
 diag_log format["_garrisonATL = %1",_garrisonATL];
@@ -249,6 +256,7 @@ private _infantry = _units select {
 	!(surfaceIsWater (getPos _x)) && 
 	!(_x in _garisonedUnits)
 };
+diag_log format["_garisonedUnits = %1",_garisonedUnits];
 diag_log format["_infantry = %1",_infantry];
 _infantryGroups = [];
 {
