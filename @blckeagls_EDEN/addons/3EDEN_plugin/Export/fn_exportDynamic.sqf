@@ -4,6 +4,8 @@
 	Copyright 2020
 	
 */
+#define oddsOfGarrison 0.67
+#define maxGarrisonUnits 4
 
 objectAtMissionCenter = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "objectAtMissionCenter");
 blck_minAI = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "minAI");
@@ -12,6 +14,7 @@ minPatrolRadius = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "minPat
 maxPatrolRadius = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "maxPatrolRadius");
 maxVehiclePatrolRadius = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "maxVehiclePatrolRadius");
 aircraftPatrolRadius = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "aircraftPatrolRadius");
+garisonMarkerObject = "Sign_Sphere100cm_F";
 oddsOfGarison = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "oddsOfGarison");
 maxGarrisonStatics = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "maxGarrisonStatics");
 typesGarrisonStatics = getArray(configFile >> "CfgBlck3DEN"  >> "configs" >> "typesGarrisonStatics");
@@ -162,8 +165,19 @@ private _landscape =  _objects select{
     !(isSimpleObject _x) && 
     ((typeOf _x) isKindOf "Static")
 };
-
-
+private _garisonedPos = [];
+private _helpers = _objects select {((typeOf _x) isEqualTo garisonMarkerObject)};
+diag_log format["garisonMarkerObject = %1 | _helpers = %2",garisonMarkerObject,_helpers];
+{
+	if ([_x] call blck3DEN_fnc_isInside) then
+	{
+		_building = [_x] call blck3DEN_fnc_buildingContainer;
+		_garisonedBuildings pushbackunique _building;		
+		//  data structure ["building Classname",[/*building pos*/],/*building dir*/,/*odds of garrison*/, /*Max Statics*/,/*types statics*/,/*max units*/],
+													// 1				2								3			4	  5			6			7					8						9
+		_garisonedPos pushBack format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, 'true','true',oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
+	};
+} forEach _helpers;
 //diag_log format["CENTER = %1 | _landscape = %2",CENTER,_landscape];
 private _garrisonATL = [];
 {
@@ -308,6 +322,10 @@ _lines pushBack format['_endMsg = "%1";',blck_dynamicEndMessage];
 _lines pushBack format['_markerMissionName = "%1";',blck_dynamicmarkerMissionName];
 _lines pushBack format['_crateLoot = blck_BoxLoot_%1;',blck_MissionDifficulty];
 _lines pushBack format['_lootCounts = blck_lootCounts%1;',blck_MissionDifficulty];
+_lines pushBack "";
+_lines pushBack "_garrisonedBuildings_BuildingPosnSystem = [";
+_lines pushBack (_garisonedPos joinString (format[",%1", _lineBreak]));
+_lines pushBack "];";
 _lines pushBack "";
 _lines pushBack "_garrisonedBuilding_ATLsystem = [";
 _lines pushBack (_garrisonATL joinString (format[",%1", _lineBreak]));
