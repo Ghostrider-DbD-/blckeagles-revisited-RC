@@ -15,7 +15,7 @@ aircraftPatrolRadius = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "a
 oddsOfGarison = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "oddsOfGarison");
 maxGarrisonStatics = getNumber(configFile >> "CfgBlck3DEN"  >> "configs" >> "maxGarrisonStatics");
 typesGarrisonStatics = getArray(configFile >> "CfgBlck3DEN"  >> "configs" >> "typesGarrisonStatics");
-blck_MissionDifficulty = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "defaultMissionDifficulty");
+blck_MissionDifficulty = missionNamespace getVariable["blck_difficulty",getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "defaultMissionDifficulty")];
 lootVehicleVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "lootVehicleVariableName");
 buildingPosGarrisonVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "buildingPosGarrisonVariableName");
 buildingATLGarrisionVariableName = getText(configFile >> "CfgBlck3DEN"  >> "configs" >> "buildingATLGarrisionVariableName");
@@ -55,10 +55,7 @@ if (isNil "blck_dynamicCrateLoot") then
 if (isNil "blck_dynamicCrateLootCounts") then {
 	blck_dynamicCrateLootCounts = format["_lootCounts = blck_lootCounts%1;",blck_MissionDifficulty];
 };
-if (isNil "blck_dynamicmarkerMissionName") then 
-{
-	blck_dynamicmarkerMissionName = "TODO: Update appropriately";
-};
+
 
 /*
 	Look for an object defined in CfgBlck3DEN \ configs \ that marks the center of the mission 
@@ -84,7 +81,7 @@ private _units = [];
 	} forEach (units _x);
 } forEach _groups;
 
-private["_m1","_markerPos","_markerType","_markerShape","_markerColor","_markerText","_markerBrush","_markerSize","_markerAlpha"];
+private["_m1","_markerPos","_markerType","_markerShape","_markerColor","_markerText","_markerBrush","_markerSize","_markerAlpha","_missionCenter"];
 /*
 	pull info on the first marker found 
 */
@@ -106,10 +103,10 @@ if !(_markers isEqualTo []) then
 	*/
 } else {
 	_markerType = "mil_square";
-	_markerShape = "null";
-	_markerSize = "[0,0]";
+	_markerShape = "";
+	_markerSize = [0,0];
 	_markerColor = "COLORRED";
-	_markerBrush = "null";
+	_markerBrush = "";
 	diag_log format["<WARNING> No marker was found, using default values and position for mission center position"];
 };
 diag_log format["_m1 = %1 | _type = %2 | _shape = %3 | _size = %4 | _color = %5 | _brush = %6 | _text = %7",_m1,_markerType,_markerShape,_markerSize,_markerColor,_markerBrush,_markerText];
@@ -120,13 +117,14 @@ private _garisonedUnits = [];
 
 private _landscape =  _objects select{
     !(isSimpleObject _x) && 
-    ((typeOf _x) isKindOf "Static")
+    ((typeOf _x) isKindOf "Static") && 
+	!((typeOf _x) isKindOf "Helper")
 };
 
 diag_log format["CENTER = %1 | _landscape = %2","ignored",_landscape];
 private _missionLandscape = [];
 {
-	_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x),[vectorDir _x,vectorUp _x], 'true','true'];
+	_missionLandscape pushBack format['     ["%1",%2,%3,%4]',typeOf _x,(getPosATL _x),[vectorDir _x,vectorUp _x], [true,true]];
 }forEach _landscape;
 
 private _simpleObjects = _objects select {isSimpleObject _x};
@@ -144,15 +142,13 @@ private _lootVehicles = _objects select {
 };
 diag_log format["_lootVehicles = %1",_lootVehicles];
 {
-	_missionLootVehicles pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x), '_crateLoot','_lootCounts',[vectorDir _x,vectorUp _x]];
+	_missionLootVehicles pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x), [vectorDir _x,vectorUp _x],'_crateLoot','_lootCounts'];
 } forEach _lootVehicles;
 
 _missionPatrolVehicles = [];
 private _patrolVehicles = _objects select {
-	((typeOf _x) isKindOf "AllVehicles") && 
-	!((typeOf _x) isKindOf "Man") &&
+	(((typeOf _x) isKindOf "Car") || ((typeOf _x) isKindOf "Tank") || ((typeOf _x) isKindOf "Ship")) && 
 	!((typeOf _x) isKindOf "SDV_01_base_F") && 
-	!((typeOf _x) isEqualTo "Air") &&
 	!(_x in _lootVehicles)
 };
 diag_log format["_patrolVehicles = %1",_patrolVehicles];
@@ -197,7 +193,7 @@ private _infantry = _units select {
 diag_log format["_infantry = %1",_infantry];
 _infantryGroups = [];
 {
-	_infantryGroups pushBack format['     ,[%1,%2,%3,"%4",%5,%6]',(getPosATL _x),blck_minAI,blck_maxAI,blck_MissionDifficulty,maxPatrolRadius,600,-1];
+	_infantryGroups pushBack format['     [%1,%2,%3,"%4",%5,%6]',(getPosATL _x),blck_minAI,blck_maxAI,blck_MissionDifficulty,maxPatrolRadius,600,-1];
 } forEach  _units;
 
 private _scuba = _units select {
@@ -217,7 +213,7 @@ private _ammoBoxes = _objects select {
 };
 diag_log format["_ammoBoxes = %1",_ammoboxes];
 {
-	_lootContainers pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x), '_crateLoot','_lootCounts',[vectorDir _x,vectorUp _x]];
+	_lootContainers pushBack format['     ["%1",%2,%3,%4,%5,%6]',typeOf _x,(getPosATL _x), [vectorDir _x,vectorUp _x],[true,true],'_crateLoot','_lootCounts'];
 }forEach _ammoBoxes;
 
 private _lines = [];
@@ -233,8 +229,15 @@ _lines pushBack "";
 _lines pushBack '#include "\q\addons\custom_server\Configs\blck_defines.hpp";';
 _lines pushBack '#include "privateVars.sqf";';
 _lines pushBack "";
-_lines pushBack format["_markerType = %1",format["[%1,%2,%3];",_markerType,_markerSize,_markerBrush]];
-_lines pushBack format["_markerColor = %1;",_markerColor];
+_lines pushBack format["_missionCenter = %1;",_markerPos];
+
+if !(_markerBrush isEqualTo "") then 
+{
+	_lines pushBack format["_markerType = %1",format['["%1",%2,%3];',_markerType,_markerSize,_markerBrush]];
+} else {
+	_lines pushBack format["_markerType = %1",format['"%1",%2',_markerType,_markerSize]];
+};
+_lines pushBack format['_markerColor = "%1";',_markerColor];
 _lines pushBack format['_markerMissionName = "%1";',blck_dynamicmarkerMissionName];
 _lines pushBack format['_crateLoot = blck_BoxLoot_%1;',blck_MissionDifficulty];
 _lines pushBack format['_lootCounts = blck_lootCounts%1;',blck_MissionDifficulty];
