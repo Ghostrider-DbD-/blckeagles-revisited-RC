@@ -101,8 +101,8 @@ switch (blck_simulationManager) do
 	case 0: {["[blckeagls] simulation management disabled"] call blck_fnc_log};
 };
 
-[format["[blckeagls] version %1 Build %2 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime]] call blck_fnc_log;
-[format["[blckeagls] waiting for players to join ----    >>>>"]] call blck_fnc_log;
+[format["Version %1 Build %2 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime]] call blck_fnc_log;
+[format["Waiting for players to join ----    >>>>"]] call blck_fnc_log;
 
 if ( !(blck_debugON) && (blck_debugLevel isEqualTo 0)) then
 {
@@ -199,5 +199,5 @@ blck_graveyardGroup setVariable ["blck_group",1];
 [] spawn blck_fnc_mainThread;
 blck_pvs_version = blck_versionNumber;
 publicVariable "blck_pvs_version";
-[format["[blckeagls] version %1 Build %2 Date %4 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime,blck_buildDate]] call blck_fnc_log;
+[format["Version %1 Build %2 Date %4 Loaded in %3 seconds",blck_versionNumber,blck_buildNumber,diag_tickTime - _blck_loadingStartTime,blck_buildDate]] call blck_fnc_log;
 

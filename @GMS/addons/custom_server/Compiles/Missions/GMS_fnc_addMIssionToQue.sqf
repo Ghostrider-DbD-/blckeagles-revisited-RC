@@ -13,6 +13,12 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_missionList","_path","_marker","_difficulty","_tMin","_tMax",["_noMissions",1]];
+if (blck_debugLevel >= 3) then 
+{
+	{
+		diag_log format["_addMissionToQue: _this %1 = %2",_forEachIndex, _this select _forEachIndex];
+	} forEach _this;
+};
 private _waitTime = diag_tickTime + (_tMin) + random((_tMax) - (_tMin));
 private _missionsData = []; // Parameters definine each of the missions for this difficulty are stored as arrays here.
 {

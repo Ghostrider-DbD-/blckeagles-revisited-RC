@@ -60,7 +60,18 @@ params[
 
 switch (_endCondition) do 
 {
-	case 1: {
+	case -1: {
+			#define	cleanupCompositionTimer  0
+			#define	cleanupAliveAITimer  0
+			
+			{
+				if (local _x) then {deleteVehicle _x};
+			}forEach _crates;
+
+			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[format["Mission <TIMED OUT> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;			
+	};
+	case 1: {  // Normal End
 			if (blck_useSignalEnd) then
 			{
 				[_crates select 0] spawn blck_fnc_signalEnd;
@@ -92,6 +103,7 @@ switch (_endCondition) do
 			} forEach _vehicles;
 
 			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,blck_AliveAICleanUpTimer,blck_cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[format["Mission Completed | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;			
 	};
 	case 2: {  // Aborted for moving a crate 
 
@@ -101,6 +113,7 @@ switch (_endCondition) do
 				#define illegalCrateMoveMsg "Crate moved before mission completed"
 				[["warming",illegalCrateMoveMsg,_markerLabel]] call blck_fnc_messageplayers;
 				[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+				[format["Mission Aborted <CRATE MOVED> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;
 	};
 	case 3: {  // Mision aborted for killing an asset
 			#define	cleanupCompositionTimer  0
@@ -111,6 +124,7 @@ switch (_endCondition) do
 			}forEach _crates;
 			[["warning",_endMsg,_markerLabel]] call blck_fnc_messageplayers;
 			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[format["Mission Aborted <ASSET KILLED> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;
 
 	};
 	case 4: {
@@ -125,5 +139,4 @@ switch (_endCondition) do
 	};
 };
 
-[format["Mission Completed | _cords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;
 blck_missionsRun = blck_missionsRun + 1;

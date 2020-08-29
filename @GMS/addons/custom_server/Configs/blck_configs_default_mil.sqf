@@ -952,5 +952,5 @@ blck_contructionLoot = blck_BoxLoot_Orange;
 blck_highPoweredLoot = blck_BoxLoot_Orange;
 blck_supportLoot = blck_BoxLoot_Orange;
 
-diag_log "[blckeagls] Default Configurations Loaded";
+["Default Configurations Loaded"] call blck_fnc_log;
 

@@ -1321,5 +1321,5 @@ blck_highPoweredLoot = [
 		]
 ];
 
-	diag_log format["[blckeagls] Configurations for Exile Loaded"];
+	["Configurations for Exile Loaded"] call blck_fnc_log;
 

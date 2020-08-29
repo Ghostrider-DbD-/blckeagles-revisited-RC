@@ -58,17 +58,25 @@ while {true} do
 	{
 		_timer1min = diag_tickTime + 60;
 
-		[] call blck_fnc_groupWaypointMonitor; 
+		[] call blck_fnc_groupWaypointMonitor;
+		[] call blck_fnc_cleanupAliveAI;
+		[] call blck_fnc_cleanupObjects;
+		[] call blck_fnc_cleanupDeadAI;			 
 		if (blck_useHC) then {[] call blck_fnc_HC_passToHCs};
 		if (blck_useTimeAcceleration) then {[] call blck_fnc_timeAcceleration};
 		if (blck_ai_offload_to_client) then {[] call blck_fnc_ai_offloadToClients};
 	};
 	if (diag_tickTime > _timer5min) then 
 	{
-		[format["Timstamp %8 |Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7",blck_missionsRunning,blck_dynamicUMS_MissionsRuning,count blck_monitoredVehicles,count blck_monitoredMissionAIGroups,diag_FPS,floor(diag_tickTime/60),blck_missionsRun, diag_tickTime]] call blck_fnc_log;
-		[] call blck_fnc_cleanupAliveAI;
-		[] call blck_fnc_cleanupObjects;
-		[] call blck_fnc_cleanupDeadAI;	
+		[format["Timstamp %8 |Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7",
+			blck_missionsRunning,
+			blck_dynamicUMS_MissionsRuning,
+			count blck_monitoredVehicles,
+			count blck_monitoredMissionAIGroups,
+			diag_FPS,floor(diag_tickTime/60),
+			blck_missionsRun, 
+			diag_tickTime]
+		] call blck_fnc_log;
 		[] call blck_fnc_cleanEmptyGroups;			
 		_timer5min = diag_tickTime + 300;
 	};

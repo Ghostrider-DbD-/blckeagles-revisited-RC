@@ -18,7 +18,20 @@ params["_missionCategoryDescriptors","_missionParameters"];
 		"_missionsData"  // 
 	];
 
-
+if (blck_debugLevel >= 3) then 
+{
+	{
+		diag_log format["_initializeMission: _missionCategoryDescriptors %1 = %2",_forEachIndex, _missionCategoryDescriptors];
+	} forEach [
+			"_difficulty",
+			"_noMissions",  // Max no missions of this category
+			"_noActive",  // Number active 
+			"_tMin", // Used to calculate waittime in the future
+			"_tMax", // as above
+			"_waitTime",  // time at which a mission should be spawned
+			"_missionsData"  // 
+		];
+};
 if (_noActive > _noMissions) exitWith {if (blck_debugOn) then {}};
 
 _missionParameters params[
@@ -150,3 +163,5 @@ private _missionData = [_coords,_mines,_objects,_crates, _blck_AllMissionAI,_ass
 blck_activeMissionsList pushBack [_missionCategoryDescriptors,_missionTimeoutAt,_triggered,_spawnPara,_missionData,_missionParameters];
 
 [format["Initialized Mission %1 | description %2 | difficulty %3 at %4",_markerName, _markerMissionName, _difficulty, diag_tickTime]] call blck_fnc_log;
+
+true

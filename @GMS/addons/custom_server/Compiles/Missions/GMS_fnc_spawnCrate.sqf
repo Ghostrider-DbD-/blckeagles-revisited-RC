@@ -19,7 +19,7 @@ _crate allowDamage false;
 _crate enableRopeAttach false;
 [_crate] call blck_fnc_emptyObject;
 _crate setPosATL [_coords select 0, _coords select 1, (_coords select 2) + 0.25];
-_crate setDir _crateDir;
+[_crate, _crateDir] call blck_fnc_setDirUp;
 _crate setVectorUp surfaceNormal position _crate;
 
 if ((_coords select 2) < 0 || surfaceIsWater (_coords)) then

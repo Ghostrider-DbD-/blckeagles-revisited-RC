@@ -1,6 +1,6 @@
 /*
 	Mission Template by Ghostrider [GRG]
-	Mission Compositions by Thomas TKO
+	Mission Compositions by Bill prepared for ghostridergaming
 	Copyright 2016
 	Last modified 3/20/17
 	
@@ -17,12 +17,12 @@
 //diag_log "[blckeagls] Spawning Orange Mission with template = default";
 _crateLoot = blck_BoxLoot_Orange;
 _lootCounts = blck_lootCountsOrange;
-_startMsg = "An enemy Operations Base was sighted in a nearby sector! Check the Orange marker on your map for the location!";
-_endMsg = "The Operations Base at the Orange Marker is under survivor control!";
+_startMsg = "An enemy HQ center was sighted in a nearby sector! Check the Orange marker on your map for the location!";
+_endMsg = "The HQ at the Orange Marker is under survivor control!";
 _markerLabel = "";
 _markerType = ["ELLIPSE",[300,300],"Solid"];
 _markerColor = "ColorOrange";
-_markerMissionName = "Operations Base";
+_markerMissionName = "Operationsbasis";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 
 //////////
@@ -179,15 +179,15 @@ _missionLandscape = [
 ];
 
 _missionLootBoxes = [
-     ["B_supplyCrate_F",[0.0717773,16.9431,-0.00143814],_crateLoot,_lootCounts,0.000320471]
+     //["Exile_Container_SupplyBox",[0.0717773,16.9431,-0.00143814],_crateLoot,_lootCounts,0.000320471]
 ];
 
 _missionLootVehicles = [
 ];
 
 _missionPatrolVehicles = [
-    // ["O_T_LSV_02_armed_F",[-62.7971,0.422119,-0.0236669],0.00164848],
-    // ["O_T_LSV_02_armed_F",[31.9084,-7.18774,-0.0238085],0.00168349]
+     ["O_T_LSV_02_armed_F",[-62.7971,0.422119,-0.0236669],0.00164848],
+     ["O_T_LSV_02_armed_F",[31.9084,-7.18774,-0.0238085],0.00168349]
 ];
 
 _submarinePatrolParameters = [
@@ -196,26 +196,9 @@ _submarinePatrolParameters = [
 _airPatrols = [
 ];
 
-_missionEmplacedWeapons = [
-     ["B_HMG_01_high_F",[-27.1521,-29.2402,-0.0135579],154.874],
-     ["B_HMG_01_high_F",[-14.2676,-29.4304,-0.013557],206.716],
-     ["B_HMG_01_high_F",[-12.8362,1.83374,-0.0135579],25.3994],
-     ["B_HMG_01_high_F",[-26.5833,1.45483,-0.0135574],336.99],
-     ["B_HMG_01_high_F",[-26.2922,25.8635,-0.0135584],25.3994],
-     ["B_HMG_01_high_F",[-5.00732,29.4277,-0.0135579],359.999],
-     ["B_HMG_01_high_F",[-7.33691,36.0117,-0.0135584],357.806],
-     ["B_HMG_01_high_F",[8.54346,36.1248,-0.0135579],359.962]
-];
+_missionEmplacedWeapons = []; //
 
-_missionGroups = [
-     [[-41.0581,-3.45898,0],3,6,"Red",30,45],
-     [[-37.6394,8.57202,0],3,6,"Red",30,45],
-     [[-21.9045,-23.5044,0],3,6,"Red",30,45],
-     [[-4.78564,-4.45728,0],3,6,"Red",30,45],
-     [[-12.2888,11.2847,0],3,6,"Red",30,45],
-     [[-19.8623,-10.6353,0],3,6,"Red",30,45],
-     [[4.07446,-4.8584,0],3,6,"Red",30,45]
-];
+
 
 //////////
 //   The lines below define additional variables you may wish to configure.
@@ -243,6 +226,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-//_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
-#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";
+#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";  

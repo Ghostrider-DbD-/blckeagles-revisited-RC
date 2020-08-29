@@ -21,21 +21,22 @@ private "_markers";
 	["_markerBrush","GRID"]
  ];
 
-/* 
-private _pList =[
-	"_markerName",  // the name used when creating the marker. Must be unique.
-	"_markerPos",
-	"_markerLabel",
-	"_markerColor",
-	"_markerType",	// Use either the name of the icon or "ELLIPSE" or "RECTANGLE" where non-icon markers are used
-	"_markerSize",
-	"_markerBrush"
- ];
-for "_i" from 0 to ((count _this) - 1) do
+if (blck_debugLevel >= 3) then 
 {
-	diag_log format["_fnc_createMarker: parameter %1 = %2",_pList select _i,_this select _i];
-}; 
-*/
+	private _pList =[
+		"_markerName",  // the name used when creating the marker. Must be unique.
+		"_markerPos",
+		"_markerLabel",
+		"_markerColor",
+		"_markerType",	// Use either the name of the icon or "ELLIPSE" or "RECTANGLE" where non-icon markers are used
+		"_markerSize",
+		"_markerBrush"
+	];
+	for "_i" from 0 to ((count _this) - 1) do
+	{
+		diag_log format["_fnc_createMarker: parameter %1 = %2",_pList select _i,_this select _i];
+	}; 
+};
 
 if (toUpper(_markerType) in ["ELLIPSE","RECTANGLE"]) then // not an Icon .... 
 {

@@ -10,7 +10,7 @@ _lootCounts = blck_lootCountsRed;
 _startMsg = "Car thieves were sighted in a nearby sector! Check the Red marker on your map for the location!";
 _endMsg = "The Sector at the Red Marker is under survivor control!";
 _markerLabel = "";
-_markerType = ["ellipse",[200,200],"GRID"];
+_markerType = ["ELLIPSE",[300,300],"Solid"];
 _markerColor = "ColorRed";
 _markerMissionName = "Thieves";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
@@ -69,6 +69,6 @@ _backpacs = blck_CUPBackpacks;
 _headgear = blck_CUPHeadgear;
 #endif
 
-//_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

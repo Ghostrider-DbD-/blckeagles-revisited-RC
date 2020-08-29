@@ -17,7 +17,7 @@
 //diag_log "[blckeagls] Spawning Green Mission with template = default";
 _crateLoot = blck_BoxLoot_Green;
 _lootCounts = blck_lootCountsGreen;
-_startMsg = "An enemy garrison!";
+_startMsg = "An enemy garrison was sighted in a nearby sector!";
 _endMsg = "The garrison is under survivor control!";
 _markerLabel = "";
 _markerType = ["ellipse",[225,225],"GRID"];

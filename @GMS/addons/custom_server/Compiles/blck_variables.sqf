@@ -52,5 +52,9 @@ blck_activeMissionsList = [];
 blck_initializedMissionsList = [];
 blck_blackListedLocations = []; // [ [marker, time]]
 
+blck_validEndStates = ["allUnitsKilled", "playerNear", "allKilledOrPlayerNear","assetSecured"];
+blck_validLootSpawnTimings = ["atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir"];
+blck_validLootLoadTimings = ["atMissionCompletion", "atMissionSpawn"];
+
 if (blck_debugOn) then {diag_log "[blckeagls] Variables Loaded"};
 

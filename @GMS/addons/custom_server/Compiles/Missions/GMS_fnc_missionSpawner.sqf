@@ -19,14 +19,14 @@ private ["_abort","_crates","_aiGroup","_objects","_groupPatrolRadius","_mission
 		"_wait","_missionStartTime","_playerInRange","_missionTimedOut","_temp","_patrolVehicles","_vehToSpawn","_noChoppers","_chancePara","_paraSkill","_marker","_vehicleCrewCount",
 		"_defaultMissionLocations","_garrisonedbuildings_buildingposnsystem","_garrisonedBuilding_ATLsystem", "_isScubaMission","_markerlabel","_missionLootBoxes","_airpatrols"];
 		
-params["_markerName","_aiDifficultyLevel"];
+params["_markerName",["_aiDifficultyLevel","Red"]];
 if (isNil "_markerLabel") then {_markerLabel = _markerMissionName};
 if (isNil "_assetKilledMsg")			 then {_assetKilledMsg = ""};
 if (isNil "_markerColor") 				then {_markerColor = "ColorBlack"};
 if (isNil "_markerType") 				then {_markerType = ["mil_box",[]]};
 if (isNil "_markerSize") 				then {_markerSize = []};
 if (isNil "_endCondition") 				then {_endCondition = blck_missionEndCondition};  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"};
-if (isNil "_spawnCratesTiming")	 		then {_spawnCratesTiming = blck_spawnCratesTiming}; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+if (isNil "_spawnCratesTiming")	 		then {_spawnCratesTiming = blck_spawnCratesTiming}; // Choices: "atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir". 
 if (isNil "_loadCratesTiming") 			then {_loadCratesTiming = blck_loadCratesTiming}; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
 if (isNil "_missionPatrolVehicles") 	then {_missionPatrolVehicles = []};
 if (isNil "_missionGroups") 			then {_missionGroups = []};
@@ -72,6 +72,23 @@ if !(_defaultMissionLocations isEqualTo []) then
 };
 _markerType params["_markerType",["_markersize",[250,250]],["_markerBrush","GRID"]];
 private _paraSkill = _aiDifficultyLevel;
+
+
+if !(_spawnCratesTiming in blck_validLootSpawnTimings) then 
+{
+	[format['Invalid crate spawn timing %1 found in mission %2 :: default value "atMissionSpawnGround" used',_spawnCratesTiming,_markerMissionName],"<WARNING>"] call blck_fnc_log;
+	_spawnCratesTiming = "atMissionSpawnGround";
+};
+if !(_loadCratesTiming in blck_validLootLoadTimings) then 
+{
+	[format['Invalid crate loading timing %1 found in mission %2 :: default "atMissionSpawn" value used',_loadCratesTiming,_markerMissionName],"<WARNING>"] call blck_fnc_log;
+	_loadCratesTiming = "atMissionSpawn";
+};
+if !(_endCondition in blck_validEndStates) then 
+{
+	[format['Invalid mission end condition %1 found in mission %2 :: default value "allKilledOrPlayerNear"; used',_endCondition,_markerMissionName],"<WARNING>"] call blck_fnc_log;
+	_endCondition = "allKilledOrPlayerNear";
+};
 
 private _table = [
 	_markerName,

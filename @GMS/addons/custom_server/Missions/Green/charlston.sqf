@@ -14,13 +14,13 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 #include "\q\addons\custom_server\Missions\privateVars.sqf";
 
-_crateLoot = blck_BoxLoot_Red;
-_lootCounts = blck_lootCountsRed;
+_crateLoot = blck_BoxLoot_Green;
+_lootCounts = blck_lootCountsGreen;
 _startMsg = "Camp Charlston is being built by the enemy in a nearby sector.";
 _endMsg = "Camp Charleston is under survivor control!";
 _markerLabel = "";
-_markerType = ["ellipse",[200,200],"GRID"];
-_markerColor = "ColorRed";
+_markerType = ["ellipse",[200,200],"Solid"];
+_markerColor = "ColorGreen";
 _markerMissionName = "Camp Charleston";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 
@@ -156,8 +156,8 @@ _missionLootBoxes = [];
 _missionLootVehicles = [];
 
 _missionPatrolVehicles = [
-    // ["B_G_Offroad_01_armed_F",[21.4174,19.0781,0.00804281],90.3115],
-    // ["B_G_Offroad_01_armed_F",[27.5131,-53.1431,0.00819397],268.528]
+     ["B_G_Offroad_01_armed_F",[21.4174,19.0781,0.00804281],90.3115],
+     ["B_G_Offroad_01_armed_F",[27.5131,-53.1431,0.00819397],268.528]
 ];
 
 _missionLootBoxes = [];  //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
@@ -167,11 +167,11 @@ _missionGroups = [];
 
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;
-_minNoAI = blck_MinAI_Red;
-_maxNoAI = blck_MaxAI_Red;
-_noAIGroups = blck_AIGrps_Red;
-_noVehiclePatrols = blck_SpawnVeh_Red;
-_noEmplacedWeapons = blck_SpawnEmplaced_Red;
+_minNoAI = blck_MinAI_Green;
+_maxNoAI = blck_MaxAI_Green;
+_noAIGroups = blck_AIGrps_Green;
+_noVehiclePatrols = blck_SpawnVeh_Green;
+_noEmplacedWeapons = blck_SpawnEmplaced_Green;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
 _chanceLoot = 0.6; 
@@ -180,6 +180,6 @@ private _paralootChoices = [blck_contructionLoot,blck_contructionLoot,blck_highP
 private _paralootCountsChoices = [[0,0,0,8,8,0],[0,0,0,8,8,0],[8,8,0,0,0,0],[0,0,0,0,12,0]];
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
-//_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = "allKilledOrPlayerNear"; // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";

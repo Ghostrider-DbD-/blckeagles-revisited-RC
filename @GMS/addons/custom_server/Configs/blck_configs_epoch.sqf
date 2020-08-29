@@ -12,7 +12,7 @@
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 #include "\q\addons\custom_server\init\build.sqf";
-diag_log format["[blckeagls] loading configurations for Epoch for blckeagls build %1",blck_buildNumber];
+[format["Loading configurations for Epoch for blckeagls build %1",blck_buildNumber]] call blck_fnc_log;
 ////////////
 // Epoch-specific settings
 ////////////	
@@ -1177,5 +1177,5 @@ blck_contructionLoot = blck_BoxLoot_Orange;
 blck_highPoweredLoot = blck_BoxLoot_Orange;
 blck_supportLoot = blck_BoxLoot_Orange;
 
-diag_log "[blckeagls] Configurations for Epoch Loaded";
+["Configurations for Epoch Loaded"] call blck_fnc_log;
 

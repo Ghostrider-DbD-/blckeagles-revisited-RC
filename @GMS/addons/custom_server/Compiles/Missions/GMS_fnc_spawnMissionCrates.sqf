@@ -58,7 +58,7 @@ private _cratesSpawned = [];
 	
 	private _pos = _coords vectorAdd _crateOffset;
 	private _crate = [_pos,_crateType] call blck_fnc_spawnCrate;
-	_crate setDir _crateDir;
+	[_crate, _crateDir] call blck_fnc_setDirUp;
 	_crate setVariable["lootArray",_lootArray];
 	_crate setVariable["lootCounts",_lootCounts];
 	_crate setVariable["difficulty",_difficulty];
@@ -70,7 +70,7 @@ private _cratesSpawned = [];
 	
 }forEach _cratesToSpawn;
 
-if (_spawnCrateTiming in ["atMissionEndAir","atMissionStartAir"]) then 
+if (_spawnCrateTiming in ["atMissionEndAir","atMissionSpawnAir"]) then 
 {
 	[_cratesSpawned] spawn _fnc_dropMissionCrates;
 };

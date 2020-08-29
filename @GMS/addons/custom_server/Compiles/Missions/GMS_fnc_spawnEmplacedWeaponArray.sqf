@@ -75,7 +75,7 @@ if (_missionEmplacedWeapons isEqualTo []) then
 	} else {
 		_abort = true;
 		_return = grpNull;
-		diag_log format["[blckeagls] <WARNING> createGroup returned grpNull"];
+		["createGroup returned grpNull","warning"] call blck_fnc_log;
 	};
 } forEach _missionEmplacedWeapons;
 if !(_abort) then 

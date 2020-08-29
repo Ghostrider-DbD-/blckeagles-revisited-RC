@@ -10,9 +10,6 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-//diag_log "[blckeagls] GMS_StaticMissions_init.sqf <Initializing Static Mission System>";
-//static mission descriptor for code: [position,level, numAI or [min,maxAI],patrolRadius, respawn, group[groupNull],spawnedAt[0],respawn[0]]
-#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 #include "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_Lists.sqf";
 
 blck_sm_Infantry = [];
@@ -34,7 +31,8 @@ blck_sm_patrolRespawnInterval = 600;
 	{
 		if ((toLower blck_modType) isEqualTo (toLower(_x select 0))) then
 		{
-			call compilefinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\Static\missions\%1",(_x select 2)];
+			[] call compilefinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\Static\missions\%1",(_x select 2)];
+			diag_log format["_initializing static mission %1 for mod type %2",_x select 1,blck_modType];
 		};
 	};
 }forEach _staticMissions;

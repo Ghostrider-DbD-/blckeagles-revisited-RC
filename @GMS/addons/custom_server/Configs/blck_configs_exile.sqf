@@ -17,11 +17,11 @@
 #ifdef blck_milServer
 if (true) exitWith 
 {
-	diag_log "[blckeagls] running blck_configs_exile_mil for militarized servers";
+	["Running blck_configs_exile_mil for militarized servers"] call blck_fnc_log;
 	execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
 };
 #endif
-diag_log "[blckeagls] Loading Exile-specific configs for Non-militarized servers: blck_configs_exile.sqf";
+["Loading Exile-specific configs for Non-militarized servers: blck_configs_exile.sqf"] call blck_fnc_log;
 ////////////
 // Exile-specific settings
 ////////////	
@@ -1272,4 +1272,4 @@ blck_highPoweredLoot = [
 		]
 ];
 
-diag_log format["[blckeagls] Configurations for Exile Loaded"];
+["Configurations for Exile Loaded"] call blck_fnc_log;

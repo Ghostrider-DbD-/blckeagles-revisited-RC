@@ -36,7 +36,7 @@ _newObjs pushBack _obj;
 
 	_obj = createVehicle[(_x select 0),_center vectorAdd (_x select 1),[],0,"CAN_COLLIDE"];
 	_newObjs pushback _obj;
-	_obj setDir (_x select 2);
+	[_obj, (_x select 2)] call blck_fnc_setDirUp;
 	_obj enableDynamicSimulation _sim;
 	_obj allowDamage _dam;	
 	if ((typeOf _obj) isKindOf "LandVehicle" || (typeOf _obj) isKindOf "Air" || (typeOf _obj) isKindOf "Sea") then

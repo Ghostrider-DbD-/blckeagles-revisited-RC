@@ -1094,5 +1094,5 @@ for examples of how you can do this see \Major\Compositions.sqf
 	blck_highPoweredLoot = blck_BoxLoot_Orange;
 	blck_supportLoot = blck_BoxLoot_Orange;
 
-	diag_log "[blckeagls] Configurations for Epoch Loaded";
+	["Configurations for Epoch Loaded"] call blck_fnc_log;
 

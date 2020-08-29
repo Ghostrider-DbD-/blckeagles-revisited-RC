@@ -122,7 +122,7 @@ _missionLandscape = [
 ];
 
 _missionLootBoxes = [
-     ["B_supplyCrate_F",[1.55273,0.0065918,-0.00143957],_crateLoot,_lootCounts,0.000522983]
+     //["Exile_Container_SupplyBox",[1.55273,0.0065918,-0.00143957],_crateLoot,_lootCounts,0.000522983]
 ];
 
 _missionLootVehicles = [
@@ -139,36 +139,9 @@ _submarinePatrolParameters = [
 _airPatrols = [
 ];
 
-_missionEmplacedWeapons = [
-     ["B_HMG_01_high_F",[-8.31958,-28.7351,-0.0135579],359.998],
-     ["B_HMG_01_high_F",[-25.1523,-1.33643,-0.0135579],359.999],
-     ["B_HMG_01_high_F",[-23.7974,-12.0527,-0.0135579],359.998],
-     ["B_HMG_01_high_F",[-18.7363,-10.283,-0.0135579],359.998],
-     ["B_HMG_01_high_F",[-21.9993,4.10132,-0.0135579],359.999],
-     ["B_HMG_01_high_F",[-18.2954,25.033,-0.0135579],359.999],
-     ["B_HMG_01_high_F",[-0.275879,18.9167,-0.0135579],0.000433404],
-     ["B_HMG_01_high_F",[18.0608,-20.4434,-0.0135579],359.999],
-     ["B_HMG_01_high_F",[5.96338,-3.91113,-0.0135593],286.946]
-];
+_missionEmplacedWeapons = []; //
 
-_missionGroups = [
-     //[[-2.42578,-9.81299,0],3,6,"Red",30,45],
-     //[[-16.3196,-3.59033,0],3,6,"Red",30,45],
-     //[[-4.65015,-0.520264,0],3,6,"Red",30,45],
-     //[[-7.48169,-14.3093,0],3,6,"Red",30,45],
-     //[[-5.94653,-0.124756,0],3,6,"Red",30,45],
-     //[[20.2122,-6.24878,0],3,6,"Red",30,45],
-     //[[20.0557,6.34253,0],3,6,"Red",30,45],
-     [[15.1677,-10.6943,0],3,6,"Red",30,45],
-     [[2.0083,-14.293,-4.76837e-007],3,6,"Red",30,45],
-     [[1.84692,-7.56616,-4.76837e-007],3,6,"Red",30,45],
-     [[2.71069,-14.7263,-4.76837e-007],3,6,"Red",30,45],
-     [[2.50513,-13.1191,0],3,6,"Red",30,45],
-     [[13.8992,11.4729,0],3,6,"Red",30,45],
-     [[3.75098,11.2024,0],3,6,"Red",30,45],
-     [[18.3645,19.8477,0],3,6,"Red",30,45],
-     [[3.17798,26.7761,0],3,6,"Red",30,45]
-];
+
 
 //////////
 //   The lines below define additional variables you may wish to configure.
@@ -196,6 +169,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-//_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
-#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";
+#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

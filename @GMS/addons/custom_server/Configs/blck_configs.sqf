@@ -22,11 +22,11 @@
 	#ifdef blck_milServer
 	if (true) exitWith 
 	{
-		diag_log format["[blckeagls] Running configs for militarized servers build %1",blck_buildNumber];
+		[format["Running configs for militarized servers build %1",blck_buildNumber]] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_configs_mil.sqf";
 	};
 	#endif
-	diag_log format["[blckeagls] Loading configurations for Non-militarized servers build %1",blck_buildNumber];
+	[format["Loading configurations for Non-militarized servers build %1",blck_buildNumber]] call blck_fnc_log;
 	/*
 		**************************************
 		Configurations begin here
@@ -122,7 +122,7 @@
 	///////////////////////////////	
 	blck_killPercentage = 0.999999;  // The mission will complete if this fraction of the total AI spawned has been killed.
 								// This facilitates mission completion when one or two AI are spawned into objects.	
-	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir".
+	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir".
 							 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
 							 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
 	blck_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
@@ -253,10 +253,10 @@
 	
 
 	//Maximum Spawn time between missions in seconds
-	blck_TMax_Orange = 520;
+	blck_TMax_Orange = 560;
 	blck_TMax_Green = 500;
-	blck_TMax_Blue = 340;
-	blck_TMax_Red = 400;
+	blck_TMax_Blue = 360;
+	blck_TMax_Red = 420;
 	blck_TMax_UMS = 400;
 
 
@@ -494,12 +494,10 @@
 	
 	if (toLower(blck_modType) isEqualTo "epoch") then
 	{
-
 		execVM "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
 	};
 	if (toLower(blck_modType)  isEqualTo "exile") then
 	{
-
 		execVM "\q\addons\custom_server\Configs\blck_configs_exile.sqf";
 	};	
 	if (toLower(blck_modType) isEqualTo "default") then 
@@ -509,11 +507,11 @@
 	uiSleep 10;
 	if (blck_useConfigsGeneratedLoadouts) then
 	{
-		diag_log format["[blckeagls] Dynamic Configs Enabled"];
+		["Dynamic Configs Enabled"] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_dynamicConfigs.sqf";
 	} else {
 
 	};
 
 	blck_configsLoaded = true;
-	diag_log format["<--- blck_configs loaded at %1 --->",diag_tickTime];
+	//diag_log format["<--- blck_configs loaded at %1 --->",diag_tickTime];

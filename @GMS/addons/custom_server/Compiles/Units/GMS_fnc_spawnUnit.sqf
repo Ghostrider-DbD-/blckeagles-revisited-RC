@@ -22,7 +22,7 @@ if (_headGear  isEqualTo [])  then {_headGear = [_skillLevel] call blck_fnc_sele
 if (_vests  isEqualTo [])     then {_vests = [_skillLevel] call blck_fnc_selectAIVests};
 if (_backpacks  isEqualTo []) then {_backpacks = [_skillLevel] call blck_fnc_selectAIBackpacks};
 
-if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
+if (isNull _aiGroup) exitWith {["NULL-GROUP Provided to _fnc_spawnUnit"] call blck_fnc_log};
 
 _unit = ObjNull;
 

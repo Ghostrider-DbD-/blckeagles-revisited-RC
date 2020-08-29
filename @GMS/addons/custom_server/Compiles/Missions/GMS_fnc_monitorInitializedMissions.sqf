@@ -121,9 +121,9 @@ _missionParameters params[
 		// Handle Timeout
 		case -1:
 		{
-				[format["_fnc_monitorInitializedMissions: mission timed out: %1",_el]] call blck_fnc_log;
+				//[format["_fnc_monitorInitializedMissions: mission timed out: %1",_el]] call blck_fnc_log;
 				_missionCategoryDescriptors set[noActive, _noActive - 1];
-				[_coords,_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  1] call blck_fnc_endMission;
+				[_coords,_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  -1] call blck_fnc_endMission;
 		}; 			
 		
 		//  Handle mission waiting to be triggerd and player is within the range to trigger		
@@ -270,7 +270,7 @@ _missionParameters params[
 				uiSleep  delayTime;
 				if (blck_debugLevel >= 3) then {diag_log format["monitorInitializedMissions:  _spawnCrateTiming = %1 _loadCratesTiming = %2 | _markerMissionName = %3",_spawnCratesTiming,_loadCratesTiming, _markerMissionName]};
 				if (blck_debugLevel >= 3) then {diag_log format["monitorInitializedMissions:  _missionLootBoxes = %1",_missionLootBoxes]};
-				if (_spawnCratesTiming in ["atMissionSpawnGround","atMissionStartAir"]) then
+				if (_spawnCratesTiming in ["atMissionSpawnGround","atMissionSpawnAir"]) then
 				{
 					if (_missionLootBoxes isEqualTo []) then
 					{
@@ -284,6 +284,13 @@ _missionParameters params[
 					if (blck_cleanUpLootChests) then
 					{
 						_objects append _crates;
+					};
+					if (_loadCratesTiming isEqualTo "atMissionSpawn") then 
+					{
+						private _crateMoney = missionNamespace getVariable (format["blck_crateMoney%1",_difficulty]);
+						{
+							[_x,_crateMoney] call blck_fnc_addMoneyToObject;
+						} forEach _crates;
 					};
 				};
 				_missionData set[2,_objects];
@@ -328,6 +335,9 @@ _missionParameters params[
 			/*
 				"_endCondition",
 			*/
+			_secureAsset = false;
+			_endIfPlayerNear = true;
+			_endIfAIKilled = true;
 
 			switch (_endCondition) do
 			{
@@ -367,7 +377,7 @@ _missionParameters params[
 							};
 							if (random(1) < _chanceLoot) then
 							{
-								private _extraCrates = [_coords,[[selectRandom blck_crateTypes,[0,0,0],_paraLoot,_paraLootCounts]], "atMissionSpawn","atMissionStartAir", "start", _difficulty] call blck_fnc_spawnMissionCrates;
+								private _extraCrates = [_coords,[[selectRandom blck_crateTypes,[0,0,0],_paraLoot,_paraLootCounts]], "atMissionSpawn","atMissionSpawnAir", "start", _difficulty] call blck_fnc_spawnMissionCrates;
 								if (blck_cleanUpLootChests) then
 								{
 									_objects append _extraCrates;
@@ -439,15 +449,21 @@ _missionParameters params[
 										{
 											_objects append _crates;
 										};
+										private _crateMoney = missionNamespace getVariable (format["blck_crateMoney%1",_difficulty]);										
+										{
+											[_x,_crateMoney] call blck_fnc_addMoneyToObject;
+										} forEach _crates;										
 									};
 								};	
 
-								if (_spawnCratesTiming isEqualTo "atMissionSpawnGround" && _loadCratesTiming isEqualTo "atMissionCompletion") then
+								if (_spawnCratesTiming in ["atMissionSpawnGround","atMissionSpawnAir"] && _loadCratesTiming isEqualTo "atMissionCompletion") then
 								{
 									if (!(_secureAsset) || (_secureAsset && (alive _assetSpawned))) then
 									{
+										private _crateMoney = missionNamespace getVariable (format["blck_crateMoney%1",_difficulty]);
 										{
-											[_x] call blck_fnc_loadMissionCrate;
+											[_x] call blck_fnc_loadMissionCrate;											
+											[_x,_crateMoney] call blck_fnc_addMoneyToObject;											
 										} forEach _crates;
 									};
 								};

@@ -20,7 +20,7 @@ _lootCounts = blck_lootCountsGreen;
 _startMsg = "An enemy fortification was sighted in a nearby sector! Check the Green marker on your map for the location!";
 _endMsg = "The Sector at the Green Marker is under survivor control!";
 _markerLabel = "";
-_markerType = ["ellipse",[225,225],"GRID"];
+_markerType = ["ELLIPSE",[300,300],"Solid"];
 _markerColor = "ColorGreen";
 _markerMissionName = "Fortification";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
@@ -150,8 +150,8 @@ _missionLootBoxes = [];  //  Parameters are "Box Item Code", array defining the 
 _missionLootVehicles = []; //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
 
 _missionPatrolVehicles = [
-    // ["B_G_Offroad_01_armed_F",[21.4174,19.0781,0.00804281],90.3115],
-     //["B_G_Offroad_01_armed_F",[27.5131,-53.1431,0.00819397],268.528]
+     ["B_G_Offroad_01_armed_F",[21.4174,19.0781,0.00804281],90.3115],
+     ["B_G_Offroad_01_armed_F",[27.5131,-53.1431,0.00819397],268.528]
 ];
 
 _submarinePatrolParameters = [];
@@ -159,20 +159,11 @@ _submarinePatrolParameters = [];
 _airPatrols = [];
 
 _missionEmplacedWeapons = [
-     ["B_HMG_01_high_F",[16.2078,-44.0503,-0.0135579],181.165],
-     ["B_HMG_01_high_F",[-3.70496,-32.2124,-0.0135565],270.389],
-     ["B_HMG_01_high_F",[19.3164,-15.3716,-0.0135574],225.183],
-     ["B_HMG_01_high_F",[33.6516,-44.6699,-0.0135579],181.165]
+
 ];
 
 _missionGroups = [
-     [[14.1273,-35.917,0],3,6,"Green",30,45],
-     [[22.5463,-29.3013,0],3,6,"Green",30,45],
-     [[16.6399,3.69727,0],3,6,"Green",30,45],
-     [[10.8357,-1.10449,0],3,6,"Green",30,45],
-     [[8.39612,-12.7705,0],3,6,"Green",30,45],
-     [[21.4102,-9.12207,0],3,6,"Green",30,45],
-     [[39.7784,-27.1958,0],3,6,"Green",30,45]
+
 ];
 
 _scubaGroupParameters = [];
@@ -192,6 +183,6 @@ private _paralootChoices = [blck_contructionLoot,blck_contructionLoot,blck_highP
 private _paralootCountsChoices = [[0,0,0,8,8,0],[0,0,0,8,8,0],[8,8,0,0,0,0],[0,0,0,0,12,0]];
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
-//_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";

@@ -10,8 +10,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_mission"];
-// Spawn landscape
-// params["_objects"];
+
 if (isNil "_markerColor") then {_markerColor = "ColorBlack"};
 if (isNil "_markerType") then {_markerType = ["mil_box",[]]};
 if (isNil "_missionLandscape") then {_missionLandscape = []};
@@ -28,7 +27,10 @@ if (isNil "_aiGroupParameters") then {_aiGroupParameters = []};
 if (isNil "_missionEmplacedWeapons") then {_missionEmplacedWeapons = []};
 if (isNil "_vehiclePatrolParameters") then {_vehiclePatrolParameters = []};
 if (isNil "_missionLootVehicles") then {_missionLootVehicles = []};
-
+if (isNil "_crateMoney") then 
+{
+	missionNamespace setVariable["_crateMoney",missionNamespace getVariable "blck_crateMoneyOrange"];
+};
 _markerClass = format["static%1",floor(random(1000000))];
 _blck_localMissionMarker = [_markerClass,_missionCenter,"","",_markerColor,_markerType];
 if (blck_labelMapMarkers select 0) then

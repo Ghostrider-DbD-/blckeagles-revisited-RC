@@ -12,7 +12,7 @@
 
 	#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 	#include "\q\addons\custom_server\init\build.sqf"	
-	diag_log format["[blckeagls] Loading blck_configs_mil.sqf for Militarized Servers for blckeagls build %1",blck_buildNumber];
+	[format["Loading blck_configs_mil.sqf for Militarized Servers for blckeagls build %1",blck_buildNumber]] call blck_fnc_log;
 
 	/***************************************************************
 		BLCKEAGLS SUPPLEMENTAL MODULES
@@ -98,7 +98,7 @@
 	blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 	blck_killPercentage = 0.99999999999;  // The mission will complete if this fraction of the total AI spawned has been killed.
 								// This facilitates mission completion when one or two AI are spawned into objects.	
-	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir". 
 							 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
 							 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
 	blck_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
@@ -231,18 +231,18 @@
 	////////////////////
 	
 	// Reduce to 1 sec for immediate spawns, or longer if you wish to space the missions out	
-	blck_TMin_Orange = 250;
-	blck_TMin_Green = 200;
-	blck_TMin_Blue = 120;
-	blck_TMin_Red = 150;
-	blck_TMin_UMS = 180;	
+	blck_TMin_Orange = 480;
+	blck_TMin_Green = 420;
+	blck_TMin_Blue = 300;
+	blck_TMin_Red = 360;
+	blck_TMin_UMS = 300;	
 	
 	//Maximum Spawn time between missions in seconds
-	blck_TMax_Orange = 360;
-	blck_TMax_Green = 300;
-	blck_TMax_Blue = 200;
-	blck_TMax_Red = 250;
-	blck_TMax_UMS = 200;
+	blck_TMax_Orange = 560;
+	blck_TMax_Green = 500;
+	blck_TMax_Blue = 360;
+	blck_TMax_Red = 420;
+	blck_TMax_UMS = 400;
 	
 	///////////////////////////////
 	// AI VEHICLE PATROL PARAMETERS
@@ -422,17 +422,17 @@
 
 	if (toLower(blck_modType) isEqualTo "epoch") then
 	{
-		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",blck_modType];
+		[format[" Loading Mission System using Parameters for %1 for militarized servers",blck_modType]] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_configs_epoch_mil.sqf";
 	};
 	if (toLower(blck_modType) isEqualTo "exile") then
 	{
-		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",blck_modType];
+		[format[" Loading Mission System using Parameters for %1 for militarized servers",blck_modType]] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
 	};	
 	if (toLower(blck_modType) isEqualTo "default") then 
 	{
-		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",blck_modType];
+		diag_log format[" Loading Mission System using Parameters for %1 for militarized servers",blck_modType]] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_configs_default_mil.sqf";
 	};
 	//waitUntil{!isNil "blck_useConfigsGeneratedLoadouts"};
@@ -440,7 +440,7 @@
 	uiSleep 10;
 	if (blck_useConfigsGeneratedLoadouts) then
 	{
-		diag_log format["[blckeagls] Dynamic Configs Enabled"];
+		[" Dynamic Configs Enabled"] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_dynamicConfigs.sqf";
 	};	
 

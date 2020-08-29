@@ -43,49 +43,56 @@ _missionLandscape = [
      //["Sign_Arrow_F",[-4333.49,-3526.14,-0.00143862],0,true,true],
      //["Sign_Arrow_Yellow_F",[-4333.49,-3526.14,-0.00143862],0,true,true],
      ["Land_BagFence_Long_F",[-29.7012,-38.5171,-0.00143862],91.6296,true,true],
-     ["Land_BagFence_Long_F",[-27.5103,-40.5801,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[-22.1475,-58.7117,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[-25.2705,-45.3574,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[-25.3784,-53.6096,-0.00143862],91.6296,true,true],
-     ["Land_BagFence_Corner_F",[-29.377,-40.2764,-0.00143862],181.63,true,true],
-     ["Land_BagFence_Corner_F",[-25.5186,-40.8857,-0.00143862],1.62962,true,true],
-     ["Land_BagFence_Long_F",[-27.6362,-36.2009,-0.00143862],1.62962,true,true],
-     ["Land_HBarrier_Big_F",[-31.3271,-12.1621,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[-26.2822,-19.4336,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[-31.4404,-20.5371,-0.00143862],91.6296,true,true],
-     ["Land_BagFence_Corner_F",[-29.3945,-36.5234,-0.00143862],271.63,true,true],
-     ["CamoNet_OPFOR_F",[-25.6099,-22.126,-0.00143862],1.62962,true,true],
-     ["CamoNet_OPFOR_big_F",[-23.2964,2.06958,-0.00143862],1.62962,true,true],
-     ["Land_HBarrier_Big_F",[-31.3423,-3.90796,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[-27.8384,9.37231,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[-31.2295,4.46704,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[-19.4634,9.25928,-0.00143862],181.63,true,true],
-     ["Land_BagFence_Round_F",[-3.56348,-51.6428,-0.00143862],316.63,true,true],
-     ["Land_BagFence_Long_F",[-6.08105,-52.1965,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[11.7363,-54.9075,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[3.36133,-54.7944,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[-8.54834,-55.4766,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[-13.6416,-58.7065,-0.00143862],181.63,true,true],
-     ["Land_dp_mainFactory_F",[7.44922,-29.397,-0.00143862],1.62962,true,true],
-     ["Land_HBarrier_Big_F",[-6.04248,6.25171,-0.00143862],271.63,true,true],
-     ["Land_HBarrier_Big_F",[11.5215,8.25244,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[-11.2095,9.27417,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[8.12988,3.34741,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[19.9902,-54.8926,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[32.8569,-43.4072,-0.00143862],271.63,true,true],
-     ["Land_HBarrier_Big_F",[28.146,-54.7991,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[32.873,-51.5361,-0.00143862],271.63,true,true],
-     ["Land_BagFence_Round_F",[37.7549,-30.4514,-0.00143862],316.63,true,true],
-     ["Land_BagFence_Round_F",[37.8594,-28.2903,-0.00143862],226.63,true,true],
-     ["Land_BagFence_Long_F",[35.2378,-31.0051,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[33.3535,-19.7563,-0.00143862],271.63,true,true],
-     ["Land_HBarrier_Big_F",[30.1147,-14.9102,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[32.8462,-34.9041,-0.00143862],271.63,true,true],
-     ["Land_HBarrier_Big_F",[24.9575,-11.6372,-0.00143862],271.63,true,true],
-     ["CamoNet_OPFOR_F",[21.7773,-9.21729,-0.00143862],91.6296,true,true],
-     ["Land_HBarrier_Big_F",[19.8965,8.1394,-0.00143862],181.63,true,true],
-     ["Land_HBarrier_Big_F",[24.9307,4.99487,-0.00143862],271.63,true,true],
-     ["Land_HBarrier_Big_F",[24.9414,-3.5083,-0.00143862],271.63,true,true]
+     ["Land_HBarrier_Big_F",[0,0,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[13.4092,-3.25757,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[8.375,-0.113037,0],181.63,true,true],
+     ["Land_Cargo_Patrol_V3_F",[1.41602,-4.66895,4.76837e-007],181.63,true,true],
+     ["Land_HBarrier_Big_F",[13.4199,-11.7607,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[18.5933,-23.1626,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[13.436,-19.8896,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[21.832,-28.0088,0],271.63,true,true],
+     ["Land_BagFence_Round_F",[26.2334,-38.7039,0],316.63,true,true],
+     ["Land_BagFence_Round_F",[26.3379,-36.5427,0],226.63,true,true],
+     ["Land_BagFence_Long_F",[23.7163,-39.2576,0],181.63,true,true],
+     ["CamoNet_OPFOR_F",[10.2559,-17.4697,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-3.3916,-4.90503,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-30.9849,1.00684,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[-17.564,-2.00073,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[-22.731,1.02173,0],181.63,true,true],
+     ["Land_Cargo_Patrol_V3_F",[-22.2847,-3.47803,4.76837e-007],181.63,true,true],
+     ["CamoNet_OPFOR_big_F",[-34.8179,-6.18286,0],1.62962,true,true],
+     ["Land_HBarrier_Big_F",[-20.0698,-63.729,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-33.6689,-66.9641,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[-25.1631,-66.959,0],181.63,true,true],
+     ["Land_BagFence_Long_F",[-17.6025,-60.449,0],181.63,true,true],
+     ["Land_Cargo_Tower_V3_F",[-30.2202,-60.043,3.8147e-006],91.6296,true,true],
+     ["Land_BagFence_Round_F",[-15.085,-59.8953,0],316.63,true,true],
+     ["Land_HBarrier_Big_F",[-39.3599,1.11987,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[-42.751,-3.7854,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-42.8638,-12.1604,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-37.8037,-27.686,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[-42.8486,-20.4146,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-42.9619,-28.7896,0],91.6296,true,true],
+     ["Land_Cargo_Patrol_V3_F",[-38.689,-23.6594,4.76837e-007],91.6296,true,true],
+     ["CamoNet_OPFOR_F",[-37.1313,-30.3784,0],1.62962,true,true],
+     ["Land_HBarrier_Big_F",[-36.8999,-61.8621,0],91.6296,true,true],
+     ["Land_HBarrier_Big_F",[-36.792,-53.6099,0],91.6296,true,true],
+     ["Land_BagFence_Corner_F",[-37.04,-49.1382,0],1.62962,true,true],
+     ["Land_BagFence_Corner_F",[-40.8984,-48.5288,0],181.63,true,true],
+     ["Land_BagFence_Long_F",[-39.0317,-48.8325,0],181.63,true,true],
+     ["Land_BagFence_Long_F",[-39.1577,-44.4534,0],1.62962,true,true],
+     ["Land_BagFence_Long_F",[-41.2227,-46.7695,0],91.6296,true,true],
+     ["Land_BagFence_Corner_F",[-40.916,-44.7759,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[0.214844,-63.1599,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[8.46875,-63.145,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[-8.16016,-63.0469,0],181.63,true,true],
+     ["Land_HBarrier_Big_F",[21.3247,-43.1565,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[21.3354,-51.6597,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[21.3516,-59.7886,0],271.63,true,true],
+     ["Land_HBarrier_Big_F",[16.6245,-63.0515,0],181.63,true,true],
+     ["Land_Dome_Small_F",[0.337891,-44.8254,-4.76837e-007],0.223401,true,true],
+     ["Land_dp_smallTank_F",[18.314,-70.0537,0],0,true,true],
+     ["Land_dp_smallTank_F",[9.81934,-69.9482,0],0,true,true]
 ];
 
 _missionLootBoxes = [];
@@ -93,8 +100,8 @@ _missionLootBoxes = [];
 _missionLootVehicles = [];
 
 _missionPatrolVehicles = [
-   //  ["B_G_Offroad_01_armed_F",[-53.8027,-29.7834,0.00867844],0.00103655],
-	// ["B_G_Offroad_01_armed_F",[51.0596,-25.7876,0.00815535],0.00104356]
+     ["B_G_Offroad_01_armed_F",[-53.8027,-29.7834,0.00867844],0.00103655],
+     ["B_G_Offroad_01_armed_F",[51.0596,-25.7876,0.00815535],0.00104356]
 ];
 
 _submarinePatrolParameters = [];
@@ -131,6 +138,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-//_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";  

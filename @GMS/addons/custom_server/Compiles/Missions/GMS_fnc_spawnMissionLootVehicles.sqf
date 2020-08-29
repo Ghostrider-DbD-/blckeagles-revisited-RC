@@ -18,14 +18,8 @@ private _vehs = [];
 	_x params["_vehType","_vehOffset",["_dir",0],"_lootArray","_lootCounts"];
 	private _pos =_coords vectorAdd _vehOffset;
 	_veh = [_vehType, _pos] call blck_fnc_spawnVehicle;
-	if (typeName _dir isEqualTo "SCALAR") then 
-	{
-		_veh setDir _dir;
-	};
-	if (typeName _dir isEqualTo "ARRAY") then
-	{
-		_veh setVectorDirAndUp _dir;
-	};
+	[_veh, _dir] call blck_fnc_setDirUp;
+
 	_veh lock _lock;
 	if (_loadCrateTiming isEqualTo "atMissionSpawn") then
 	{
