@@ -52,8 +52,8 @@ if ((tolower blck_modType) isEqualTo "exile") then
 if ((tolower blck_modType) isEqualTo "epoch") then
 {
 	blck_UMS_submarines = ["B_SDV_01_EPOCH"];
-	//blck_UMS_crates = blck_crateTypes;
-	blck_UMS_crates = ["container_epoch"];	
+	blck_UMS_crates = blck_crateTypes;
+	//blck_UMS_crates = ["container_epoch"];	
 };
 if ((toLower blck_modType) isEqualTo "default") then 
 {
@@ -68,6 +68,7 @@ if ((toLower blck_modType) isEqualTo "default") then
 	blck_UMS_crates = blck_crateTypes;
 
 };
+
 blck_UMS_unarmedSurfaceVessels = 
 [
 	"B_Boat_Transport_01_F",

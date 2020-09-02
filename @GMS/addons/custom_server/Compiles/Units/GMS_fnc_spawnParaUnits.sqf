@@ -30,7 +30,6 @@ private _params = ["_pos","_numAI","_skillAI"];
 }forEach _params;
 #endif
 _paraGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
-//diag_log format["_fnc_spawnParaUnits: _paraGroup = %1",_paraGroup];
 #define infantryPatrolRadius 30
 #define infantryWaypointTimeout [5,7.5,10]
 [_pos,20,30,_paraGroup,"random","SAD","paraUnits",infantryPatrolRadius,infantryWaypointTimeout] call blck_fnc_setupWaypoints;
@@ -45,23 +44,14 @@ for "_i" from 1 to _numAI do
 	_spawnPos = _pos getPos[1,_dir];
 	_chute = createVehicle ["Steerable_Parachute_F", [_spawnPos select 0, _spawnPos select 1, 250], [], 0, "FLY"];
 	[_chute] call blck_fnc_protectVehicle;
-	// ["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false]];
 	_unit = [getPos _chute,_paraGroup,_skillAI,_uniforms,_headGear,_vests,_backpacks,launcherType,_weapons,_sideArms,_isScuba] call blck_fnc_spawnUnit;
-	
-	#ifdef blck_debugMode
-	diag_log format["_fnc_spawnParaUnits: unit %1 = %2 dropping in chute %3",_i,_unit,_chute];
-	#endif
-	
-	//_chute setPos [_spawnPos select 0, _spawnPos select 1, 125];  //(_offset select 2) - 10];
 	_unit assignAsDriver _chute;
 	_unit moveInDriver _chute;
-	//_unit allowDamage true;
 	_unit setVariable["chute",_chute];
 	_dir = _dir + _arc;
 	
 	uiSleep 2;
 };
-
 
 blck_monitoredMissionAIGroups pushback _paraGroup;
 

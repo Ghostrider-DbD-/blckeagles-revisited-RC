@@ -1,4 +1,3 @@
-// pull trader cities from config
 /*
 	By Ghostrider [GRG]
 	--------------------------
@@ -16,7 +15,6 @@ if ((tolower blck_modType) isEqualTo "epoch") then
 	private _config = configFile >> "CfgEpoch";
 	private _configWorld = _config >> worldname;
 	private _telePos = getArray(configFile >> "CfgEpoch" >> worldName >> "telePos" );
-	diag_log format["_fnc_getTraderCities: _telePos = %1",_telePos];
 	{
 		blck_locationBlackList pushback [_x select 3, 1000];
 	} foreach _telePos;

@@ -1,10 +1,11 @@
 
 Known issues
 
-6.96
+7.00
 There is no consistent check for the case in which the call to createGroup returns grpNull because the max number of groups on that side has been spawned.
 some AI vehicles may still wander some distance from the mission center.
-The distribution of missions is a bit West-favored on Altis (Ghost will fix).
+The distribution of missions is a bit West-favored on Altis.
+Mission spawning is broken on Namalsk
 
 
 

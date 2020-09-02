@@ -13,7 +13,11 @@ Included is an updated version of blckeagls mission system. This began as an eff
 	
 * Credits
 	Epoch Mod developer team.
+	Exile Mod developer team.
 	blckeagls - Mission system 2.0.2
+	Thomas_TKO for new missions
+	porkeld for endless testing and feedback
+	Schalldampfer for bug reports and coding tips
 	Grahame for suggestions for new features, coding improvements and updates to the Epoch-specific Configs.
 	Narines - bug fixes and improvements.
 	Bill (DBD Clan) for example compositions.
@@ -27,7 +31,7 @@ Included is an updated version of blckeagls mission system. This began as an eff
 	KiloSwiss (SEM)
 	Hogscrapper (HC missions for A3)
 	the Vampire (DZMS and VEMF)
-	The FUCHS (EMS)
+	The FUCHS 
 	lazylink (the original mission system)
 	Matt11 (Wicked AI) Updates:
 	Face (A3EAI/A3XAI)
@@ -37,7 +41,7 @@ Included is an updated version of blckeagls mission system. This began as an eff
 * Compatability
 	Works well with VEMF, SEM, and A3AI all running on the same server.
 	
-* Please see the change log for a full listing of the most current changes.
+* Please see the change log for a full listing of the most recent changes.
 
 --------------------------
 License

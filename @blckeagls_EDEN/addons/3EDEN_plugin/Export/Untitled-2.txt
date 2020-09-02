@@ -1,0 +1,129 @@
+
+
+
+/*
+	Dynamic Mission Generated
+	Using 3DEN Plugin for blckeagls
+	dynamicMission.sqf generated:: blckeagls 3DEN Plugin Version 0 : Build 2 : Build Date 08/15/20
+	By Ghostrider-GRG-
+*/
+
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
+
+_defaultMissionLocations = [];
+_markerType = ["mil_box",[1,1],"<null>"];
+_markerColor = "ColorRed";
+_startMsg = "TODO: Change approiately";
+_endMsg = "TODO: Change Appropriately";
+_markerMissionName = "Stay Away";
+_crateLoot = blck_BoxLoot_Blue;
+_lootCounts = blck_lootCountsBlue;
+
+_garrisonedBuilding_ATLsystem = [
+["Land_Unfinished_Building_01_F",[0,0,0],0,true,true,
+     [["B_HMG_01_high_F",[-2.19922,0.837891,3.61188],0],
+     ["B_static_AA_F",[-2.34766,3.85352,6.80866],0]],
+     [
+          [[0.96875,-1.99023,0.27216],0],
+          [[-3.74219,0.279297,0.136929],0]]
+     ],
+["Land_Unfinished_Building_01_F",[0,0,0],0,true,true,[["B_HMG_01_F",[-1.87305,5.36523,3.86831],0]],[[[-2.46289,-1.18555,3.68233],0],[[-1.72656,3.4668,6.88683],0]]]
+];
+
+_missionLandscape = [
+     ["Land_u_Shed_Ind_F",[-29.123,-8.11914,-33.866],0,true,true],
+     ["Land_Shed_08_brown_F",[-15.1465,25.9961,-33.871],0,true,true],
+     ["Land_Shed_02_F",[26.5762,78.6641,-33.8547],0,true,true],
+     ["Land_Wreck_AFV_Wheeled_01_F",[-5.21289,-20.9434,-33.8297],0,true,true]
+];
+
+_simpleObjects = [
+
+];
+
+_missionLootVehicles = [
+
+];
+
+_missionPatrolVehicles = [
+     ["B_Truck_01_mover_F",[24.084,13.5703,-33.8635],0,75,75],
+     ["B_MRAP_01_hmg_F",[3.02539,16.2363,-33.8629],0,75,75],
+     ["B_HMG_01_F",[46.9961,45.3984,-29.9977],0,75,75],
+     ["B_GMG_01_F",[-5.16211,-5.00586,-33.8644],0,75,75],
+     ["B_Heli_Light_01_dynamicLoadout_F",[-6.61523,8.89844,-33.864],0,75,75],
+     ["B_T_Boat_Transport_01_F",[18.582,44.1055,-33.8654],0,75,75],
+     ["B_HMG_01_high_F",[30.6055,0.525391,-30.1961],0,75,75],
+     ["B_static_AA_F",[30.457,3.54102,-26.9993],0,75,75]
+];
+
+_submarinePatrolParameters = [
+
+];
+
+_airPatrols = [
+     ["B_Heli_Light_01_dynamicLoadout_F",[-6.61523,8.89844,-33.864],0,1000,1000]
+];
+
+_missionEmplacedWeapons = [
+     ["B_HMG_01_F",[46.9961,45.3984,-29.9977],0],
+     ["B_GMG_01_F",[-5.16211,-5.00586,-33.8644],0],
+     ["B_HMG_01_high_F",[30.6055,0.525391,-30.1961],0],
+     ["B_static_AA_F",[30.457,3.54102,-26.9993],0]
+];
+
+_missionGroups = [
+     [[30.0605,46.2383,-33.8646],3,6,"Blue",30,45],
+     [[5.66602,-8.33398,-33.8665],3,6,"Blue",30,45],
+     [[47.1426,43.5,-26.9792],3,6,"Blue",30,45],
+     [[46.4063,38.8477,-30.1837],3,6,"Blue",30,45],
+     [[19.9512,-4.41797,-29.7975],3,6,"Blue",30,45],
+     [[29.0625,-0.0332031,-33.6711],3,6,"Blue",30,45],
+     [[33.7734,-2.30273,-33.5358],3,6,"Blue",30,45]
+];
+
+_scubaGroupParameters = [
+
+];
+
+_missionLootBoxes = [
+     ["Box_IND_Wps_F",[10.7441,1.8418,-33.8658],_crateLoot,_lootCounts,0],
+     ["Box_AAF_Equip_F",[13.2188,7.31445,-33.8656],_crateLoot,_lootCounts,0],
+     ["Box_IND_AmmoOrd_F",[14.9844,13.168,-33.8657],_crateLoot,_lootCounts,0],
+     ["Box_IND_WpsLaunch_F",[10.1504,-2.12109,-33.8658],_crateLoot,_lootCounts,0]
+];
+
+/*
+	Use the parameters below to customize your mission - see the template or blck_configs.sqf for details about each them
+*/
+_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
+_noChoppers = blck_noPatrolHelisBlue;
+_missionHelis = blck_patrolHelisBlue;
+_chancePara = blck_chanceParaBlue;
+_noPara = blck_noParaBlue;
+_paraTriggerDistance = 400;
+_paraSkill = 'Blue';
+_chanceLoot = 0.0;
+_paraLoot = blck_BoxLoot_Blue;
+_paraLootCounts = blck_lootCountsBlue;
+_missionLandscapeMode = "precise";
+_uniforms = blck_SkinList;
+_headgear = blck_headgear;
+_vests = blck_vests;
+_backpacks = blck_backpacks;
+_sideArms = blck_Pistols;
+_spawnCratesTiming = "atMissionSpawnGround";
+_loadCratesTiming = "atMissionSpawn";
+_endCondition = "allKilledOrPlayerNear";
+_minNoAI = blck_MinAI_Blue;
+_maxNoAI = blck_MaxAI_Blue;
+_noAIGroups = blck_AIGrps_Blue;
+_noVehiclePatrols = blck_SpawnVeh_Blue;
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
+_minNoAI = blck_MinAI_Blue;
+_maxNoAI = blck_MaxAI_Blue;
+_noAIGroups = blck_AIGrps_Blue;
+_noVehiclePatrols = blck_SpawnVeh_Blue;
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
+
+#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";

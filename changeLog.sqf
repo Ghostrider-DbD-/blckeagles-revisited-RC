@@ -5,9 +5,40 @@ Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by He-Man, Vampire and KiloSwiss have been used for certain functions.
 Many thanks for new Coding and ideas from Grahame.
 
+
+
 Significant Changes:
+
+
 =====================
-6.98 Build 205
+7.00 Build 218
+New: Option to drop crates on a parachute at mission spawn which adds some randomness to where crates end up. 
+	blck_spawnCratesTiming = "atMissionSpawnAir";
+
+New: You can now add money to crates at static missions by defining the following parameter in your .sqf for the mission.
+	_crateMoney = 10000;
+	// this can be a value or a range such as [1000,10000];
+	a random amount of money from 0 to the maximum defined will be added. 
+
+New: Added some basic error checking and logging for incorrect entries for some key settings.
+
+New: 3DEN Editor plugin exports missions as .sqf formated text ready to paste into a file.
+	See the instructions in the @blckeagls_3DEN folder of this download for more information. 
+
+Fixed: Don and Hostage missions could not be completed 
+Fixed: Missions tended to spawn all at once 
+Fixed: vehicles are spawned at a safe spot which should reduce unintended explosions 
+Fixed: Missions sometimes spawned on steep hillsides.
+Fixed: Vehicles sometimes blew up on spawn.
+Fixed: Money was not added to crates at dynamic missions 
+
+Changed: Timers for spawning missions adjusted a bit to space out spawn/timeouts a bit more.
+Changed: The system has been upgreaded to a state-based system, meaning only one script (GMS_fnc_mainThread)is running once all missions are initialized.
+Changed: a lot of debugging was removed.
+Changed: List of missions for dynamic Underwater missions was moved to \Missions\GMS_missionLIsts.sqf
+
+
+6.98 Build 206
 FIXED: few minor bug fixes. 
 FIXED: Static Mission Loot vehicles are no longer deleted by Epoch servers when players enter them.
 FIXED: an error in coordinates for some randomly spawned missions tha added an extra 0 to the array with the coordinaates.
@@ -28,8 +59,11 @@ Removed: some debugging and map sepcific settings from blck_custom_config.sqf
 Changed: some code for finding locations for a new mission. 
 Added: all blckeagls map markers have the same prefix:  "blckeagls_marker"
 
-Known Issues 
-  - Live AI Counts are sometimes inaccurate at UMS Dynamic Missions
+
+
+
+
+
 
 6.96 Build 199
 Added support for Arma servers not running Epoch or Exile 

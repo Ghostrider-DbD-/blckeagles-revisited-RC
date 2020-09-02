@@ -14,23 +14,10 @@
 private["_veh"];
 params["_vehType","_pos",["_crewCount",4]];
 
-#ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["spawnVehicle.sqf:  _vehType = %1 | _pos = %2",_vehType,_pos];};
-#endif
-
 private _veh = [_vehType,_pos] call blck_fnc_spawnVehicle;
 _veh setVariable["blck_vehicleSearchRadius",blck_playerDetectionRangeSurfaceVehicle];
 _veh setVariable["blck_vehiclePlayerDetectionOdds",blck_vehiclePlayerDetectionOdds];
-
-#ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["spawnVehicle.sqf:: vehicle spawned is %1",_veh];};
-#endif
-//  params["_veh",["_clearInventory",true]];
 [_veh,_clearInventory] call blck_fnc_configureMissionVehicle;
-//[_veh,_group,_crewCount] call blck_fnc_loadVehicleCrew;
-#ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["spawnVehicle:: returning parameter _veh = %1",_veh];};
-#endif
 
 _veh
 	

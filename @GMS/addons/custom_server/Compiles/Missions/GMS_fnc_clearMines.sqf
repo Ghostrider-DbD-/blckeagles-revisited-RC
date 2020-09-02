@@ -14,8 +14,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
  
 params ["_mines"];
-//_mines = _this select 0;  // array containing the mines to be deleted
-//diag_log format["deleting %1 mines----- >>>> ", count _mines];
+
 {
 	deleteVehicle _x;
 } forEach _mines;

@@ -32,13 +32,10 @@ for "_i" from 1 to _noMines/2 do
 		_xpos = (_pos select 0) + sin (_dir) * _radius;
 		_ypos = (_pos select 1) + cos (_dir) * _radius;	
 		_posMine = [_xpos,_ypos,0];
-		//_posMine = [[_xpos,_ypos,0],0,10,_closest,0,20,0] call BIS_fnc_findSafePos; // find a random loc
 		_mine = createMine ["ATMine", _posMine, [], 0];
 		_mine setVariable ["LAST_CHECK", (diag_tickTime + 14400)];
 		_mine setPos _posMine;
-		//https://community.bistudio.com/wiki/setVectorUp
 		_minesPlaced = _minesPlaced + [_mine];
-		//diag_log format["[spawnMines.sqf] mine # %2 spawned at %1",_posMine,_i];
 	};
 	_dir = _dir + _incr;
 };

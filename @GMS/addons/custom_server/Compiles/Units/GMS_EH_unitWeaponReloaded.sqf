@@ -21,9 +21,5 @@
 #define unit _this select 0
 #define newMagazine _this select 3 select 0
 (unit) addMagazine (newMagazine);
-#ifdef blck_debugMode
-if (blck_debugLevel > 2) then {
-	diag_log format["_EH_unitWeaponReloaded:: one magazine of type %1 added to inventory of unit %2",_mag,(_this select 3 select 0)];
-};
-#endif
+
 

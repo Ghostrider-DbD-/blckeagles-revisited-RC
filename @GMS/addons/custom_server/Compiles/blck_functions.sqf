@@ -15,7 +15,7 @@
 private _functions = [
 	// General functions
 	["blck_fnc_waitTimer","\q\addons\custom_server\Compiles\Functions\GMS_fnc_waitTimer.sqf"],
-	["blck_fnc_timedOut","\q\addons\custom_server\Compiles\Functions\GMS_fnc_timedOut.sqf"],
+	//["blck_fnc_timedOut","\q\addons\custom_server\Compiles\Functions\GMS_fnc_timedOut.sqf"],
 	["blck_fnc_FindSafePosn","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn.sqf"],
 	["blck_fnc_findSafePosn_2","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn_2.sqf"],
 	["blck_fnc_randomPosition","\q\addons\custom_server\Compiles\Functions\GMS_fnc_randomPosn.sqf"],							// find a randomPosn. see script for details.
@@ -50,10 +50,12 @@ private _functions = [
 	["blck_fnc_getAllMarkersOfSubtype","\q\addons\custom_server\Compiles\Functions\GMS_fnc_getAllMarkersOfSubtype.sqf"],
 	["blck_fnc_getAllDMSMarkers","\q\addons\custom_server\Compiles\Functions\GMS_fnc_getAllDMSMarkers.sqf"],
 	["blck_fnc_createMissionMarkers","\q\addons\custom_server\Compiles\Functions\GMS_fnc_createMissionMarkers.sqf"],
+	["blck_fnc_log","\q\addons\custom_server\Compiles\Functions\GMS_fnc_log.sqf"],
+	["blck_fnc_setDirUp","\q\addons\custom_server\Compiles\Functions\GMS_fnc_setDirUp.sqf"],
 
 	// Player-related functions
-	["GMS_fnc_handlePlayerUpdates","\q\addons\custom_server\Compiles\Units\GMS_fnc_handlePlayerUpdates.sqf"],
-	["blck_fnc_MessagePlayers","\q\addons\custom_server\Compiles\Functions\GMS_fnc_AIM.sqf"],	 // Send messages to players regarding Missions
+	["blck_fnc_handlePlayerUpdates","\q\addons\custom_server\Compiles\Units\GMS_fnc_handlePlayerUpdates.sqf"],
+	["blck_fnc_MessagePlayers","\q\addons\custom_server\Compiles\Functions\GMS_fnc_messagePlayers.sqf"],	 // Send messages to players regarding Missions
 
 	// Mission-related functions
 	["blck_fnc_selectAILoadout","\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAILoadout.sqf"],
@@ -70,8 +72,6 @@ private _functions = [
 	["blck_fnc_addMissionToQue","\q\addons\custom_server\Compiles\Missions\GMS_fnc_addMissionToQue.sqf"],
 	["blck_fnc_updateMissionQue","\q\addons\custom_server\Compiles\Missions\GMS_fnc_updateMissionQue.sqf"],
 	["blck_fnc_spawnPendingMissions","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnPendingMissions.sqf"],
-	//["blck_fnc_addLiveAItoQue","\q\addons\custom_server\Compiles\Missions\GMS_fnc_addLiveAItoQue.sqf"],
-	
 	["blck_fnc_spawnCrate","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnCrate.sqf"],			// Simply spawns a crate of a specified type at a specific position.
 	["blck_fnc_spawnMissionCrates","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionCrates.sqf"], 
 	["blck_fnc_cleanupObjects","\q\addons\custom_server\Compiles\Missions\GMS_fnc_cleanUpObjects.sqf"],
@@ -106,24 +106,19 @@ private _functions = [
 	["blck_fnc_sm_monitorEmplaced","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_monitorEmplaced.sqf"],
 	["blck_fnc_sm_monitorGarrisonsASL","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_monitorGarrisonsASL.sqf"],
 	["blck_fnc_sm_monitorGarrisons_relPos","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_monitorGarrisons_relPos.sqf"],	
-
 	["blck_fnc_sm_staticPatrolMonitor","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_staticPatrolMonitor.sqf"],
-	
-
 	["blck_fnc_sm_spawnLootContainers","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_spawnLootContainers.sqf"],
 	["blck_fnc_sm_spawnObjects","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_spawnObjects.sqf"],
-	
-
 	["blck_fnc_sm_spawnBuildingGarrison_ASL","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_spawnBuildingGarrisonASL.sqf"],
 	["blck_fnc_sm_spawnBuildingGarrison_relPos","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_spawnBuildingGarrison_relPos.sqf"],
 	["blck_fnc_sm_spawnObjectASLVectorDirUp","\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_spawnObjectASLVectorDirUp.sqf"],
 	["blck_fnc_spawnScubaGroup","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnScubaGroup.sqf"],
 	["blck_fnc_spawnSDVPatrol","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnSDVPatrol.sqf"],
 	["blck_fnc_spawnSurfacePatrol","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnSurfacePatrol.sqf"],
-	
-
 	["blck_fnc_sm_AddGroupToArray", "\q\addons\custom_server\Compiles\Missions\GMS_fnc_sm_AddGroupToArray.sqf"],	
-	
+	["blck_fnc_initializeMission", "\q\addons\custom_server\Compiles\Missions\GMS_fnc_initializeMission.sqf"],
+	["blck_fnc_monitorInitializedMissions","\q\addons\custom_server\Compiles\Missions\GMS_fnc_monitorInitializedMissions.sqf"],
+
 	// Group-related functions
 	["blck_fnc_spawnGroup","\q\addons\custom_server\Compiles\Groups\GMS_fnc_spawnGroup.sqf"],					// Spawn a single group and populate it with AI units]
 	["blck_fnc_setupWaypoints","\q\addons\custom_server\Compiles\Groups\GMS_fnc_setupWaypoints.sqf"],			// Set default waypoints for a group
@@ -146,9 +141,7 @@ private _functions = [
 	["blck_fnc_vehicleMonitor","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitor.sqf"], 
 	["blck_fnc_spawnMissionReinforcements","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionReinforcements.sqf"],
 	["blck_fnc_spawnMissionHeli","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionHeli.sqf"], 
-	 
 	["blck_fnc_HandleAIVehicleHit","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_HandleAIVehicleHit.sqf"],
-	 
 	["blck_fnc_processAIVehicleKill","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_processAIVehicleKill.sqf"],
 	["blck_fnc_selectPatrolVehicle","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_selectPatrolVehicle.sqf"],
 	["blck_fnc_releaseVehicleToPlayers","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_releaseVehicleToPlayers.sqf"],
@@ -160,7 +153,6 @@ private _functions = [
 	["blck_fnc_unlockVehicle","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_unlockVehicle.sqf"],
 	["GMS_fnc_applyVehicleDamagePenalty","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_applyVehicleDamagePenalty.sqf"],		
 	["GMS_fnc_revealVehicleToUnits","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_revealVehicleToUnits.sqf"],	
- 
 	["blck_fnc_handleVehicleGetOut","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_handleVehicleGetOut.sqf"],	
 	["blck_fnc_checkForEmptyVehicle","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_checkForEmptyVehicle.sqf"],		
 	["blck_fnc_handleEmptyVehicle","\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_handleEmptyVehicle.sqf"],		
@@ -175,11 +167,9 @@ private _functions = [
 	["blck_EH_AIHit","\q\addons\custom_server\Compiles\Units\GMS_EH_AIHit.sqf"],
 	["blck_EH_unitWeaponReloaded","\q\addons\custom_server\Compiles\Units\GMS_EH_unitWeaponReloaded.sqf"],
 	["blck_EH_AIfiredNear","\q\addons\custom_server\Compiles\Units\GMS_EH_AIfiredNear.sqf"],
-	 
 	["blck_fnc_processAIKill","\q\addons\custom_server\Compiles\Units\GMS_fnc_processAIKill.sqf"],
 	["blck_fnc_removeLaunchers","\q\addons\custom_server\Compiles\Units\GMS_fnc_removeLaunchers.sqf"],
 	["blck_fnc_removeNVG","\q\addons\custom_server\Compiles\Units\GMS_fnc_removeNVG.sqf"],
-	 
 	["blck_fnc_alertGroupUnits","\q\addons\custom_server\Compiles\Units\GMS_fnc_alertGroupUnits.sqf"],
 	["GMS_fnc_alertNearbyGroups","\q\addons\custom_server\Compiles\Units\GMS_fnc_alertNearbyGroups.sqf"],
 	["blck_fnc_alertNearbyVehicles","\q\addons\custom_server\Compiles\Units\GMS_fnc_alertNearbyVehicles.sqf"],
@@ -193,7 +183,6 @@ private _functions = [
 	["blck_fnc_spawnLeader","\q\addons\custom_server\Compiles\Units\GMS_fnc_spawnLeader.sqf"],
 	["blck_fnc_spawnCharacter","\q\addons\custom_server\Compiles\Units\GMS_fnc_spawnCharacter.sqf"],
 	["blck_fnc_spawnParaUnits","\q\addons\custom_server\Compiles\Units\GMS_fnc_spawnParaUnits.sqf"],
-	 
 	["blck_fnc_placeCharacterInBuilding","\q\addons\custom_server\Compiles\Units\GMS_fnc_placeCharacterInBuilding.sqf"],	
 	["GMS_fnc_removeAllAIgear","\q\addons\custom_server\Compiles\Units\GMS_fnc_removeAllAIgear.sqf"],	
 
@@ -209,6 +198,10 @@ private _functions = [
 	missionnamespace setvariable [_name,compileFinal  preprocessFileLineNumbers _path];
 } foreach  _functions;
 
+#ifdef GRGserver	
+if (isServer) then {blck_fnc_broadcastServerFPS = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf";};
+["blck_functions loaded using GRGserver settings ---- >>>> "] call blck_fnc_log;
+#endif
 
 
 

@@ -22,26 +22,17 @@ _fn_waypointComplete = {
 	private _done = if (currentWaypoint _group) > (count (waypoints _group)) then {true} else {false};
 	_done
 };
-//diag_log format["_fnc_groupWaypointMonitor called at %1 with %2 groups to monitor",diag_tickTime,count blck_monitoredMissionAIGroups];
+
 {
 	private["_timeStamp","_index","_unit","_soldierType"];
 	if ( !(_x isEqualTo grpNull) && ({alive _x} count (units _x) > 0) ) then
 	{
-		/*
-		#define blck_turnBackRadiusInfantry 800
-		#define blck_turnBackRadiusVehicles 1000
-		#define blck_turnBackRadiusHelis 1000
-		#define blck_turnBackRadiusJets 1500
-		*/
-		//diag_log format["_fn_monitorGroupWaypoints - radii: on foot %1 | vehicle %2 | heli %3 | jet %4",blck_turnBackRadiusInfantry,blck_turnBackRadiusVehicles,blck_turnBackRadiusHelis,blck_turnBackRadiusJets];
 		_timeStamp = _x getVariable ["timeStamp",0];
 		if (_timeStamp isEqualTo 0) then 
 		{
 			_x setVariable["timeStamp",diag_tickTime];
-			//diag_log format["_fn_monitorGroupWaypoints::--> updating timestamp for group %1 at time %2",_x,diag_tickTime];
 		};
 		_soldierType = _x getVariable["soldierType","null"];
-		//diag_log format["_fn_monitorGroupWaypoints::--> soldierType for group %1 = %2 and timeStamp = %3",_x,_soldierType,_timeStamp];
 		switch (_soldierType) do
 		{
 			case "infantry": {[_x, 60] call blck_fnc_checkgroupwaypointstatus;};
@@ -49,6 +40,5 @@ _fn_waypointComplete = {
 			case "aircraft": {[_x, 90, 1000] call blck_fnc_checkgroupwaypointstatus;};
 		};
 	};
-	//private _updateNeeded = if (diag_tickTime > (_x getVariable "timeStamp") + 60) then
 } forEach blck_monitoredMissionAIGroups;
 

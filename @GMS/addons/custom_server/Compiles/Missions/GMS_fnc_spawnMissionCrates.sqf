@@ -17,7 +17,6 @@ _fnc_dropMissionCrates = {
 	_markers = [];
 	
 	{
-		// params["_pos","_crate",["_crateVisualMarker",true],["_dropHeight", 150]];
 		[(getPos _x), _x, true, 150] call blck_fnc_paraDropObject;
 	} forEach _crates;
 	
@@ -26,7 +25,6 @@ _fnc_dropMissionCrates = {
 	{
 		uiSleep 1;
 		{
-			//  (((getPos _crate) select 2) < 3)
 			if ((getPos _x) select 2 < 5) then 
 			{
 				_airborneCrates = _airborneCrates - [_x];
@@ -36,12 +34,9 @@ _fnc_dropMissionCrates = {
 				_location = getPos _x;
 				_blck_localMissionMarker = [format["crateMarker%1%2",_location select 0, _location select 1],_location,"","","ColorBlack",["mil_dot",[]]];
 				_marker = [_blck_localMissionMarker] call blck_fnc_spawnMarker;
-				//_markers pushBack _marker; 
 				blck_temporaryMarkers pushBack [_marker,diag_tickTime + 300];
-				//uiSleep 0.5;
 				_curPosCrate = getPos _x;
 				_x setPos [_curPosCrate select 0, _curPosCrate select 1, 0.3];
-				//_x setVectorDirAndUp[[0,1,0],[0,0,1]];
 			};
 		} forEach _crates;
 	};
@@ -63,7 +58,7 @@ private _cratesSpawned = [];
 	
 	private _pos = _coords vectorAdd _crateOffset;
 	private _crate = [_pos,_crateType] call blck_fnc_spawnCrate;
-	_crate setDir _crateDir;
+	[_crate, _crateDir] call blck_fnc_setDirUp;
 	_crate setVariable["lootArray",_lootArray];
 	_crate setVariable["lootCounts",_lootCounts];
 	_crate setVariable["difficulty",_difficulty];
@@ -72,19 +67,10 @@ private _cratesSpawned = [];
 		[_crate] call blck_fnc_loadMissionCrate;
 	};
 	_cratesSpawned pushback _crate;
-	#define blck_debugMode
-	#ifdef blck_debugMode
-	if (blck_debugLevel >= 2) then
-	{
-		_marker = createMarker [format["crateMarker%1",random(1000000)], _pos];
-		_marker setMarkerType "mil_triangle";
-		_marker setMarkerColor "colorGreen";	
-		_crate setVariable["crateMarker",_marker];
-	};
-	#endif	
+	
 }forEach _cratesToSpawn;
 
-if (_spawnCrateTiming in ["atMissionEndAir","atMissionStartAir"]) then 
+if (_spawnCrateTiming in ["atMissionEndAir","atMissionSpawnAir"]) then 
 {
 	[_cratesSpawned] spawn _fnc_dropMissionCrates;
 };

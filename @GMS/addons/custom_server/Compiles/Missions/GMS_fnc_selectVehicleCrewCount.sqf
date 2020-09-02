@@ -19,5 +19,5 @@ switch (toLower(_diff)) do
 	case "green": {_count = blck_vehCrew_green};
 	case "orange": {_count = blck_vehCrew_orange};
 };
-///diag_log format["_fnc_selectVehicleCrewCount: _count set to %1",_count];
+
 _count

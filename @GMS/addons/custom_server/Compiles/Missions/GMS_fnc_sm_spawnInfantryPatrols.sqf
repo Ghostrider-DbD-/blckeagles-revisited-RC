@@ -27,13 +27,9 @@ _backpacks 	= [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks;
 if !(_patrols isEqualTo []) then 
 {
 	{
-		//diag_log format["_sm_spawnInfantryPatrols.sqf:: _x = %1",_x];
 		// Use the pre-defined spawn positions and other parameters for each group.
-		//  [[22819.4,16929.5,5.33892],"red",4, 75]
 		_x params ["_pos","_difficulty","_noAI","_patrolRadius"];
 		private _group = [blck_AI_Side,true]  call blck_fnc_createGroup;
-		// params[["_group","Error"],"_pos",  "_center", ["_numai1",5],  ["_numai2",10],  ["_skillLevel","red"], ["_minDist",30], ["_maxDist",45],["_configureWaypoints",true], ["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],
-		// ["_weaponList",[]],["_sideArms",[]], ["_scuba",false],["_patrolRadius",30]];
 		#define setupWaypoints true
 		if !(isNull _group) then 
 		{

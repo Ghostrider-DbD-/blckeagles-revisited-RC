@@ -28,7 +28,7 @@ if (isNil "_aiGroupParameters") then {_aiGroupParameters = []};
 if (isNil "_missionEmplacedWeapons") then {_missionEmplacedWeapons = []};
 if (isNil "_vehiclePatrolParameters") then {_vehiclePatrolParameters = []};
 if (isNil "_missionLootVehicles") then {_missionLootVehicles = []};
-
+if (isNil "_crateMoney") then {_crateMoney = 0};
 _markerClass = format["static%1",floor(random(1000000))];
 _blck_localMissionMarker = [_markerClass,_missionCenter,"","",_markerColor,_markerType];
 if (blck_labelMapMarkers select 0) then
@@ -43,25 +43,6 @@ _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow
 [_blck_localMissionMarker] call blck_fnc_spawnMarker;
 
 [_missionLandscape] call blck_fnc_sm_spawnObjects;
-
-{
-	//diag_log format["processing _garrisonedBuilding_ASL %1 which = %2",_forEachIndex,_x];
-	//   ["Land_i_House_Big_02_V2_F",[23650.3,18331.9,3.19],[[0,1,0],[0,0,1]],[true,true],"Red",
-	_x params["_buildingClassName","_buildingPosnASL","_buildingVectorDirUp","_buildingDamSim","_aiDifficulty","_staticsASL","_unitsASL","_respawnTimer","_noRespawns"];
-	private _building = [_buildingClassName,_buildingPosnASL,_buildingVectorDirUp,_buildingDamSim] call blck_fnc_sm_spawnObjectASLVectorDirUp; 
-	[blck_sm_garrisonBuildings_ASL,[_building,_aiDifficulty,_staticsASL,_unitsASL,_respawnTimer,_noRespawns]] call blck_fnc_sm_AddGroupToArray;
-	//diag_log format["_fnc_sm_initializeMission: blck_sm_garrisonBuildings_ASL updated to: %1",blck_sm_garrisonBuildings_ASL];	
-}forEach _garrisonedBuilding_ASLsystem;
-
-//  blcl_sm_garrisonBuilding_relPos
-{
-	//diag_log format["processing _garrisonedBuilding_relPos %1 which = %2",_forEachIndex,_x];
-	_x params["_buildingClassName","_buildingPosnASL","_buildingVectorDirUp","_buildingDamSim","_aiDifficulty","_p","_noStatics","_typesStatics","_noUnits","_respawnTimer","_noRespawns"];
-	private _building = [_buildingClassName,_buildingPosnASL,_buildingVectorDirUp,_buildingDamSim] call blck_fnc_sm_spawnObjectASLVectorDirUp;
-	[blcl_sm_garrisonBuilding_relPos,[_building,_aiDifficulty,_noStatics,_typesStatics,_noUnits,_respawnTimer,_noRespawns]] call blck_fnc_sm_AddGroupToArray;
-	//diag_log format["_fnc_sm_initializeMission: blcl_sm_garrisonBuilding_relPos updated to: %1",blcl_sm_garrisonBuilding_relPos];
-}forEach _garrisonedBuildings_BuildingPosnSystem;
-
 {
 	[blck_sm_Aircraft,_x] call blck_fnc_sm_AddGroupToArray; 
 	
@@ -82,7 +63,7 @@ _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow
 
 uiSleep 30;
 // spawn loot chests
-[_missionLootBoxes,_missionCenter] call blck_fnc_sm_spawnLootContainers;
-[_missionLootVehicles,_missionCenter] call blck_fnc_sm_spawnLootContainers;
-diag_log format["[blckeagls] Static Mission Spawner: Mission %1 spawned",_mission];
+[_missionLootBoxes,_missionCenter,_crateMoney] call blck_fnc_sm_spawnLootContainers;
+[_missionLootVehicles,_missionCenter,_crateMoney] call blck_fnc_sm_spawnLootContainers;
+[format["Static Mission Spawner: Mission %1 spawned",_mission]] call blck_fnc_log;
 

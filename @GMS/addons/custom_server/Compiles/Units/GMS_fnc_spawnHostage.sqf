@@ -17,7 +17,6 @@ _hostage remoteExec["GMS_fnc_initHostage", -2, true];
 _hostage setVariable["assetType",1,true];
 _building = [_hostage,_coords,_hostageConfigs select 7] call blck_fnc_placeCharacterInBuilding;
 _result = [_hostage,_building];
-//diag_log format["_fnd_spawnHostage:  _result = %1",_result];
 _result
 
 

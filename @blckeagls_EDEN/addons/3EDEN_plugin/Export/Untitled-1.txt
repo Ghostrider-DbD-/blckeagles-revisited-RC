@@ -1,0 +1,51 @@
+
+class CfgVehicles
+{
+	class Object 
+	{
+		class AttributeCategories 
+		{
+			class LandVehicle;
+			class blckLandVehicle: LandVehicle;
+			{
+				class Attributes 
+				{
+					class blckLootVehicle 
+					{
+							// https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Scenario 
+							displayName = "Loot Vehicle";
+							toolTip = "Enable/Disable Use as Loot Vehicle";
+							property = "blckLootVehicle";
+							control = "Edit";
+							expression = "_this setVariable['%s',_value];";
+							defaultValue = 'false';
+							unique = 0;
+							validate = "BOOL";
+							typeName = "BOOL";
+					};
+				};
+			};
+
+			class Static;
+			class blckHouse: Static 
+			{
+				class Attributes 
+				{
+					class blckGarison
+					{
+							// https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Scenario 
+							displayName = "Garison Building";
+							toolTip = "Enable/Disable ?Garisoned Building";
+							property = "blckGarison";
+							control = "Edit";
+							expression = "_this setVariable['%s',_value];";
+							defaultValue = 'false';
+							unique = 0;
+							validate = "BOOL";
+							typeName = "BOOL";
+					};
+				};
+			};
+		};
+	};
+};

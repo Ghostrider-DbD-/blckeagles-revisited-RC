@@ -11,7 +11,6 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 private _crate = _this select 0;
 [_crate,(_crate getVariable "lootArray"),(_crate getVariable "lootCounts")] call blck_fnc_fillBoxes;
-[_crate, _crate getVariable "difficulty"] call blck_fnc_addMoneyToObject;
 _crate setVariable["lootLoaded",true];
 
 

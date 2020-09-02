@@ -9,11 +9,10 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-// assummptions: since this is called after an AI Killed event that always runs on the server we can assume this code will too.
+
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_veh"];
-//diag_log format["_fnc_releaseVehicleToPlayers: _veh = %1",_veh];
 [_veh] call blck_fnc_unlockVehicle;
 {
 	_veh removealleventhandlers _x;

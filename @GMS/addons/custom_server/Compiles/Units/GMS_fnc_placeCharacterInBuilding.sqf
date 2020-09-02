@@ -11,12 +11,11 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_character","_center","_characterBuildingConfigs"];
-//diag_log format["_fnc_placeCharacterInBuilding:  _characterBuildingConfigs = %1",_characterBuildingConfigs];
+
 private ["_obj"];
 if !(_characterBuildingConfigs isEqualTo []) then
 {
 	_obj = createVehicle[(_characterBuildingConfigs select 0),_center vectorAdd (_characterBuildingConfigs select 1),[],0,"CAN_COLLIDE"];
-	//diag_log format["_fnc_placeCharacterInBuilding:  _obj = %1",_obj];
 	_obj setDir (_characterBuildingConfigs select 2);
 	_obj allowDamage true;
 	_obj enableDynamicSimulation true;		

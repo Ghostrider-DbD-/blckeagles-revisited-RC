@@ -14,9 +14,7 @@
 	// TODO: used for 'unstuck' cases
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-#ifdef blck_debugMode
-diag_log "_fnc_changeToMoveWaypoint: blck_debugMode enabled";
-#endif
+
 private["_group","_wp","_wpPos","_dis","_arc","_dir","_newPos","_marker","_center","_minDis","_maxDis"];
 
 _group = group _this;
@@ -49,23 +47,7 @@ _wp setWaypointLoiterRadius (_group getVariable["wpRadius",30]);
 _wp setWaypointLoiterType "CIRCLE";
 _wp setWaypointSpeed "LIMITED";
 _group setCurrentWaypoint _wp;
-diag_log format["_fnc_changeToMoveWaypoint:: -- >> group to update is %1 and new Waypoint position is %2",_group, getWPPos _wp];
-#ifdef blck_debugMode
-if (blck_debugLevel > 2) then
-{
-	diag_log format["_fnc_changeToMoveWaypoint (4/25/17): _this = %1", _this];
-	diag_log format["_fnc_changeToMoveWaypoint: typeName _this = %1", typeName _this];
-	diag_log format["_fnc_changeToMoveWaypoint:_group = %1",_group];
-	diag_log format["_fnc_changeToMoveWaypoint:_group timestamp updated to %1", _group getVariable "timeStamp"];
-	diag_log format["_fnc_changeToMoveWaypoint:: -- >> wpMode %1 _dir %2 _dis %3 _center %4",_group getVariable["wpMode","random"], _dir, _dis,_center];
-	diag_log format["_fnc_changeToMoveWaypoint:: -- >> group to update is %1 and new position is %2",_group, _newPos];
-	diag_log format["_fnc_changeToMoveWaypoint:: -- >> group to update is %1 and new Waypoint position is %2",_group, getWPPos _wp];
-	diag_log format["_fnc_changeToMoveWaypoint:_group %1 basic waypoint parameters updates", _group getVariable "timeStamp"];
-	_marker =_group getVariable["wpMarker",""];
-	_marker setMarkerColor "ColorBlue";
-	diag_log format["_fnc_changeToMoveWaypoint:: -- >> Waypoint marker for group %1 have been configured as %2",_group, _group getVariable "wpMarker"];	
-};
-#endif
+
 if (_group getVariable["wpPatrolMode",""] isEqualTo "SAD") then
 {
 	#ifdef blck_debugMode

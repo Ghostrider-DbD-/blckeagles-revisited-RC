@@ -11,8 +11,6 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-// Self explanatory
-// [_group, _skill] call blck_setSkill;
 params ["_unit","_skillsArrray"];
 private["_skillLevel"];
 {

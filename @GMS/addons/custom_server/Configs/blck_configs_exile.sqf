@@ -17,11 +17,11 @@
 #ifdef blck_milServer
 if (true) exitWith 
 {
-	diag_log "[blckeagls] running blck_configs_exile_mil for militarized servers";
+	["Running blck_configs_exile_mil for militarized servers"] call blck_fnc_log;
 	execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
 };
 #endif
-diag_log "[blckeagls] Loading Exile-specific configs for Non-militarized servers: blck_configs_exile.sqf";
+["Loading Exile-specific configs for Non-militarized servers: blck_configs_exile.sqf"] call blck_fnc_log;
 ////////////
 // Exile-specific settings
 ////////////	
@@ -56,7 +56,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_crateMoneyRed = [175, 300];
 	blck_crateMoneyGreen = [300, 500];
 	blck_crateMoneyOrange = [500, 750];
-	
+
+	blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.
+			
 	blck_maximumItemPriceInAI_Loadouts = 1000;
 	
 	blck_armed_vehicles_Exile = [
@@ -643,6 +645,86 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_vests_red = blck_vests;
 	blck_vests_green = blck_vests;
 	blck_vests_orange = blck_vests;		
+
+	blck_UMS_uniforms = 
+	[
+		"U_I_Wetsuit",
+		"U_O_Wetsuit",
+		"U_B_Wetsuit"
+	];
+
+	blck_UMS_headgear = 
+	[
+		"G_Diving",
+		"G_B_Diving",
+		"G_O_Diving",
+		"G_I_Diving"
+	];
+
+	blck_UMS_vests = 
+	[
+		"V_RebreatherB",
+		"V_RebreatherIA",
+		"V_RebreatherIR"
+	];
+
+	blck_UMS_weapons = 
+	[
+		"arifle_SDAR_F"
+	];
+
+	if ((tolower blck_modType) isEqualTo "exile") then
+	{
+		blck_UMS_submarines =
+		[
+			
+			"Exile_Boat_SDV_CSAT",
+			"Exile_Boat_SDV_Digital",
+			"Exile_Boat_SDV_Grey"
+		];
+		
+		blck_UMS_crates =	["Exile_Container_SupplyBox"];
+	};
+	if ((tolower blck_modType) isEqualTo "epoch") then
+	{
+		blck_UMS_submarines = ["B_SDV_01_EPOCH"];
+		blck_UMS_crates = blck_crateTypes;
+		//blck_UMS_crates = ["container_epoch"];	
+	};
+	if ((toLower blck_modType) isEqualTo "default") then 
+	{
+		blck_UMS_submarines =
+		[
+			
+			"Exile_Boat_SDV_CSAT",
+			"Exile_Boat_SDV_Digital",
+			"Exile_Boat_SDV_Grey"
+		];
+		
+		blck_UMS_crates = blck_crateTypes;
+
+	};
+
+	blck_UMS_unarmedSurfaceVessels = 
+	[
+		"B_Boat_Transport_01_F",
+		"I_Boat_Transport_01_F"
+	];
+	blck_UMS_armedSurfaceVessels =
+	[
+		"B_Boat_Armed_01_minigun_F",
+		"I_Boat_Armed_01_minigun_F"	
+	];
+	blck_UMS_surfaceVessels = blck_UMS_unarmedSurfaceVessels + blck_UMS_armedSurfaceVessels;
+	blck_UMS_shipWrecks =
+	[
+		"Land_Boat_06_wreck_F",
+		"Land_Boat_05_wreck_F",
+		"Land_Boat_04_wreck_F",
+		"Land_Boat_02_abandoned_F",
+		"Land_Boat_01_abandoned_red_F",
+		"Land_Boat_01_abandoned_blue_F"
+	];
 		
 	//CraftingFood
 	blck_Meats=[
@@ -1190,6 +1272,4 @@ blck_highPoweredLoot = [
 		]
 ];
 
-	blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.
-		
-	diag_log format["[blckeagls] Configurations for Exile Loaded"];
+["Configurations for Exile Loaded"] call blck_fnc_log;

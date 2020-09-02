@@ -149,6 +149,6 @@ _noPara = blck_noParaBlue;  // Setting this in the mission file overrides the de
 //_chanceHeliPatrol = blck_chanceHeliPatrolBlue;  // Setting this in the mission file overrides the defaults 
 _noChoppers = blck_noPatrolHelisBlue;
 _missionHelis = blck_patrolHelisBlue;
-_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition =   // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";

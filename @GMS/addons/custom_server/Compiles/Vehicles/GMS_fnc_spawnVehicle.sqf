@@ -12,9 +12,9 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-params["_vehType","_pos",["_special","NONE"]];
+params["_vehType","_pos",["_special","NONE"],["_radius",30]];
 
-private _veh = createVehicle[_vehType, _pos, [], 0, _special];
+private _veh = createVehicle[_vehType, _pos, [], _radius, _special];
 _veh setVectorUp surfaceNormal position _veh;
 _veh allowDamage true;
 _veh enableRopeAttach true;

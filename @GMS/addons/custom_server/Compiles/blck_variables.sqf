@@ -41,7 +41,6 @@ blck_connectedHCs = [];
 blck_missionMarkerRootName = "blckeagls_marker";
 DMS_missionMarkerRootName = "DMS_MissionMarker";
 blck_missionLabelMarkers = [];
-
 blck_temporaryMarkers = [];
 blck_illuminatedCrates = []; // [crate,duration,freq of replacement]
 blck_mainThreadUpdateInterval = 60;
@@ -52,6 +51,10 @@ blck_missionData = [];
 blck_activeMissionsList = [];
 blck_initializedMissionsList = [];
 blck_blackListedLocations = []; // [ [marker, time]]
+
+blck_validEndStates = ["allUnitsKilled", "playerNear", "allKilledOrPlayerNear","assetSecured"];
+blck_validLootSpawnTimings = ["atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir"];
+blck_validLootLoadTimings = ["atMissionCompletion", "atMissionSpawn"];
 
 if (blck_debugOn) then {diag_log "[blckeagls] Variables Loaded"};
 

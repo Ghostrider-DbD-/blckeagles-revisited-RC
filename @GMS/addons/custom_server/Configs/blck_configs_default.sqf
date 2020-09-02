@@ -12,7 +12,7 @@
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 #include "\q\addons\custom_server\init\build.sqf";
-diag_log format["[blckeagls] loading default configurations for blckeagls build %1",blck_buildNumber];
+//diag_log format["[blckeagls] loading default configurations for blckeagls build %1",blck_buildNumber];
 ////////////
 // default settings
 ////////////	
@@ -45,12 +45,14 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_crateMoneyRed = [175, 300];
 	blck_crateMoneyGreen = [300, 500];
 	blck_crateMoneyOrange = [500, 750];
+
+	blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.
 	
 	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
 	
 	blck_maximumItemPriceInAI_Loadouts = 100;
 	
-	blck_lightlyArmed_ARMA3 = [
+		blck_lightlyArmed_ARMA3 = [
 		"B_G_Offroad_01_armed_F", 
 		"O_G_Offroad_01_armed_F",
 		"B_MRAP_01_gmg_F", 
@@ -63,25 +65,35 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"I_APC_Wheeled_03_cannon_F"	
 	];
 
+	blck_light_AT_ARMA3 = [
+		"O_G_Offroad_01_AT_F", 
+		"B_G_Offroad_01_AT_F", 
+		"O_T_LSV_02_AT_F", 
+		"O_LSV_02_AT_F", 
+		"B_T_LSV_01_AT_F", 
+		"B_LSV_01_AT_F"
+	];
+	blck_tracked_AA_ARMA3 = [
+		"O_APC_Tracked_02_AA_F",
+		"B_APC_Tracked_01_AA_F"	
+	];
 	blck_tracked_APC_ARMA3 = [
 		"B_APC_Tracked_01_rcws_F",
 		"B_APC_Tracked_01_CRV_F",
-		"B_APC_Tracked_01_AA_F",
 		"O_APC_Tracked_02_cannon_F", 
-		"O_APC_Tracked_02_AA_F",
 		"O_APC_Wheeled_02_rcws_F", 
 		"I_APC_tracked_03_cannon_F"
 	];
 
 	blck_Tanks_ARMA3 = [
 		//"B_MBT_01_arty_F",
-		"B_MBT_01_mlrs_F",
+		//"B_MBT_01_mlrs_F",
 		"B_MBT_01_TUSK_F",
 		"O_MBT_02_cannon_F",
 		//"O_MBT_02_arty_F",
 		"I_MBT_03_cannon_F"
 	];
-	
+	#ifdef useCUP
 	blck_APC_CUP = [
 		"CUP_B_Mastiff_GMG_GB_D",  
 		"CUP_B_Mastiff_HMG_GB_D",  
@@ -110,35 +122,36 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 	blck_Tanks_CUP = [
 		"CUP_B_M2A3Bradley_USA_D",  
-		"CUP_B_M113_desert_USA",  
-		"CUP_B_M163_USA",  
+		//"CUP_B_M113_desert_USA",  
+		//"CUP_B_M163_USA",  
 		"CUP_B_M6LineBacker_USA_D",  
 		"CUP_B_M1A1_DES_US_Army",  
 		"CUP_B_M1A2_TUSK_MG_DES_US_Army",  
-		"CUP_B_AAV_USMC",  
-		"CUP_B_M270_DPICM_USA",  
+		//"CUP_B_AAV_USMC",  
+		//"CUP_B_M270_DPICM_USA",  
 		"CUP_B_ZSU23_CDF",  
-		"CUP_B_BMP2_CDF",  
+		//"CUP_B_BMP2_CDF",  
 		"CUP_B_T72_CDF",  
-		"CUP_I_T34_NAPA",  
+		//"CUP_I_T34_NAPA",  
 		"CUP_B_Challenger2_NATO",  
-		"CUP_B_FV432_Bulldog_GB_D_RWS",  
-		"CUP_B_FV432_Bulldog_GB_D",  
+		//"CUP_B_FV432_Bulldog_GB_D_RWS",  
+		//"CUP_B_FV432_Bulldog_GB_D",  
 		"CUP_B_FV510_GB_D_SLAT",  
-		"CUP_B_MCV80_GB_D_SLAT",  
-		"CUP_O_2S6_RU",  
+		//"CUP_B_MCV80_GB_D_SLAT",  
+		//"CUP_O_2S6_RU",  
 		"CUP_O_BMP3_RU",  
 		"CUP_O_T90_RU",  
-		"CUP_O_T55_SLA",  
-		"CUP_O_BMP1P_TKA",  
-		"CUP_B_M270_DPICM_USA",
-		"CUP_B_M2Bradley_USA_W",  
-		"CUP_B_FV510_GB_D",  
-		"CUP_B_MCV80_GB_D",  
-		"CUP_B_M7Bradley_USA_D",  
-		"CUP_O_2S6_RU",  
-		"CUP_O_BMP1_TKA"
-	];	
+		"CUP_O_T55_SLA"  //,  
+		//"CUP_O_BMP1P_TKA",  
+		//"CUP_B_M270_DPICM_USA",
+		//"CUP_B_M2Bradley_USA_W",  
+		//"CUP_B_FV510_GB_D",  
+		//"CUP_B_MCV80_GB_D",  
+		//"CUP_B_M7Bradley_USA_D",  
+		//"CUP_O_2S6_RU",  
+		//"CUP_O_BMP1_TKA""
+	];
+	#endif
 	
 	blck_AIPatrolVehicles = ["B_LSV_01_armed_F","I_C_Offroad_02_LMG_F","B_T_LSV_01_armed_black_F","B_T_LSV_01_armed_olive_F","B_T_LSV_01_armed_sand_F"]; // Type of vehicle spawned to defend AI bases	
 	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
@@ -523,6 +536,87 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_NVG = ["NVG"];
         blck_buildingMaterials = [];
 
+		blck_UMS_uniforms = 
+		[
+			"U_I_Wetsuit",
+			"U_O_Wetsuit",
+			"U_B_Wetsuit"
+		];
+
+		blck_UMS_headgear = 
+		[
+			"G_Diving",
+			"G_B_Diving",
+			"G_O_Diving",
+			"G_I_Diving"
+		];
+
+		blck_UMS_vests = 
+		[
+			"V_RebreatherB",
+			"V_RebreatherIA",
+			"V_RebreatherIR"
+		];
+
+		blck_UMS_weapons = 
+		[
+			"arifle_SDAR_F"
+		];
+
+		if ((tolower blck_modType) isEqualTo "exile") then
+		{
+			blck_UMS_submarines =
+			[
+				
+				"Exile_Boat_SDV_CSAT",
+				"Exile_Boat_SDV_Digital",
+				"Exile_Boat_SDV_Grey"
+			];
+			
+			blck_UMS_crates =	["Exile_Container_SupplyBox"];
+		};
+		if ((tolower blck_modType) isEqualTo "epoch") then
+		{
+			blck_UMS_submarines = ["B_SDV_01_EPOCH"];
+			blck_UMS_crates = blck_crateTypes;
+			//blck_UMS_crates = ["container_epoch"];	
+		};
+		if ((toLower blck_modType) isEqualTo "default") then 
+		{
+			blck_UMS_submarines =
+			[
+				
+				"Exile_Boat_SDV_CSAT",
+				"Exile_Boat_SDV_Digital",
+				"Exile_Boat_SDV_Grey"
+			];
+			
+			blck_UMS_crates = blck_crateTypes;
+
+		};
+
+		blck_UMS_unarmedSurfaceVessels = 
+		[
+			"B_Boat_Transport_01_F",
+			"I_Boat_Transport_01_F"
+		];
+		blck_UMS_armedSurfaceVessels =
+		[
+			"B_Boat_Armed_01_minigun_F",
+			"I_Boat_Armed_01_minigun_F"	
+		];
+		blck_UMS_surfaceVessels = blck_UMS_unarmedSurfaceVessels + blck_UMS_armedSurfaceVessels;
+		blck_UMS_shipWrecks =
+		[
+			"Land_Boat_06_wreck_F",
+			"Land_Boat_05_wreck_F",
+			"Land_Boat_04_wreck_F",
+			"Land_Boat_02_abandoned_F",
+			"Land_Boat_01_abandoned_red_F",
+			"Land_Boat_01_abandoned_blue_F"
+		];
+
+
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION
 Note however that these configurations can be used in any way you like or replaced with mission-specific customized loot arrays
@@ -869,8 +963,5 @@ blck_contructionLoot = blck_BoxLoot_Orange;
 blck_highPoweredLoot = blck_BoxLoot_Orange;
 blck_supportLoot = blck_BoxLoot_Orange;
 
-
-blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.
-
-diag_log "[blckeagls] Default Configurations Loaded";
+["[blckeagls] Default Configurations Loaded"] call blck_fnc_log;
 
