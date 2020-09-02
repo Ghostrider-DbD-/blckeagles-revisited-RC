@@ -54,6 +54,6 @@ _headgear = blck_CUPHeadgear;
 _weaponList = _weaponList +  + blck_NIA_WeaponsSniper;
 #endif
 
-_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

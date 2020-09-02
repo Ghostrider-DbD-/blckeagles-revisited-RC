@@ -27,7 +27,7 @@
 //#define blck_debugMode
 //#define blck_addCarParts
 #define blck_triggerLoopCompleteTime 40*60
-
+#define max_distance_crate_moved_uncompleted_mission 120
 #define onFoot 1
 #define inVehicle 2
 

@@ -432,7 +432,7 @@
 	};	
 	if (toLower(blck_modType) isEqualTo "default") then 
 	{
-		diag_log format[" Loading Mission System using Parameters for %1 for militarized servers",blck_modType]] call blck_fnc_log;
+		[format[" Loading Mission System using Parameters for %1 for militarized servers",blck_modType]] call blck_fnc_log;
 		execVM "\q\addons\custom_server\Configs\blck_configs_default_mil.sqf";
 	};
 	//waitUntil{!isNil "blck_useConfigsGeneratedLoadouts"};

@@ -1227,5 +1227,49 @@ diag_log format["[blckeagls] blck_CUPHeadgear = %1",if (isNil "blck_CUPHeadgear"
 diag_log "[blckeagls]  end of Custom Configurations for RHS 5/2/20";
 blck_customConfigsLoaded = 1;
 
+if (blck_debugOn) then {
+diag_log "<GRG_TEST>  HEY YOU ITS WORKING";
+	blck_MinDistanceFromMission = 1000;
+    blck_minDistanceToBases = 1000;
+    blck_minDistanceToPlayer = 1000;
+    blck_minDistanceFromTowns = 500;
+	diag_log "<GRG_TEST>  HEY YOU porkid's settings were loaded";	
+
+	blck_MissionTimeout = 3000;
+	
+	blck_maxSpawnedMissions = 15;
+	blck_mainThreadUpdateInterval = 10;
+	blck_enableOrangeMissions = 1;  
+	blck_enableGreenMissions = 1;
+	blck_enableRedMissions = 1;
+	blck_enableBlueMissions = 1;
+	blck_numberUnderwaterDynamicMissions = 1;	
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxCrashSites = 0; 
+	diag_log "<GRG_TEST>  HEY YOU custom settings for enabling missions were loaded";	
+
+	blck_TMin_Blue = 7;
+	blck_TMin_Red = 10;
+	blck_TMin_Green = 13;	
+	blck_TMin_Orange = 16;	
+	blck_TMin_Hunter = 20;
+	blck_TMin_Scouts = 20;
+	blck_TMin_Crashes = 5;
+	blck_TMin_UMS = 20;
+	//Maximum Spawn time between missions in seconds
+	blck_TMax_Blue = 12;
+	blck_TMax_Red = 15;
+	blck_TMax_Green = 17;
+	blck_TMax_Orange = 21;
+	blck_TMax_Hunter = 22;
+	blck_TMax_Scouts = 22;
+	blck_TMax_Crashes = 15;
+	blck_TMax_UMS = 25;
+
+	diag_log "[blckeagls] Custom Configs <DEBUG ON> Custom mission timers loaded"	
+};
+
+
 
 

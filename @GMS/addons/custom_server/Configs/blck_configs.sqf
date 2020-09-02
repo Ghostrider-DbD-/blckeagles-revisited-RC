@@ -115,7 +115,7 @@
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [true,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
-	blck_missionEndCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+	blck_missionEndCondition = "allKilledOrPlayerNear"; // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 
 	///////////////////////////////
 	// General Mission Completion and Loot Settings

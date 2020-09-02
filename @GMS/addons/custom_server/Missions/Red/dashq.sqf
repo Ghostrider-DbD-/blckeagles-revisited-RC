@@ -22,7 +22,7 @@ _endMsg = "The HQ at the Red Marker is under survivor control!";
 _markerLabel = "";
 _markerType = ["ELLIPSE",[300,300],"Solid"];
 _markerColor = "ColorRed";
-_markerMissionName = "Operationsbasis";
+_markerMissionName = "Operations Base";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 
 //////////
@@ -179,14 +179,14 @@ _missionLandscape = [
 ];
 
 _missionLootBoxes = [
-     //["Exile_Container_SupplyBox",[0.0717773,16.9431,-0.00143814],_crateLoot,_lootCounts,0.000320471]
+     [selectRandom blck_crateTypes,[0.0717773,16.9431,-0.00143814],_crateLoot,_lootCounts,0.000320471]
 ];
 
 _missionLootVehicles = [
 ];
 
 _missionPatrolVehicles = [
-     //["O_T_LSV_02_armed_F",[-62.7971,0.422119,-0.0236669],0.00164848],
+     ["O_T_LSV_02_armed_F",[-62.7971,0.422119,-0.0236669],0.00164848],
      ["O_T_LSV_02_armed_F",[31.9084,-7.18774,-0.0238085],0.00168349]
 ];
 
@@ -226,6 +226,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition =  blck_missionEndCondition; // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";  

@@ -122,7 +122,7 @@ _missionLandscape = [
 ];
 
 _missionLootBoxes = [
-     //["Exile_Container_SupplyBox",[1.55273,0.0065918,-0.00143957],_crateLoot,_lootCounts,0.000522983]
+     [selectRandom blck_crateTypes,[1.55273,0.0065918,-0.00143957],_crateLoot,_lootCounts,0.000522983]
 ];
 
 _missionLootVehicles = [
@@ -169,6 +169,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

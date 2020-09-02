@@ -36,5 +36,5 @@ blck_sm_patrolRespawnInterval = 600;
 		};
 	};
 }forEach _staticMissions;
-diag_log "[blckeagls] GMS_StaticMissions Initialized.sqf <Loaded>";
+["GMS_StaticMissions Initialized.sqf <Loaded>"] call blck_fnc_log;
 

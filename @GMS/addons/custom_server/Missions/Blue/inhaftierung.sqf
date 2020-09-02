@@ -136,32 +136,18 @@ _enemyLeaderConfig set[
 	];
 	// This allows us to place the antagonist to be arrested in one of several random locations.
 _missionLootBoxes = [
-		//["Box_NATO_Wps_F",[3,-3,0],_crateLoot,[4,10,2,5,5,1]],  // Standard loot crate with standard loadout
-		//["Land_PaperBox_C_EPOCH",[-4,-3,0],_crateLoot,[0,0,0,10,10,3]],  	// No Weapons, Magazines, or optics; 10 each construction supplies and food/drink items, 3 backpacks
-		//["Land_CargoBox_V1_F",[3,4,0],_crateLoot,[0,10,2,5,5,1]]
+
 		];  //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
 
 		// blck_lootCountsBlue= [4,12,3,6,6,1];
 _missionPatrolVehicles = [
-     //["B_LSV_01_armed_F",[-41.377,-5.40894,-0.0238895],0.00171121],
+     ["B_LSV_01_armed_F",[-41.377,-5.40894,-0.0238895],0.00171121],
      ["B_LSV_01_armed_F",[39.5627,-5.26709,-0.0237107],0.00169144]
 	]; //  Parameters are "vehiclel type", offset relative to mission center, loot array, items to load from each category of the loot array.
-	//  ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];
-
-	/*
-	["B_G_Soldier_AR_F",[-19.5156,25.2598,-0.00143886],0,[true,false]],
-	["B_G_Soldier_AR_F",[-27.7676,-24.5508,-0.00143886],0,[true,false]],
-	["B_G_Soldier_AR_F",[32.4883,-23.4609,-0.00143886],0,[true,false]],
-	["B_G_Soldier_AR_F",[36.6914,12.1836,-0.00143886],0,[true,false]]	
-	*/
 
 	
-_missionEmplacedWeapons = []; //
-_missionPatrolVehicles = [
-	//["B_MRAP_01_hmg_F",[27.8945,100.275,0],0,[true,false]],
-	//["B_MRAP_01_hmg_F",[-84.7793,72.2617,9.53674e-007],0,[true,false]],
-	//["B_MRAP_01_gmg_F",[-87.8457,-109.947,7.15256e-007],0,[true,false]]
-];	
+_missionEmplacedWeapons = []; 
+	
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;
 _minNoAI = blck_MinAI_Blue;

@@ -95,7 +95,9 @@ _missionLandscape = [
      ["Land_dp_smallTank_F",[9.81934,-69.9482,0],0,true,true]
 ];
 
-_missionLootBoxes = [];
+_missionLootBoxes = [
+     [selectRandom blck_crateTypes,[0.337891,-44.,0],_crateLoot,_lootCounts,0.000320471]       
+];
 
 _missionLootVehicles = [];
 
@@ -138,6 +140,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";  

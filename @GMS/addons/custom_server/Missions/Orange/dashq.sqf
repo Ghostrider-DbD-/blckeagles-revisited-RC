@@ -22,7 +22,7 @@ _endMsg = "The HQ at the Orange Marker is under survivor control!";
 _markerLabel = "";
 _markerType = ["ELLIPSE",[300,300],"Solid"];
 _markerColor = "ColorOrange";
-_markerMissionName = "Operationsbasis";
+_markerMissionName = "Operations Base";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 
 //////////
@@ -179,7 +179,7 @@ _missionLandscape = [
 ];
 
 _missionLootBoxes = [
-     //["Exile_Container_SupplyBox",[0.0717773,16.9431,-0.00143814],_crateLoot,_lootCounts,0.000320471]
+     [selectRandom blck_crateTypes,[0.0717773,16.9431,-0.00143814],_crateLoot,_lootCounts,0.000320471]
 ];
 
 _missionLootVehicles = [
@@ -226,6 +226,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-_endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+_endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";  

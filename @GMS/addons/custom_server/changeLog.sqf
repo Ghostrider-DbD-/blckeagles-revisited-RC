@@ -436,7 +436,7 @@ bugfixes.
 	_useMines = blck_useMines;
 [Fixed] Logging by the time acceleration module was disabled.
 [Fixed] Emplaced weapons now spawn in the correct locations.
-[Fixed] Missions end correctly when all AI are dead and _endCondition = "allKilledOrPlayerNear"; 
+[Fixed] Missions end correctly when all AI are dead and _endCondition =  
 [changed] Reverted to the waypoint system from build 42.
 
 3/18/17 Version 6.58 Build 44
