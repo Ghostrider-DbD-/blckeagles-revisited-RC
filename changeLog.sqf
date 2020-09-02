@@ -9,17 +9,33 @@ Many thanks for new Coding and ideas from Grahame.
 
 Significant Changes:
 
+
 =====================
-7.00 Build 214
-New: Option to drop crates on a parachute at mission spawn which adds some randomness to where crates end up. <TODO: Implement this in configs and monitorLoop>
-	blck_spawnCratesTiming = "addMissionSpawnAir";
+7.00 Build 218
+New: Option to drop crates on a parachute at mission spawn which adds some randomness to where crates end up. 
+	blck_spawnCratesTiming = "atMissionSpawnAir";
+
+New: You can now add money to crates at static missions by defining the following parameter in your .sqf for the mission.
+	_crateMoney = 10000;
+	// this can be a value or a range such as [1000,10000];
+	a random amount of money from 0 to the maximum defined will be added. 
+
+New: Added some basic error checking and logging for incorrect entries for some key settings.
+
+New: 3DEN Editor plugin exports missions as .sqf formated text ready to paste into a file.
+	See the instructions in the @blckeagls_3DEN folder of this download for more information. 
+
 Fixed: Don and Hostage missions could not be completed 
 Fixed: Missions tended to spawn all at once 
 Fixed: vehicles are spawned at a safe spot which should reduce unintended explosions 
 Fixed: Missions sometimes spawned on steep hillsides.
 Fixed: Vehicles sometimes blew up on spawn.
-Added: The system has been upgreaded to a state-based system, meaning one scrpt is running once all missions are initialized.
+Fixed: Money was not added to crates at dynamic missions 
+
+Changed: Timers for spawning missions adjusted a bit to space out spawn/timeouts a bit more.
+Changed: The system has been upgreaded to a state-based system, meaning only one script (GMS_fnc_mainThread)is running once all missions are initialized.
 Changed: a lot of debugging was removed.
+Changed: List of missions for dynamic Underwater missions was moved to \Missions\GMS_missionLIsts.sqf
 
 
 6.98 Build 206

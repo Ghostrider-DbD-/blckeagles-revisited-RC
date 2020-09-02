@@ -1,10 +1,10 @@
 This addon includes several modules which will be discussed in the following order: 
 1. The core, dynamic mission system
 2. A static mission system
-3. A custom time acceleration module
-4. A module to execute scripts for custom bases (map addons) and so forth.
-5. A module to spawn loot crates in specific locations at server startup.
-6. Tools to export mission layouts designed in the editor for use with mission templates. This allows you to quickly add content to your server. Tools are available for both static and dynamic missions.
+3. A custom time acceleration module (disabled by default)
+4. A module to execute scripts for custom bases (map addons) and so forth (disabled by default, probably no longer useful).
+5. A module to spawn loot crates in specific locations at server startup (disabled by default, probably no longer useful).
+6. A plugin for the 3DEN editor to help configure and export missions.
 
 1. Core Mission System.
 
@@ -42,8 +42,8 @@ General settings include:
 Where possible, I have tried group weapons based on desirability from low rank (5.56 ammo) to high rank (7.6 caliber or larger, large bore sniper, heavy LMG) then combine these groups to define parameters as needed.
 
 The missions themselves are spawned from templates which can be used to define most aspects of the missions including:
- the messages sent to players; 
- Text used to label the mark
+ Messages sent to players; 
+ Text used to label the marker
  Type of marker used to label the map
  Number of AI groups and number of AI or, alternatively desired their spawn locations.
  (optional) loot chest positions and loot to be loaded
@@ -53,9 +53,9 @@ The missions themselves are spawned from templates which can be used to define m
  
  To create and run new missions simply: 
 	layout an AI base in the Arma 3 editor, 
-	export the base as an .sqf using the tools provided.
+	define commonly adjusted setting using the editor plugin.
+	export the base as an .sqf using the editor plugin provided.
 	Define the above parameters (nu. AI groups, No AI, etc)
-	add this information to the mission template and modify any messages accordingly
 	Add the name of the file (e.g., "newAImission" to the list of missions to be spawned of that class in ...\custom)server\missions\GMS_missionLists.sqf
 	Repack your custom_server.pbo
 

@@ -1,8 +1,10 @@
 Installation:
 
 /////////////////////////////
+CLIENT
+/////////////////////////////
 // MPMissions - modify your mission pbo (epoch.Altis.pbo) as follows.
-1) Unpack the Zip file you downloaded from the Github to a folder in a convenient location.
+1) Unpack the Zip file you downloaded from the Github to a convenient location.
 2) Unpack your mission pbo (epoch.Altis.pbo or Exile.Altis.pbo). 
 3) Open the folder containing the unpacked mission.
 4) Copy the debug folder from your download (MPMissions\epoch.Altis or MPMissions\exile.Altis)
@@ -20,6 +22,16 @@ Adjust settings in @GMS\addons\custom_server\Configs to suit your needs.
 Pack custom_server.
 Add the @GMS folder to the root directory of your server (the same location as your mods such as @Epoch or @Exile
 Add "@GMS;" to -servermods in the startup parameters for your server.
+
+Alternative method:
+Copy custom_server to either:
+@epochhive\addons 
+
+or 
+
+@exileserver\addons
+
+as appropriate.
 
 /////////////////////////
 // Battleye Exceptions
