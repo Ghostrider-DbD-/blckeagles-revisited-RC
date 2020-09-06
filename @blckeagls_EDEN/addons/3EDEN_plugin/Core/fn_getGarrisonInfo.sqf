@@ -1,19 +1,23 @@
 
-private _object = get3DENSelected "object" select {((typeOf _x) isKindOf "House") && [_x] call BIS_fnc_isBuildingEnterable};
+private _objects = get3DENSelected "object";
 private "_message";
- switch (count _objecct) do 
+diag_log format["getGarrisonInfo: _object = %1",format["%1",_object]];
+ if (_objects isEqualTo []) then 
  {
-	 case 0: {_message = "No Enterable Buildings selected"};
-	 case 1: {
-		 if (_object getVariable["garrisoned",false]) then 
-		 {
-		 	_message = format["Building %1 IS Garrisoned",typeOf _object];
+	_message = "No Buildings Selected";
+} else {
+	if (count _objects == 1) then 
+	{
+		if ((_objects select 0) getVariable["garrisoned",false]) then 
+		{
+			_message = format["Building %1 IS Garrisoned",typeOf (_objects select 0)];
 		} else {
-			_message = format["Building %1 is NOT Garrisoned",typeOf _object];
+			_message = format["Building %1 is NOT Garrisoned",typeOf (_objects select 0)];
 		};
-	 };
-	 default {_message = "Select a single building then try again"};
- };
- [_message,"Status"] call BIS_fnc_3DENShowMessage;
+	} else {
+		_message = format["Select a single building then try again"];			
+	};
+};
  systemChat _message;
  diag_log _message;
+ [_message,"Status"] call BIS_fnc_3DENShowMessage;

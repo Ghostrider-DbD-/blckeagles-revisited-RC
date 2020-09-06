@@ -2,21 +2,24 @@
 private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car"};
 private "_message";
 
-switch (count _objects) do 
-{
-	case 0: {_message = "Select a vehicle and try again"};
-	case 1: {
+ if (_objects isEqualTo []) then 
+ {
+	_message = "No Vehicles Selected";
+} else {
+	if (count _objects == 1) then 
+	{
 		if ((_objects select 0) getVariable["lootvehicle",false]) then 
 		{
-			 _message = format["Vehicle %1 IS a loot vehicle",typeOf (_objects select 0)];
+			_message = format["Vehicle %1 IS a Loot Vehicle",typeOf (_objects select 0)];
 		} else {
-			_message = format["Vehicle %1 is NOT a loot vehicle",typeOf (_objects select 0)];
+			_message = format["Vehicle %1 is NOT a Loot Vehicle",typeOf (_objects select 0)];
 		};
+	} else {
+		_message = format["% Vehicles Selected. Select a single vehicle then try again",count _objects];			
 	};
-	default {_message = "Select a single vehicle and try again"};
 };
-
-[_message,"Status"] call BIS_fnc_3DENShowMessage;
-
  systemChat _message;
  diag_log _message;
+[_message,"Status"] call BIS_fnc_3DENShowMessage;
+
+

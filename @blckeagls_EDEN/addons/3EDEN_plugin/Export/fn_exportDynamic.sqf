@@ -163,21 +163,22 @@ private _garisonedUnits = [];
 
 private _landscape =  _objects select{
     !(isSimpleObject _x) && 
-    ((typeOf _x) isKindOf "Static")
+    ((typeOf _x) isKindOf "Static") || 
+	( (typeOf _x) isKindOf "ThingX" && (!((typeOf _x) isKindOf "ReammoBox_F") && !(_x getVariable["isLootContainer",false])))
 };
+
 private _garisonedPos = [];
 private _helpers = _objects select {((typeOf _x) isEqualTo garisonMarkerObject)};
-diag_log format["garisonMarkerObject = %1 | _helpers = %2",garisonMarkerObject,_helpers];
+
 {
-	if ([_x] call blck3DEN_fnc_isInside) then
+	if (_x getVariable["garrisoned",false]) then
 	{
-		_building = [_x] call blck3DEN_fnc_buildingContainer;
 		_garisonedBuildings pushbackunique _building;		
 		//  data structure ["building Classname",[/*building pos*/],/*building dir*/,/*odds of garrison*/, /*Max Statics*/,/*types statics*/,/*max units*/],
 													// 1				2								3			4	  5			6			7					8						9
-		_garisonedPos pushBack format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, 'true','true',oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
+		_garisonedPos pushBack format['     ["     %1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, 'true','true',oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
 	};
-} forEach _helpers;
+} forEach _landscape;
 //diag_log format["CENTER = %1 | _landscape = %2",CENTER,_landscape];
 private _garrisonATL = [];
 {
@@ -189,7 +190,7 @@ private _garrisonATL = [];
 	if !(_atl isEqualTo []) then {
 		if !((_atl select 0) isEqualTo []) then 
 		{
-			_garrisonATL pushBack (_atl select 0);
+			_garrisonATL pushBack (format["     %1",_atl select 0]);
 			_garisonedBuildings pushBack _x;
 			_garisonedStatics append (_atl select 1);
 			_garisonedUnits append (_atl select 2)
@@ -218,7 +219,7 @@ private _missionLootVehicles = [];
 private _lootVehicles = _objects select {
 	((typeOf _x) isKindOf "AllVehicles") && 
 	!((typeOf _x) isKindOf "Man") &&	
-	(_x get3DENAttribute "name" isEqualTo lootVehicleVariableName)
+	(_x getVariable["lootvehicle",false])
 };
 diag_log format["_lootVehicles = %1",_lootVehicles];
 {
@@ -289,7 +290,7 @@ private _scubaGroups = [];
 } forEach _scuba;
 
 private _lootContainers = [];
-private _ammoBoxes = _objects select {
+private _ammoBoxes = _objects select {  //  "ReammoBox_F"
 	(((typeOf _x) isKindOf "ReammoBox") || ((typeOf _x) isKindOf "ReammoBox_F"))
 };
 diag_log format["_ammoBoxes = %1",_ammoboxes];
