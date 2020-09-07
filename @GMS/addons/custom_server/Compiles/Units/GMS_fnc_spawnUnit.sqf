@@ -91,10 +91,10 @@ _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 _unit addMagazines[selectRandom _ammochoices,3];
 
 // more compatibel way to check for attachments
-_muzzles = [_weap, "muzzle"] call CBA_fnc_compatibleItems;
-_optics = [_weap, "optic"] call CBA_fnc_compatibleItems;   
-_pointers = [_weap, "pointer"] call CBA_fnc_compatibleItems;
-_underbarrel = [_weap, "bipod"] call CBA_fnc_compatibleItems;
+_muzzles = [_weap, 101] call BIS_fnc_compatibleItems;
+_optics = [_weap, 201] call BIS_fnc_compatibleItems;
+_pointers = [_weap, 301] call BIS_fnc_compatibleItems;
+_underbarrel = [_weap, 302] call BIS_fnc_compatibleItems;
 
 /*
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
