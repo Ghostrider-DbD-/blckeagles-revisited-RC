@@ -7,6 +7,7 @@ if (_objects isEqualTo []) exitWith
 {
 	_message = "Select one or more buildings to configure";
 	systemChat _message;
+	diag_log _message;
 };
 
 {
@@ -16,6 +17,11 @@ if (_objects isEqualTo []) exitWith
 		_message = format["building of type %1 had garrison state set to %2",typeOf _x,_state];
 		systemChat _message;
 		diag_log _message;
+		if (blck_displayGarrisonMarkerOn) then 
+		{
+			[_x] call blck3DEN_fnc_createGarrisonedMarker;
+			[_x] call blck3DEN_fnc_setEventHandlers;
+		};
 	} else {
 		_message = format["Object type %1 ignored: only enterable buildings can be garrisoned",typeOf _x];
 		systemChat _x;

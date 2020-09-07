@@ -163,8 +163,10 @@ private _garisonedUnits = [];
 
 private _landscape =  _objects select{
     !(isSimpleObject _x) && 
-    ((typeOf _x) isKindOf "Static") || 
-	( (typeOf _x) isKindOf "ThingX" && (!((typeOf _x) isKindOf "ReammoBox_F") && !(_x getVariable["isLootContainer",false])))
+    ((typeOf _x) isKindOf "Static" || ( (typeOf _x) isKindOf "ThingX")) && 
+	!((typeOf _x) isKindOf "ReammoBox_F") && 
+	!(_x getVariable["isLootContainer",false]) && 
+	!((typeOf _x) isKindOf "Helper_Base_F")
 };
 
 private _garisonedPos = [];

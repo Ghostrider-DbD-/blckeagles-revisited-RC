@@ -1,10 +1,13 @@
 
-private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car"};
+
+
+
+private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car" || (typeOf _x) isKindOf "Ship" || (typeOf _x) isKindOf "ThingX"};
 private "_message";
 
  if (_objects isEqualTo []) then 
  {
-	_message = "No Vehicles Selected";
+	_message = "No Cars/Ships/ThingX Selected";
 } else {
 	if (count _objects == 1) then 
 	{

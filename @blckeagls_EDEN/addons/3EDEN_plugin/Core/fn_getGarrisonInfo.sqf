@@ -21,3 +21,4 @@ diag_log format["getGarrisonInfo: _object = %1",format["%1",_object]];
  systemChat _message;
  diag_log _message;
  [_message,"Status"] call BIS_fnc_3DENShowMessage;
+

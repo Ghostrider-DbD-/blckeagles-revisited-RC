@@ -1,16 +1,35 @@
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+	sets a flag stored through setVariable for each selected object that meets the filter criteria 
+	only objects of type "Car"or "ThingX" are allowed.
+*/
+
 params["_state"];
 private "_message";
-private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car"};
+private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car" || (typeOf _x) isKindOf "Ship"};  // 
 if (_objects isEqualTo []) exitWith 
 {
-	_message = "Select one or more vehicles to configure";
+	_message = "Select one or more vehicles or items of type ThingX to configure";
 	systemChat _message;
 };
 {
-	if ((typeOf _x) isKindOf "Car") then 
+	if ((typeOf _x) isKindOf "Car" || (typeOf _x) isKindOf "Ship") then 
 	{
 		_x setVariable["lootvehicle",_state];
-		_message = format["Vehicle type %1 set to Loot Vehilce = %1",typeOf _x,_state];
+		if (blck_displayLootMarkerOn && _state) then 
+		{
+			[_x] call blck3DEN_fnc_createLootMarker;
+			[_x] call blck3DEN_fnc_setEventHandlers;
+		} else {
+			if !(_state) then 
+			{
+				[_x] call blck3DEN_fnc_removeLootMarker;
+			};
+		};
+		_message = format["Vehicle type %1 set to Loot Vehicle = %1",typeOf _x,_state];
 		systemChat _message;
 		diag_log _message;
 	} else {
@@ -19,5 +38,5 @@ if (_objects isEqualTo []) exitWith
 		systemChat _message;
 	};
 } forEach _objects;
-_message = format["Loot Vehicle State of %1 vehicles updated to %2",count _objects,_state];
+_message = format["Loot Vehicle State of %1 objects updated to %2",count _objects,_state];
 systemChat _m;

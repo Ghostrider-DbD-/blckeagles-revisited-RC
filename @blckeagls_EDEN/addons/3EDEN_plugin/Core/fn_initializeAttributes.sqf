@@ -13,5 +13,7 @@ missionNamespace setVariable["blck_endState",getText(configFile >> "CfgBlck3DEN"
 missionNamespace setVariable["blck_startMessage","TODO: Add a start message"];
 missionNamespace setVariable["blck_endMessage","TODO: Add an end message"];
 missionNamespace setVariable["blck_missionLocations","random"];
+missionNameSpace setVariable["blck_displayGarrisonMarkerOn",false];
+missionNamespace setVariable["blck_displayLootMarkerOn",false];
 
 diag_log format["Mission Attributes Initialized for blckeagls at time %1",diag_tickTime];
