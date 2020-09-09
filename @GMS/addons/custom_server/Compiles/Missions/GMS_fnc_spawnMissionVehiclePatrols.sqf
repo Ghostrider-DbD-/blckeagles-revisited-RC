@@ -46,7 +46,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	} else {
 		_spawnPos = _x select 1;
 	};
-	_vehicle = _x select 0;
+	_vehicle = _x select 0;	
 	_vehGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
 	_patrolVehicle = objNull;
 
@@ -56,6 +56,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 		[_vehGroup,_spawnPos,_coords,_crewCount,_crewCount,_skillAI,1,2,false,_uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaGroup] call blck_fnc_spawnGroup;
 		_missionAI append (units _vehGroup);
 		blck_monitoredMissionAIGroups pushBack _vehGroup;
+		_spawnPos = _spawnPos findEmptyPosition[0,50,_vehicle];;
 		#define useWaypoints true
 		_patrolVehicle = [_coords,_spawnPos,_vehicle,40,60,_vehGroup,useWaypoints,_crewCount] call blck_fnc_spawnVehiclePatrol; 
 
