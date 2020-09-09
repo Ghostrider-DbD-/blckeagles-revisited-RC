@@ -199,7 +199,11 @@ _missionParameters params[
 					{
 						if (random(1) < _chanceHeliPatrol) then
 						{
-							_temp = [_coords,_difficulty,_missionHelis,_uniforms,_headGear,_vests,_backpacks,_weaponList, _sideArms,"none"] call blck_fnc_spawnMissionHeli;
+							private _xaxis = _coords select 0;
+							private _yaxis = _coords select 1;
+							private _zaxis = 100;
+							private _offset = 15 * _i;
+							_temp = [[_xaxis + _offset,_yaxis + _offset, _zaxis + _offset],_difficulty,_missionHelis,_uniforms,_headGear,_vests,_backpacks,_weaponList, _sideArms,"none"] call blck_fnc_spawnMissionHeli;
 							if (typeName _temp isEqualTo "ARRAY") then 
 							{
 								blck_monitoredVehicles pushBack (_temp select 0);
