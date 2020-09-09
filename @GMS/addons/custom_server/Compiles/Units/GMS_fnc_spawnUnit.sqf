@@ -89,12 +89,16 @@ _weap = selectRandom _weaponList;
 _unit addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 _unit addMagazines[selectRandom _ammochoices,3];
+/*
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
 _pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "PointerSlot" >> "compatibleItems");
 _muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
 _underbarrel = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "UnderBarrelSlot" >> "compatibleItems");
-
-
+*/
+_muzzles = [_weap, 101] call BIS_fnc_compatibleItems;
+_optics = [_weap, 201] call BIS_fnc_compatibleItems;
+_pointers = [_weap, 301] call BIS_fnc_compatibleItems;
+_underbarrel = [_weap, 302] call BIS_fnc_compatibleItems;
 
 if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
 if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _optics)};
