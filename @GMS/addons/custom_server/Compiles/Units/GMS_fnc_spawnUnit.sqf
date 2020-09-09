@@ -95,16 +95,11 @@ _pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >
 _muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
 _underbarrel = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "UnderBarrelSlot" >> "compatibleItems");
 */
-_muzzles = [_weap, 101] call BIS_fnc_compatibleItems;
-_optics = [_weap, 201] call BIS_fnc_compatibleItems;
-_pointers = [_weap, 301] call BIS_fnc_compatibleItems;
-_underbarrel = [_weap, 302] call BIS_fnc_compatibleItems;
 
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _optics)};
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _pointers)};
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom _underbarrel)};
+if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 101] call BIS_fnc_compatibleItems))};  // muzzles
+if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 201] call BIS_fnc_compatibleItems))};  // optics
+if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 301] call BIS_fnc_compatibleItems))};  // pointers
+if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 302] call BIS_fnc_compatibleItems))};  // underbarrel
 if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then 
 {
 	_unit addMagazine "1Rnd_HE_Grenade_shell";
@@ -127,7 +122,8 @@ if (round(random 10) <= 5) then
 {
 	_unit addItem selectRandom blck_specialItems;
 };
- 
+
+/*
 if ( !(_Launcher isEqualTo "none") && !(_backpacks  isEqualTo [])) then
 {
 	_unit addWeaponGlobal _Launcher;
@@ -141,6 +137,26 @@ if ( !(_Launcher isEqualTo "none") && !(_backpacks  isEqualTo [])) then
 	if ( random (1) < blck_chanceBackpack && !(_backpacks  isEqualTo [])) then
 	{ 
 		_unit addBackpack selectRandom _backpacks;
+	};
+};
+*/
+if !(_backpacks isEqualTo []) then 
+{
+	if (_Launcher isEqualTo "none") then 
+	{
+		if ( random (1) < blck_chanceBackpack) then
+		{ 
+			_unit addBackpack selectRandom _backpacks;
+		};
+	} else {
+		_unit addWeaponGlobal _Launcher;
+		_unit addBackpack (selectRandom _backpacks);
+		private _mags = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines");
+		for "_i" from 1 to 3 do 
+		{
+			_unit addItemToBackpack (_mags select 0); // call BIS_fnc_selectRandom;
+		};
+		_unit setVariable["Launcher",_launcher,true];		
 	};
 };
 
