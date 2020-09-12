@@ -57,7 +57,7 @@ while {true} do
 	if ((diag_tickTime > _timer1min)) then
 	{
 		_timer1min = diag_tickTime + 60;
-
+		[] call blck_fnc_restoreHiddenObjects;
 		[] call blck_fnc_groupWaypointMonitor;
 		[] call blck_fnc_cleanupAliveAI;
 		[] call blck_fnc_cleanupObjects;

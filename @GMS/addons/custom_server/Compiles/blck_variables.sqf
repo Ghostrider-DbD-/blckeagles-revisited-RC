@@ -33,6 +33,7 @@ blck_monitoredVehicles = [];
 blck_livemissionai = [];
 blck_monitoredMissionAIGroups = [];  //  Used to track groups in active missions for whatever purpose
 blck_oldMissionObjects = [];
+blck_hiddenTerrainObjects = [];
 blck_pendingMissions = [];
 blck_missionsRunning = 0;
 blck_missionsRun = 0;

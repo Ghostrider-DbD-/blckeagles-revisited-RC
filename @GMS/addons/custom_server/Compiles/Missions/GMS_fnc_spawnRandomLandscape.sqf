@@ -13,30 +13,33 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_coords","_missionLandscape",["_min",3],["_max",15],["_nearest",1]];
 
-private["_objects","_wreck","_dir","_dirOffset"];
 #define maxObjectSpawnRadius 25
 #define minObjectSpawnRadius 15
 private _objectSpawnRange = maxObjectSpawnRadius - minObjectSpawnRadius;
 
-_objects = [];
-_wreck = createVehicle ["RoadCone_L_F", _coords];  //  To designate the mission center
-_wreck allowDamage true;
-_wreck enableSimulation false;
-_wreck enableSimulationGlobal false;
-_wreck enableDynamicSimulation false;
-_objects pushBack _wreck;
-{
+private _newObjs = [];
+private _hiddenObjs = [];
 
-	private _dir = random(360);
-	private _radius = minObjectSpawnRadius + random(maxObjectSpawnRadius);
-	_wreck = createVehicle[_x, _coords getPos[_radius,_dir], [], 2];	
-	_wreck allowDamage true;
-	_wreck enableSimulation false;
-	_wreck enableSimulationGlobal false;
-	_wreck enableDynamicSimulation false;
-	_wreck setDir (_wreck getRelDir _coords);
-	_objects pushback _wreck;
+{
+	private _spawnPos = _coords getPos[minObjectSpawnRadius + random(maxObjectSpawnRadius), random(359)];
+	private _objClassName = _x;
+	if (_objClassName isKindOf "House" && blck_hideRocksAndPlants) then 
+	{
+		private _shrubs = nearestTerrainObjects[_spawnPos,["TREE", "SMALL TREE", "BUSH","FENCE", "WALL","ROCK"], sizeOf _objClassName];
+		if !(_shrubs isEqualTo []) then 
+		{
+			_hiddenOjbs append _shrubs;
+			{_x hideObjectGlobal true} forEach _shrubs;
+		};
+	};
+	private _obj = createVehicle[_x, _spawnPos, [], 2];	
+	_obj allowDamage true;
+	_obj enableSimulation false;
+	_obj enableSimulationGlobal false;
+	_obj enableDynamicSimulation false;
+	_obj setDir (_obj getRelDir _coords);
+	_newObjs pushback _obj;
 	sleep 0.1;
 } forEach _missionLandscape;
 
-_objects
+[_newObjs,_hiddenObjs]

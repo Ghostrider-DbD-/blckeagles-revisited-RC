@@ -34,8 +34,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 		"_missionsData"  // 
 	];
 				
-						//   0       1       2          3         4                    5                6                    7             8
-	_missionData params ["_coords","_mines","_objects","_crates","_blck_AllMissionAI","_assetSpawned","_missionAIVehicles","_markers"];
+	_missionData params ["_coords","_mines","_objects","_hiddenObjects","_crates","_blck_AllMissionAI","_assetSpawned","_missionAIVehicles","_markers"];
 
 _missionParameters params[
 	"_markerName",
@@ -123,7 +122,7 @@ _missionParameters params[
 		{
 				//[format["_fnc_monitorInitializedMissions: mission timed out: %1",_el]] call blck_fnc_log;
 				_missionCategoryDescriptors set[noActive, _noActive - 1];
-				[_coords,_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  -1] call blck_fnc_endMission;
+				[_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  -1] call blck_fnc_endMission;
 		}; 			
 		
 		//  Handle mission waiting to be triggerd and player is within the range to trigger		
@@ -158,7 +157,8 @@ _missionParameters params[
 
 				_temp = [_coords, _missionLandscape] call blck_fnc_spawnCompositionObjects;
 			};
-			_objects append _temp;
+			_objects append [_temp select 0];
+			_hiddenObjects append [_temp select 1];
 			uiSleep delayTime;	
 
 			try {
@@ -315,7 +315,7 @@ _missionParameters params[
 
 				_el set[missionData, _missionData];
 
-				// Everything spawned withouth serous errors so lets keep the mission active for future monitoring
+				// Everything spawned withouth serious errors so lets keep the mission active for future monitoring
 
 				blck_activeMissionsList pushBack _el;	
 			} 
@@ -325,7 +325,7 @@ _missionParameters params[
 				if (_exception isEqualTo 1) then 
 				{
 					_missionCategoryDescriptors set[noActive, _noActive - 1];				
-					[_coords,_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  1] call blck_fnc_endMission;
+					[_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  1] call blck_fnc_endMission;
 					["Critial Error returned by one or more critical functions, mission spawning aborted!",'error'] call blck_fnc_log;
 				};
 			};
@@ -436,6 +436,7 @@ _missionParameters params[
 				switch (_exception) do 
 				{
 					case 1: {  // Normal Mission End
+								//diag_log format["_monitorInitializedMissions: Normal mission end"];
 								if (_spawnCratesTiming in ["atMissionEndGround","atMissionEndAir"]) then
 								{
 									if (!(_secureAsset) || (_secureAsset && (alive _assetSpawned))) then
@@ -493,7 +494,7 @@ _missionParameters params[
 										[_assetSpawned,selectRandom(_assetSpawned getVariable["endAnimation",["AidlPercMstpSnonWnonDnon_AI"]])] remoteExec["switchMove",-2];
 									};
 								};
-								[_coords,_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName, _exception] call blck_fnc_endMission;
+								[_coords,_mines,_objects,_hiddenObjects,_crates,_blck_AllMissionAI,_endMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName, _exception] call blck_fnc_endMission;
 	
 								_waitTime = diag_tickTime + _tMin + random(_tMax - _tMin);
 								_missionCategoryDescriptors set [noActive,_noActive - 1];
@@ -501,10 +502,10 @@ _missionParameters params[
 					};
 					case 2: { // Abort, crate moved.
 								_endMsg = "Crate Removed from Mission Site Before Mission Completion: Mission Aborted";
-								[_coords,_mines,_objects,_crates, _blck_AllMissionAI,"Crate Removed from Mission Site Before Mission Completion: Mission Aborted",_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  _exception] call blck_fnc_endMission;
+								[_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,"Crate Removed from Mission Site Before Mission Completion: Mission Aborted",_markers,markerPos (_markers select 1),_markerName,_markerMissionName,  _exception] call blck_fnc_endMission;
 							};
 					case 3: {  // Abort, key asset killed		
-								[_coords,_mines,_objects,_crates,_blck_AllMissionAI,_assetKilledMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName, _exception] call blck_fnc_endMission;
+								[_coords,_mines,_objects,_hiddenObjects,_crates,_blck_AllMissionAI,_assetKilledMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName, _exception] call blck_fnc_endMission;
 							};
 					case 4: {  // Reserved for grpNull errors in the future
 

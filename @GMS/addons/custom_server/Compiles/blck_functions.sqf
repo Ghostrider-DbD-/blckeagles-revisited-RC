@@ -15,7 +15,7 @@
 private _functions = [
 	// General functions
 	["blck_fnc_waitTimer","\q\addons\custom_server\Compiles\Functions\GMS_fnc_waitTimer.sqf"],
-	//["blck_fnc_timedOut","\q\addons\custom_server\Compiles\Functions\GMS_fnc_timedOut.sqf"],
+	["blck_fnc_restoreHiddenObjects","\q\addons\custom_server\Compiles\Functions\GMS_fnc_restoreHiddenObjects.sqf"],
 	["blck_fnc_FindSafePosn","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn.sqf"],
 	["blck_fnc_findSafePosn_2","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn_2.sqf"],
 	["blck_fnc_randomPosition","\q\addons\custom_server\Compiles\Functions\GMS_fnc_randomPosn.sqf"],							// find a randomPosn. see script for details.
@@ -75,7 +75,7 @@ private _functions = [
 	["blck_fnc_spawnCrate","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnCrate.sqf"],			// Simply spawns a crate of a specified type at a specific position.
 	["blck_fnc_spawnMissionCrates","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionCrates.sqf"], 
 	["blck_fnc_cleanupObjects","\q\addons\custom_server\Compiles\Missions\GMS_fnc_cleanUpObjects.sqf"],
-	["blck_fnc_spawnCompositionObjects","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnBaseObjects.sqf"],
+	["blck_fnc_spawnCompositionObjects","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnCompositionObjects.sqf"],
 	["blck_fnc_spawnRandomLandscape","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnRandomLandscape.sqf"],
 	["blck_fnc_spawnMissionVehiclePatrols","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionVehiclePatrols.sqf"],
 	["blck_fnc_spawnEmplacedWeaponArray","\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnEmplacedWeaponArray.sqf"],

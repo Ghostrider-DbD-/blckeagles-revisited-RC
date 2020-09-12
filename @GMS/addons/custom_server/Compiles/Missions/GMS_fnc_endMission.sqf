@@ -15,9 +15,10 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp"
 	
 _fn_missionCleanup = {	
-	params["_coords","_mines","_objects","_blck_AllMissionAI","_markerName","_cleanupAliveAITimer","_cleanupCompositionTimer",["_isScubaMission",false]];
+	params["_coords","_mines","_objects","_hiddenObjects","_blck_AllMissionAI","_markerName","_cleanupAliveAITimer","_cleanupCompositionTimer",["_isScubaMission",false]];
 	[_mines] call blck_fnc_clearMines;
 	blck_oldMissionObjects pushback [_coords,_objects, (diag_tickTime + _cleanupCompositionTimer)];	
+	blck_hiddenTerrainObjects pushBack[_hiddenObjects,(diag_tickTime + _cleanupCompositionTimer)];
 	blck_liveMissionAI pushback [_coords,_blck_AllMissionAI, (diag_tickTime + _cleanupAliveAITimer)];
 	blck_missionsRunning = blck_missionsRunning - 1;
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];	
@@ -42,6 +43,7 @@ params[
 	"_coords",
 	"_mines",
 	"_objects",
+	"_hiddenObjects",
 	"_crates",
 	"_blck_AllMissionAI",
 	"_endMsg",
@@ -68,13 +70,13 @@ switch (_endCondition) do
 				if (local _x) then {deleteVehicle _x};
 			}forEach _crates;
 
-			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 			[format["Mission <TIMED OUT> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;			
 	};
 	case 1: {  // Normal End
 			if (blck_useSignalEnd) then
 			{
-				[_crates select 0] spawn blck_fnc_signalEnd;
+				[_crates select 0,150] spawn blck_fnc_signalEnd;
 				{
 					_x enableRopeAttach true;
 				}forEach _crates;
@@ -102,7 +104,7 @@ switch (_endCondition) do
 				};
 			} forEach _vehicles;
 
-			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,blck_AliveAICleanUpTimer,blck_cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,blck_AliveAICleanUpTimer,blck_cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 			[format["Mission Completed | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;			
 	};
 	case 2: {  // Aborted for moving a crate 
@@ -112,7 +114,7 @@ switch (_endCondition) do
 				} forEach _crates;
 				#define illegalCrateMoveMsg "Crate moved before mission completed"
 				[["warming",illegalCrateMoveMsg,_markerLabel]] call blck_fnc_messageplayers;
-				[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+				[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 				[format["Mission Aborted <CRATE MOVED> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;
 	};
 	case 3: {  // Mision aborted for killing an asset
@@ -123,7 +125,7 @@ switch (_endCondition) do
 				if (local _x) then {deleteVehicle _x};
 			}forEach _crates;
 			[["warning",_endMsg,_markerLabel]] call blck_fnc_messageplayers;
-			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 			[format["Mission Aborted <ASSET KILLED> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;
 
 	};
@@ -135,7 +137,7 @@ switch (_endCondition) do
 				if (local _x) then {deleteVehicle _x};
 			}forEach _crates;
 
-			[_coords,_mines,_objects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 	};
 };
 

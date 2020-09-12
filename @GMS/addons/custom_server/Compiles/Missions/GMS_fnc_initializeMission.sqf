@@ -109,6 +109,8 @@ if (_coords isEqualTo []) exitWith
 	false;
 };
 
+if (blck_debugLevel >= 3) then {diag_log format["_fnc_initializeMission: _markerMissionName = %1 |  _coords = %2",_markerMissionName,_coords]};
+
 blck_ActiveMissionCoords pushback _coords; 
 blck_missionsRunning = blck_missionsRunning + 1;
 
@@ -152,6 +154,7 @@ private _missionTimeoutAt = diag_tickTime + blck_MissionTimeout;
 private _triggered = 0;
 private _spawnPara = if (random(1) < _chancePara) then {true} else {false};
 private _objects = [];
+private _hiddenObjects = [];
 private _mines = [];
 private _crates = [];
 private _missionAIVehicles = [];
@@ -159,7 +162,7 @@ private _blck_AllMissionAI = [];
 private _AI_Vehicles = [];
 private _assetSpawned = objNull;
 
-private _missionData = [_coords,_mines,_objects,_crates, _blck_AllMissionAI,_assetSpawned,_missionAIVehicles,_markers];
+private _missionData = [_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,_assetSpawned,_missionAIVehicles,_markers];
 blck_activeMissionsList pushBack [_missionCategoryDescriptors,_missionTimeoutAt,_triggered,_spawnPara,_missionData,_missionParameters];
 
 [format["Initialized Mission %1 | description %2 | difficulty %3 at %4",_markerName, _markerMissionName, _difficulty, diag_tickTime]] call blck_fnc_log;
