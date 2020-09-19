@@ -1,51 +1,148 @@
 
-class CfgVehicles
-{
-	class Object 
-	{
-		class AttributeCategories 
-		{
-			class LandVehicle;
-			class blckLandVehicle: LandVehicle;
-			{
-				class Attributes 
-				{
-					class blckLootVehicle 
-					{
-							// https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Scenario 
-							displayName = "Loot Vehicle";
-							toolTip = "Enable/Disable Use as Loot Vehicle";
-							property = "blckLootVehicle";
-							control = "Edit";
-							expression = "_this setVariable['%s',_value];";
-							defaultValue = 'false';
-							unique = 0;
-							validate = "BOOL";
-							typeName = "BOOL";
-					};
-				};
-			};
 
-			class Static;
-			class blckHouse: Static 
-			{
-				class Attributes 
-				{
-					class blckGarison
-					{
-							// https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Scenario 
-							displayName = "Garison Building";
-							toolTip = "Enable/Disable ?Garisoned Building";
-							property = "blckGarison";
-							control = "Edit";
-							expression = "_this setVariable['%s',_value];";
-							defaultValue = 'false';
-							unique = 0;
-							validate = "BOOL";
-							typeName = "BOOL";
-					};
-				};
-			};
-		};
-	};
-};
+/*
+	Dynamic Mission Generated
+	Using 3DEN Plugin for blckeagls
+	dynamicMission.sqf generated:: blckeagls 3DEN Plugin Version 0 : Build 5 : Build Date 09/19/20
+	By Ghostrider-GRG-
+*/
+
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
+
+_defaultMissionLocations = [];
+_markerType = ["ELLIPSE",[250,250],"SOLID"];
+_markerColor = "COLORRED";
+_startMsg = "TODO: Change approiately";
+_endMsg = "TODO: Change Appropriately";
+_markerMissionName = "TODO: Update appropriately";
+_crateLoot = blck_BoxLoot_Blue;
+_lootCounts = blck_lootCountsBlue;
+
+_garrisonedBuildings_BuildingPosnSystem = [
+
+];
+
+_garrisonedBuilding_ATLsystem = [
+     ["Land_Cargo_Patrol_V3_F",[0,0,0],45,true,true,[["O_GMG_01_high_F",[0.533447,-1.45142,4.34404],229.902]],[]],
+     ["Land_Cargo_Patrol_V3_F",[0,0,0],90,true,true,[["O_GMG_01_high_F",[-0.669434,-1.43628,4.34404],272.772]],[]],
+     ["Land_Cargo_HQ_V3_F",[0,0,0],269.183,true,true,[["O_Mortar_01_F",[4.13428,-1.79297,3.12652],0]],[[[-1.19116,2.72095,3.12796],0]]],
+     ["Land_Cargo_Patrol_V3_F",[0,0,0],179.749,true,true,[["O_GMG_01_high_F",[-1.22046,0.542969,4.34404],0]],[]]
+];
+
+_missionLandscape = [
+     ["Land_HBarrier_Big_F",[-1.98413,-1.92993,-4.76837e-007],45,true,true],
+     ["Land_HBarrier_Big_F",[3.98779,-7.51294,-4.76837e-007],45,true,true],
+     ["Land_HBarrier_Big_F",[-7.52954,12.9387,-4.76837e-007],270,true,true],
+     ["Land_HBarrier_Big_F",[-7.65234,21.4033,-4.76837e-007],90,true,true],
+     ["Land_HBarrier_5_F",[24.321,15.1624,-4.76837e-007],270,true,true],
+     ["Land_HBarrier_Big_F",[25.2722,-3.87012,-4.76837e-007],328.551,true,true],
+     ["Land_HBarrier_Big_F",[20.9385,18.7275,-4.76837e-007],180,true,true],
+     ["Land_HBarrier_Big_F",[18.2209,-8.25903,-4.76837e-007],330,true,true],
+     ["Land_HBarrier_Big_F",[10.5823,-10.2063,-4.76837e-007],0,true,true],
+     ["Land_HBarrier_Big_F",[34.0476,6.36035,-4.76837e-007],299.181,true,true],
+     ["Land_Cargo_House_V3_F",[11.125,-4.1167,-4.76837e-007],180,true,true],
+     ["Land_Cargo_House_V3_F",[33.6809,29.3313,-4.76837e-007],90.6682,true,true],
+     ["Land_HBarrier_Big_F",[17.3999,23.9451,-4.76837e-007],90,true,true],
+     ["Land_HBarrier_Big_F",[3.64941,26.885,-4.76837e-007],0,true,true],
+     ["Land_HBarrier_Big_F",[29.6377,37.4236,-4.76837e-007],225,true,true],
+     ["Land_HBarrier_Big_F",[12.1257,27.1333,-4.76837e-007],1.36604e-005,true,true],
+     ["Land_HBarrier_Big_F",[36.0908,34.8279,-4.76837e-007],0,true,true],
+     ["Land_HBarrier_Big_F",[22.8857,39.9236,-4.76837e-007],180,true,true],
+     ["Land_HBarrier_Big_F",[37.969,13.8748,-4.76837e-007],299.181,true,true],
+     ["Land_HBarrier_Big_F",[39.5908,21.3279,-4.76837e-007],270,true,true],
+     ["Land_HBarrier_Big_F",[39.4658,29.7029,-4.76837e-007],90,true,true],
+     ["Land_HBarrier_Big_F",[-4.69336,26.6685,-4.76837e-007],0,true,true],
+     ["Land_HBarrier_Big_F",[14.4446,39.6458,-4.76837e-007],180,true,true],
+     ["Land_HBarrier_5_F",[16.6345,47.3489,-4.76837e-007],180.149,true,true],
+     ["Land_HBarrier_5_F",[11.1445,47.3962,-4.76837e-007],180.149,true,true],
+     ["Land_HBarrier_5_F",[18.7251,43.8938,-4.76837e-007],269.822,true,true],
+     ["Land_HBarrier_5_F",[7.49487,45.4861,-4.76837e-007],124.084,true,true],
+     ["Land_Cargo_House_V3_F",[33.5195,22.5332,-4.76837e-007],90.6682,true,true],
+     ["Land_HBarrier_Big_F",[-6.20093,4.80859,-4.76837e-007],75.8618,true,true],
+     ["RoadCone_L_F",[9.69141,6.51465,-4.76837e-007],0,true,true],
+     ["Land_Cargo40_military_green_F",[-3.2334,35.5225,-4.76837e-007],45.5098,true,true],
+     ["Land_Cargo20_grey_F",[-7.22656,32.293,-4.76837e-007],44.3033,true,true],
+     ["Land_Cargo20_grey_F",[-13.3616,30.4897,-4.76837e-007],0,true,true],
+     ["Land_Cargo20_grey_F",[26.2278,-12.2869,-4.76837e-007],6.20739,true,true],
+     ["Land_Cargo20_grey_F",[39.1899,4.03271,-4.76837e-007],272.936,true,true],
+     ["Land_Canteen_F",[36.6631,46.6692,-4.76837e-007],0,true,true],
+     ["Land_PaperBox_01_open_boxes_F",[30.7021,49.6111,-4.76837e-007],0,true,true]
+];
+
+_simpleObjects = [
+
+];
+
+_missionLootVehicles = [
+
+];
+
+_missionPatrolVehicles = [
+     ["O_LSV_02_armed_F",[24.1306,-41.168,0],87.1292,75,75],
+     ["O_LSV_02_armed_F",[12.8894,74.8223,-4.76837e-007],87.7224,75,75]
+];
+
+_submarinePatrolParameters = [
+
+];
+
+_airPatrols = [
+
+];
+
+_missionEmplacedWeapons = [
+     ["O_HMG_01_high_F",[9.55957,44.0073,-4.76837e-007],0],
+     ["O_HMG_01_high_F",[21.7991,15.363,-4.76837e-007],0]
+];
+
+_missionGroups = [
+     [[16.9512,1.75757,0.00143862],3,6,"Blue",30,45],
+     [[8.01904,18.9385,3.12796],3,6,"Blue",30,45],
+     [[23.6782,30.5142,0.00143862],3,6,"Blue",30,45],
+     [[30.0935,9.90186,0.00143862],3,6,"Blue",30,45],
+     [[-0.340576,10.3516,0.00143862],3,6,"Blue",30,45]
+];
+
+_scubaGroupParameters = [
+
+];
+
+_missionLootBoxes = [
+     ["Land_Pallet_MilBoxes_F",[-3.88013,11.6785,-4.76837e-007],_crateLoot,_lootCounts,0]
+];
+
+/*
+	Use the parameters below to customize your mission - see the template or blck_configs.sqf for details about each them
+*/
+_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
+_noChoppers = blck_noPatrolHelisBlue;
+_missionHelis = blck_patrolHelisBlue;
+_chancePara = blck_chanceParaBlue;
+_noPara = blck_noParaBlue;
+_paraTriggerDistance = 400;
+_paraSkill = 'Blue';
+_chanceLoot = 0.0;
+_paraLoot = blck_BoxLoot_Blue;
+_paraLootCounts = blck_lootCountsBlue;
+_missionLandscapeMode = "precise";
+_uniforms = blck_SkinList;
+_headgear = blck_headgear;
+_vests = blck_vests;
+_backpacks = blck_backpacks;
+_sideArms = blck_Pistols;
+_spawnCratesTiming = "atMissionSpawnGround";
+_loadCratesTiming = "atMissionSpawn";
+_endCondition = "allKilledOrPlayerNear";
+_minNoAI = blck_MinAI_Blue;
+_maxNoAI = blck_MaxAI_Blue;
+_noAIGroups = blck_AIGrps_Blue;
+_noVehiclePatrols = blck_SpawnVeh_Blue;
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
+_minNoAI = blck_MinAI_Blue;
+_maxNoAI = blck_MaxAI_Blue;
+_noAIGroups = blck_AIGrps_Blue;
+_noVehiclePatrols = blck_SpawnVeh_Blue;
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;
+
+#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";

@@ -22,6 +22,10 @@ params["_center",
         ["_sideArms",[]]
     ];
 
+{
+    diag_log format["_fnc_garrisonBuilding_relPosSystem: _this %1 = %2",_forEachIndex,_this select _forEachIndex];
+}forEach _this;
+
 if (_weaponList isEqualTo []) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
 if (_sideArms  isEqualTo [])  then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
 if (_uniforms  isEqualTo [])  then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};

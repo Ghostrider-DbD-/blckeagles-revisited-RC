@@ -44,27 +44,32 @@ class CfgFunctions
 		class Core 
 		{
 			file = "3EDEN_plugin\Core";
-			class help {};
+
 			class about {};
+			class buildingContainer {};
+			class configureGarrisonATL {};
+			class createLootMarker {};
+			class createGarrisonMarker {};
+			class display {};			
+			class displayGarrisonMarkers {};
+			class displayLootMarkers {};
 			class getGarrisonInfo {};
 			class getLootVehicleInfo {};
-			class getMissionGarrisonInfo {};
-			class getMissionLootVehicleInfo {};
+			class help {};			
 			class initializeAttributes {};
 			class isInfantry {};
 			class isInside {};
-			class buildingContainer {};
-			class display {};
+			class loadCratesTiming {};
+			class onDrag {};
+			class onRegistered {};
+			class onUnregister {};
+			class removeMarker {};
 			class setDifficulty {};
 			class setCompletionMode {}
 			class setGarrison {};
 			class setLootVehicle {};
 			class setSpawnLocations {};
 			class spawnCratesTiming {};
-			class loadCratesTiming {};
-			class endMessage {};
-			class startMessage {};
-			class configureGarrisonATL {};
             class versionInfo {};
 		};
 	};
@@ -85,7 +90,7 @@ class cfg3DEN
 		{
 			OnMissionLoad = "call blck3DEN_fnc_initializeAttributes";
 			OnMissionNew  = "call blck3DEN_fnc_initializeAttributes";
-			onHistoryChange = "call blck3DEN_fnc_updateObjects";
+			//onHistoryChange = "call blck3DEN_fnc_updateObjects";
 		};
 	};
 	
@@ -110,24 +115,6 @@ class cfg3DEN
 			};
 		};
 
-		class blck_garison: Combo 
-		{
-			class Value
-			{
-				text = "Set Garison State";
-				items[] = {"No_Garison","Has_garison"};
-			};
-			class no_garison 
-			{
-				text = "No Garison";
-				//action = "_this setVariable['garison',0];";
-			};
-			class has_garison 
-			{
-				text = "Has Garison";
-				//action = "_this setVariable['garison',1];";
-			};
-		};
 	};
 
 
@@ -148,24 +135,7 @@ class cfg3DEN
 
 class CfgVehicles
 {
-	class House;
 
-	class blck_House: House
-	{
-		class Attributes 
-		{
-			class blck_garisoned 
-			{
-				displayName = "Garrison";
-				toolTip = "Define Garrisoned Buildings";
-				control = "blck_garison";
-
-				expression = "_this setVariable ['garrisoned',_value];";
-				defaultValue = false;
-				unique = 0;
-			};
-		};
-	};
 };
 
 class ctrlMenuStrip;
@@ -175,67 +145,6 @@ class display3DEN
 {
 	class Controls
 	{
-		/*
-		class ContextMenu: ctrlMenu
-		{
-			class Items 
-			{
-				items[] += {
-					"blck_markLootVehicle",
-					"blck_markGarisonBuildingPos"
-				};
-				class blck_markLootVehicle 
-				{
-					text = "Designate Loot Vehicles";
-					value = false;
-					//action = "systemChat 'value toggled'";
-					conditionShow = "selectedObject";
-					items[] = {
-						"blck_clearLootVehicle",
-						"blck_designateLootVehicle"
-					};
-				};
-				class blck_clearLootVehicle 
-				{
-					text = "Clear Loot Vehicle Settings";
-					value = false;
-					action = "[false] call blck3DEN_fnc_setLootVehicleStatus";
-				};
-				class blck_deisgnateLootVehicle 
-				{
-					text = "Desinate Loot Vehicle";
-					value = true;
-					action = "[true] call blck3DEN_fnc_setLootVehicleStatus";
-				};
-
-				class blck_markGarisonBuildingPos 
-				{
-					text = "Designate Garisoned Buildings";
-					value = false;
-					conditionShow = "selectedObject";
-					items[] = {
-						"blck_clearGarisonSettings",
-						"blck_designateGarisonedBuilding"
-					};
-				};
-				class blck_clearGarisonSettings 
-				{
-					text = "Clear Garison Settings";
-					value = false;
-					conditionShow = "selectedObject";
-					action = "[false] call blck3DEN_fnc_setGarison";
-				};
-				class blck_designateGarisonedBuilding 
-				{
-					text = "Set as Garisoned Building";
-					value = true;
-					conditionShow = "SelectedObject";
-					action = "[true] call blck3DEN_fnc_setGarison";
-				};
-
-			};
-		};
-		*/
 		class MenuStrip: ctrlMenuStrip
 		{
 
@@ -258,12 +167,12 @@ class display3DEN
 						"blckMissionLocation",
 						"blckSeparator",
 						"blck_setGarrison",
-						"blck_getGarrisonInfo",
-						"blck_getMissionGarrisonInfo",
+						//"blck_getGarrisonInfo",
+						//"blck_getMissionGarrisonInfo",
 						"blckSeparator",						
 						"blck_markLootVehicle",		
-						"blck_getLootVehicleInfo",
-						"blck_getMissionLootVehicleInfo",
+						//"blck_getLootVehicleInfo",
+						//"blck_getMissionLootVehicleInfo",
 						"blckSeparator",						
 						"blckSaveStaticMission", 
 						"blckSaveDynamicMission",
@@ -420,35 +329,6 @@ class display3DEN
 					action = "['atMissionCompletion'] call blck3DEN_fnc_loadCratesTiming";
 				};
 
-				/*
-				/////////////////////////////
-				class blckMissionMessages 
-				{
-					text = "Set timing for loading crates";
-					items[] = {
-						"blckStartMessage",
-						"blckEndMessage"
-					};
-				};
-				//  ["Title","Default","ctrlControlsGroupNoScrollbars","ctrlControlsGroup","ctrlDefault"]
-				class Edit;
-				class blckEdit: Edit
-				{
-					control = "Edit";
-					value = "";
-				};
-				class blckStartMessage: blckEdit
-				{
-					text = "Misstion Start Message";
-					action = "[_value] call blck3DEN_startMessage";
-				};
-				class blckEndMessage: blckEdit
-				{
-					text = "Mission End Message";
-					action = "[_value] call blck3DEN_endMessage";
-				};
-				*/
-
 				class blckMissionLocation 
 				{
 					text = "Toggle Random or Fixed Location";
@@ -470,15 +350,25 @@ class display3DEN
 					action = "['fixed'] call blck3DEN_fnc_setSpawnLocations";
 				};
 
+				///////////////////////////////////////////////////////
+
 				class blck_setGarrison 
 				{
-					text = "Set as Garrisoned Building";
+					text = "Garrisoned Building Settings";
 					toolTip = "Set garrison status of selected buildings";
 					items[] = {
-						"blck_isGarrisoned",
-						"blck_clearGarrisoned",
-						"blck_getGarrisonInfo"
+						"blck_setGarrisonedState",
+						"blck_getGarrisonInfo",
+						"blck_garrisonMarkers"
 					};
+				};
+				class blck_setGarrisonedState 
+				{
+					items[] = {
+						"blck_isGarrisoned",
+						"blck_clearGarrisoned"
+					};
+					text = "Garrison Settings";
 				};
 				class blck_isGarrisoned 
 				{
@@ -498,46 +388,79 @@ class display3DEN
 				{
 					text = "Get Building Garrisoned Setting";
 					toolTip = "Get the selected buildings garrisoned flag";
-					value = 0;
 					action = "call blck3DEN_fnc_getGarrisonInfo";
 				};
-				class getMissionGarrisonInfo 
+				class blck_garrisonMarkers 
 				{
-					text = "Get garrison flag for selected buildings";
-					toolTip = "The garrisoned flag state will be displayed for selected bulidings";
-					value = 0;
-					action = "call blck3DEN_fnc_getMissionGarrisonInfo";
+					items[] = {
+						"blck_GarrisonMarkersOn",
+						"blck_GarrisonMarkersOff"
+					};
+					text = "Toggle markers over garrisoned buildings";
 				};
+				class blck_GarrisonMarkersOn
+				{
+					text = "Display Markers over Garrisoned Buildings";
+					action = "[true] call blck3DEN_fnc_displayGarrisonMarkers";
+				};
+				class blck_GarrisonMarkersOff
+				{
+					text = "Hide Markers over Garrisoned Buildings";
+					action = "[false] call blck3DEN_fnc_displayGarrisonMarkers";
+				};		
+
+				///////////////////////////////////////////////////////////////		
 
 				class blck_markLootVehicle 
 				{
-					text = "Designate Loot Vehicles";
-					value = false;
-					//action = "systemChat 'value toggled'";
-					conditionShow = "selectedObject";
+					text = "Loot Vehicle Settings";
 					items[] = {
-						"blck_clearLootVehicle",
-						"blck_designateLootVehicle"
+						"blck_designateLootVehicleState",				
+						"blck_getLootVehicleInfo",
+						"blck_displayLootMarkers"
 					};
 				};
-				class blck_clearLootVehicle 
+				class blck_designateLootVehicleState 
+				{
+					items[] = {
+						"blck_setAsLootVehicle",
+						"blck_clearLootVehicleFlag"
+					};
+					text = "Loot Vehicle Settings";
+				};
+				class blck_clearLootVehicleFlag 
 				{
 					text = "Clear Loot Vehicle Settings";
-					value = false;
 					action = "[false] call blck3DEN_fnc_setLootVehicle";
 				};
-				class blck_designateLootVehicle 
+				class blck_setAsLootVehicle 
 				{
 					text = "Desinate Loot Vehicle";
-					value = true;
 					action = "[true] call blck3DEN_fnc_setLootVehicle";
 				};		
 				class blck_getLootVehicleInfo 
 				{
 					text = "Get setting for selected vehicle";
-					value = 0;
 					action = "call blck3DEN_fnc_getLootVehicleInfo";
-				};		
+				};	
+				class blck_displayLootMarkers 
+				{
+					items[] = {
+						"blck_lootMarkersOn",
+						"blck_lootMarkersOff"
+					};
+					text = "Toggle Loot Vehicle Markers";
+				};
+				class blck_lootMarkersOn 
+				{
+					text = "Mark Loot Vehicles / Objects";
+					action = "[true] call blck3DEN_fnc_displayLootMarkers";
+				};
+				class blck_lootMarkersOff 
+				{
+					text = "Hide Markers of Loot Vehicles / Objects";
+					action = "[false] call blck3DEN_fnc_displayLootMarkers";
+				};
 				/////////////////////////////
 				class blckSaveStaticMission
 				{

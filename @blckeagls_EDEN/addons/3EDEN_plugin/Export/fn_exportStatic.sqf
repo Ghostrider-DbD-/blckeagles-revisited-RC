@@ -89,11 +89,11 @@ if !(_markers isEqualTo []) then
 {
 	_m1 = _markers select 0;
 	_markerType = (_m1 get3DENAttribute "itemClass") select 0;
-	_markerShape = (_m1 get3DENAttribute "markerType") select 0;
+	//_markerShape = (_m1 get3DENAttribute "markerType") select 0;
 	_markerColor = (_m1 get3DENAttribute "baseColor") select 0;
 	_markerText = (_m1 get3DENAttribute "text") select 0;
 	if !(_markerText isEqualTo "") then {blck_dynamicmarkerMissionName = _markerText};
-	_markerBrush = (_m1 get3DENAttribute "markerBrush") select 0;
+	_markerBrush = (_m1 get3DENAttribute "brush") select 0;
 	_markerPos = (_m1 get3DENAttribute "position") select 0;
 	_markerSize = (_m1 get3DENAttribute "size2") select 0;
 	_markerText = (_m1 get3DENAttribute "text") select 0;
@@ -103,7 +103,7 @@ if !(_markers isEqualTo []) then
 	*/
 } else {
 	_markerType = "mil_square";
-	_markerShape = "";
+	//_markerShape = "";
 	_markerSize = [0,0];
 	_markerColor = "COLORRED";
 	_markerBrush = "";
