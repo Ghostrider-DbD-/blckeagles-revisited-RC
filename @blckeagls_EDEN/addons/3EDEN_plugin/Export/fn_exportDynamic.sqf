@@ -67,8 +67,8 @@ if (isNil "blck_missionEndCondition") then
 	Look for an object defined in CfgBlck3DEN \ configs \ that marks the center of the mission 
 	and set the coords of the center if such an object is found 
 */
-
-private _centerMarkers = allMissionObjects objectAtMissionCenter;
+all3DENEntities params ["_objects","_groups","_triggers","_systems","_waypoints","_markers","_layers","_comments"];
+private _centerMarkers = _objects select {(typeOf _x) isEqualTo objectAtMissionCenter};
 diag_log format["_centerMarkers = %1",_centerMarkers];
 if !(_centerMarkers isEqualTo []) then 
 {
@@ -79,13 +79,6 @@ if !(_centerMarkers isEqualTo []) then
 	diag_log format["Place such an object or a marker to ensure the mission is accurately stored and spawned"];
 };
 
-all3DENEntities params ["_objects","_groups","_triggers","_systems","_waypoints","_markers","_layers","_comments"];
-private _units = []; 
-{
-	{
-		if (vehicle _x isEqualTo _x) then {_units pushBack _x};
-	} forEach (units _x);
-} forEach _groups;
 
 private["_m1","_markerPos","_markerType","_markerShape","_markerColor","_markerText","_markerBrush","_markerSize","_markerAlpha"];
 /*
@@ -141,7 +134,7 @@ private _garisonedStatics = [];
 private _garisonedUnits = [];
 
 private _landscape =  _objects select{
-    !(isSimpleObject _x) && 
+    !((_x get3DENAttribute "objectIsSimple") select 0) && 
     ((typeOf _x) isKindOf "Static" || ( (typeOf _x) isKindOf "ThingX")) && 
 	!((typeOf _x) isKindOf "ReammoBox_F") && 
 	!(_x getVariable["isLootContainer",false]) && 
@@ -149,22 +142,24 @@ private _landscape =  _objects select{
 };
 
 private _garisonedPos = [];
-
-diag_log format["_exportDynamic (174): count _landscape = %1",count _landscape];
+diag_log format["_exportDynamic (152): count _landscape = %1",count _landscape];
 for "_i" from 1 to (count _landscape) do 
 {
 	if (isNull _building) exitWith {};
 	private _building = _landscape deleteAt 0;
-	diag_log format ["_garrisonedPos: evaluating _building %1 | ;garrisoned = %2'",_building,_building getVariable["garrisoned",false]];
 	if (_building getVariable["garrisoned",false]) then
 	{
-		_garisonedPos pushBack format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, 'true','true',oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
+		private _allowDamage = (_building get3DENAttribute "allowDamage") select 0;
+		private _enableSimulation = (_building get3DENAttribute "enableSimulation") select 0;	
+		diag_log format["_exportDynamic-garisonedPos: _building %1 | damage %2 | simulation %3",_building,_allowDamage,_enableSimulation];	
+		_garisonedPos pushBack format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building,_allowDamage,_enableSimulation,oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
 	} else {
 		_landscape pushBack _building;
 	};
 };
 
 private _garrisonATL = [];
+diag_log format["_exportDynamic (169): count _landscape = %1",count _landscape];
 for "_i" from 1 to (count _landscape) do 
 {
 	if (isNull _building) exitWith {};
@@ -179,25 +174,34 @@ for "_i" from 1 to (count _landscape) do
 			_garisonedUnits append (_atl select 2);
 	};
 };
-diag_log format["_garrisonATL = %1",_garrisonATL];
 
+diag_log format["_garrisonATL = %1",_garrisonATL];
+diag_log format["_exportDynamic (185): count _landscape = %1",count _landscape];
 private _missionLandscape = [];
 for "_i" from 1 to (count _landscape) do 
 {
 	private _building = _landscape deleteAt 0;
 	if (isNull _building) exitWith {};	
-	diag_log format["typeOf _x = %1 | _x isMarker = %2",typeOf _building,_building getVariable["marker",false]];
 	if !(_building getVariable["marker",false]) then 
 	{
-		_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, 'true','true'];
+		private _allowDamage = (_building get3DENAttribute "allowDamage") select 0;
+		private _enableSimulation = (_building get3DENAttribute "enableSimulation") select 0;
+		diag_log format["typeOf _x = %1 | damage = %2 | simulation = %3",typeOf _building,_allowDamage,_enableSimulatoin];
+		_missionLandscape pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building, _allowDamage,_enableSimulation];
 	};
 };
 
-private _simpleObjects = _objects select {isSimpleObject _x};
+private _simpleObjects = _objects select {(_x get3DENAttribute "objectIsSimple") select 0};
 diag_log format["_simpleObjects = %1",_simpleObjects];
 private _missionSimpleObjects = [];
 {
-	_missionSimpleObjects pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x) vectorDiff CENTER,getDir _x, 'true','true'];
+	private _object = format['     ["%1",%2,%3]',
+	(_x get3DENAttribute "ItemClass") select 0,
+	((_x get3DENAttribute "position") select 0) vectorDiff CENTER,
+	((_x get3DENAttribute "rotation") select 0) select 2
+	];	
+	diag_log format["_object = %1",_object];
+	_missionSimpleObjects pushBack _object;
 } forEach _simpleObjects;
 
 private _missionLootVehicles = [];
@@ -258,6 +262,12 @@ private _infantry = _units select {
 };
 diag_log format["_garisonedUnits = %1",_garisonedUnits];
 diag_log format["_infantry = %1",_infantry];
+private _units = []; 
+{
+	{
+		if (vehicle _x isEqualTo _x) then {_units pushBack _x};
+	} forEach (units _x);
+} forEach _groups;
 _infantryGroups = [];
 {
 	_infantryGroups pushBack format['     [%1,%2,%3,"%4",%5,%6]',(getPosATL _x) vectorDiff CENTER,blck_minAI,blck_maxAI,blck_MissionDifficulty,minPatrolRadius,maxPatrolRadius];
@@ -322,7 +332,7 @@ _lines pushback (_missionLandscape joinString (format [",%1", _lineBreak]));
 _lines pushBack "];";
 _lines pushBack "";
 _lines pushBack "_simpleObjects = [";
-_lines pushback (_simpleObjects joinString (format [",%1", _lineBreak]));
+_lines pushback (_missionSimpleObjects joinString (format [",%1", _lineBreak]));
 _lines pushBack "];";
 _lines pushBack "";
 _lines pushBack "_missionLootVehicles = [";

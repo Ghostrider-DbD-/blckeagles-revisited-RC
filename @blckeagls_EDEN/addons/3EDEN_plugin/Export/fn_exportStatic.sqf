@@ -116,7 +116,7 @@ private _garisonedStatics = [];
 private _garisonedUnits = [];
 
 private _landscape =  _objects select{
-    !(isSimpleObject _x) && 
+    !((_x get3DENAttribute "objectIsSimple") select 0) && 
     ((typeOf _x) isKindOf "Static") && 
 	!((typeOf _x) isKindOf "Helper")
 };
@@ -124,14 +124,20 @@ private _landscape =  _objects select{
 diag_log format["CENTER = %1 | _landscape = %2","ignored",_landscape];
 private _missionLandscape = [];
 {
-	_missionLandscape pushBack format['     ["%1",%2,%3,%4]',typeOf _x,(getPosATL _x),[vectorDir _x,vectorUp _x], [true,true]];
+	private _allowDamage = (_x get3DENAttribute "allowDamage") select 0;
+	private _enableSimulation = (_x get3DENAttribute "enableSimulation") select 0;
+	_missionLandscape pushBack format['     ["%1",%2,%3,%4]',typeOf _x,(getPosATL _x),[vectorDir _x,vectorUp _x], [_allowDamage,_enableSimulation]];
 }forEach _landscape;
 
-private _simpleObjects = _objects select {isSimpleObject _x};
+private _simpleObjects = _objects select {(_x get3DENAttribute "objectIsSimple") select 0};
 diag_log format["_simpleObjects = %1",_simpleObjects];
 private _missionSimpleObjects = [];
 {
-	_missionSimpleObjects pushBack format['     ["%1",%2,%3,%4,%5]',typeOf _x,(getPosATL _x),[vectorDir _x,vectorUp _x], 'true','true'];
+	_missionSimpleObjects pushBack format['     ["%1",%2,%3]',
+	(_x get3DENAttribute "ItemClass") select 0,
+	((_x get3DENAttribute "position") select 0),
+	((_x get3DENAttribute "rotation") select 0) select 2
+	];	
 } forEach _simpleObjects;
 
 private _missionLootVehicles = [];
@@ -247,7 +253,7 @@ _lines pushback (_missionLandscape joinString (format [",%1", _lineBreak]));
 _lines pushBack "];";
 _lines pushBack "";
 _lines pushBack "_simpleObjects = [";
-_lines pushback (_simpleObjects joinString (format [",%1", _lineBreak]));
+_lines pushback (_missionSimpleObjects joinString (format [",%1", _lineBreak]));
 _lines pushBack "];";
 _lines pushBack "";
 _lines pushBack "_missionLootVehicles = [";

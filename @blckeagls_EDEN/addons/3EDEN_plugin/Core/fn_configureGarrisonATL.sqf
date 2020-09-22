@@ -50,13 +50,16 @@ _unitsText joinString _lineBreak;
 
 if !((_staticsText isEqualTo []) && (_unitsText isEqualTo [])) then
 {
+	private _allowDamage = (_building get3DENAttribute "allowDamage") select 0;
+	private _enableSimulation = (_building get3DENAttribute "enableSimulation") select 0;	
+	diag_log format["_configureGarrisonATL: _building %1 | damage %2 | simulation %3",_allowDamage,_enableSimulation];
 	_buildingGarrisonATL = [
 		format["%1", 
 		typeOf _building], 
 		(getPosATL _building) vectorDiff _center, 
 		getDir _building,
-		true,
-		true,
+		_allowDamage,
+		_enableSimulation,
 		_staticsText,
 		_unitsText
 	];
