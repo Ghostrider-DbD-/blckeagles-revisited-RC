@@ -14,8 +14,7 @@
 
 private ["_start","_maxHeight","_smokeShell","_light","_lightSource"];
 params[["_crate",objNull],["_time",60]]; 
-if (isNull _crate) exitWith {};
-_start = diag_tickTime;
+//diag_log format["_signalEnd: _crate = %1 | _time = %2",_crate,_time];
 
 _smokeShell = selectRandom ["SmokeShellOrange","SmokeShellBlue","SmokeShellPurple","SmokeShellRed","SmokeShellGreen","SmokeShellYellow"];
 _lightSource = selectRandom ["Chemlight_green","Chemlight_red","Chemlight_yellow","Chemlight_blue"];

@@ -50,6 +50,7 @@ _missionParameters params[
 	"_garrisonedBuildings_BuildingPosnSystem", 
 	"_garrisonedBuilding_ATLsystem",
 	"_missionLandscape",
+	"_simpleObjects",
 	"_missionLootBoxes",
 	"_missionLootVehicles",
 	"_missionPatrolVehicles",

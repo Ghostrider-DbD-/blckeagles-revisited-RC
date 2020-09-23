@@ -56,6 +56,22 @@ params[
 	["_isScubaMission",false]
 ];
 
+/*
+{
+	diag_log format["_endMission: %1 = %2",_x, _this select _forEachIndex];
+} forEach [	"_coords",
+	"_mines",
+	"_objects",
+	"_hiddenObjects",
+	"_crates",
+	"_blck_AllMissionAI",
+	"_endMsg",
+	"_markers",
+	"_markerPos",
+	"_markerName",
+	"_markerLabel"
+	];
+*/
 {
 	[_x] call blck_fnc_deleteMarker;
 }forEach (_markers);
@@ -70,7 +86,7 @@ switch (_endCondition) do
 				if (local _x) then {deleteVehicle _x};
 			}forEach _crates;
 
-			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[_coords,_mines,_objects,_simpleObjects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 			[format["Mission <TIMED OUT> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;			
 	};
 	case 1: {  // Normal End
