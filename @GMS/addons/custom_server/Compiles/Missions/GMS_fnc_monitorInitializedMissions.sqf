@@ -220,7 +220,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 							if (typeName _temp isEqualTo "ARRAY") then 
 							{
 								blck_monitoredVehicles pushBack (_temp select 0);
-								_missionAIVehicles append (_temp select 0);
+								_missionAIVehicles pushBack (_temp select 0);
 								_blck_AllMissionAI append (_temp select 1);
 								//diag_log format["_monitorInitializeMissions(238): _temp select 0 = %1",_temp select 0];
 								//diag_log format["_monitorInitializedMissions(239): _temp select 1 = %1",_temp select 1];								
