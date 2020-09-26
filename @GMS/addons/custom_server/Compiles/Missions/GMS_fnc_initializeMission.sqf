@@ -144,6 +144,23 @@ if (blck_debugLevel >= 3) then
 		"_markerBrush"
 	];
 };
+if !(toLower (_markerType) in ["ellipse","rectangle"] || isClass(configFile >> "CfgMarkers" >> _markerType)) then 
+{
+	[format["_markerType set to 'ELLIPSE': Illegal marker type %1 used for mission %2 of difficulty %3",_markerType,_markerMissionName,_difficulty],"warning"] call blck_fnc_log;
+	_markerType = "ELLIPSE";
+	_markerSize = [200,200];
+	_markerBrush = "SOLID";
+	_markerMissionName = "Invalid Marker Parameters";
+	_missionParameters set [1,_markerMissionName];
+};
+if !(isClass(configFile >> "CfgMarkerColors" >> _markerColor)) then 
+{
+	[format["_markerColor set to 'default': Illegal color %1 used for mission %2 of difficulty %3",_markerColor,_markerMissionName,_difficulty],"warning"] call blck_fnc_log;
+	_markerColor = "DEFAULT";
+	_markerMissionName = "Invalid Marker Parameters";
+	_missionParameters set [1,_markerMissionName];		
+};
+
 private _markers = [_markerName,_markerPos,_markerMissionName,_markerColor,_markerType,_markerSize,_markerBrush] call blck_fnc_createMissionMarkers;
 
 /*
@@ -167,5 +184,8 @@ private _missionData = [_coords,_mines,_objects,_hiddenObjects,_crates, _blck_Al
 blck_activeMissionsList pushBack [_missionCategoryDescriptors,_missionTimeoutAt,_triggered,_spawnPara,_missionData,_missionParameters];
 
 [format["Initialized Mission %1 | description %2 | difficulty %3 at %4",_markerName, _markerMissionName, _difficulty, diag_tickTime]] call blck_fnc_log;
-
+if (blck_debugON) then 
+{
+	[format["Mission Marker = %1 | Marker Position = %2 | _coords = %3",_markers,_markerPos,_coords]] call blck_fnc_log;
+};
 true
