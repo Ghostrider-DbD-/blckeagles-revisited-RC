@@ -27,7 +27,8 @@
 	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
 	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	blck_simulationManager = blck_useBlckeaglsSimulationManagement; 
-	//diag_log format["[blckeagls] blck_configs:  blck_simulationManager = %1",blck_simulationManager];
+	blck_hideRocksAndPlants = true;  //  When true, any rocks, trees or bushes under enterable buildings will be 'hidden'
+
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
 	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 2;  // Daytime time accelearation
