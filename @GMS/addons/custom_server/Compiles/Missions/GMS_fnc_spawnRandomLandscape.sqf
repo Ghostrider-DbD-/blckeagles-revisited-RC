@@ -28,7 +28,7 @@ private _hiddenObjs = [];
 		private _shrubs = nearestTerrainObjects[_spawnPos,["TREE", "SMALL TREE", "BUSH","FENCE", "WALL","ROCK"], sizeOf _objClassName];
 		if !(_shrubs isEqualTo []) then 
 		{
-			_hiddenOjbs append _shrubs;
+			_hiddenObjs append _shrubs;
 			{_x hideObjectGlobal true} forEach _shrubs;
 		};
 	};
