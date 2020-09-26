@@ -15,11 +15,7 @@ private _newObjs = [];
 private _hiddenObjs = [];
 
 {
-	// ["Land_Bunker_01_blocks_3_F",[-13.762,17.5518,-0.00143909],270.35,true,true],
 	_x params["_className","_relPos","_dir","_booleans"];
-
-	//diag_log format["_spawnCompsitionObjects: _x = %1",_x];
-	//diag_log format["_spawnCompositionObjects: _className = %1 | _relPos = %2 | _dir = %3 | _booleans",_className,_relPos,_dir,_booleans];
 	if (typeName (_booleans) isEqualTo "ARRAY") then // assum simulation and damage settings are defined in the old way as [bool,bool]
 	{
 		_dam = (_booleans) select 0;		
@@ -33,15 +29,13 @@ private _hiddenObjs = [];
 
 	private _objPos = _center vectorAdd _relPos;
 
-	//diag_log format["_spawnCompositionObjects: _sim = %1 | _dam = %2",_sim,_dam];	
-	//diag_log format["_spawnCompsitionObjects: _relPos = %1 | _objPos = %2",_relPos, _objPos];
 	if (_className isKindOf "House" && blck_hideRocksAndPlants) then 
 	{
 		private _shrubs = nearestTerrainObjects[_objPos,["TREE", "SMALL TREE", "BUSH","FENCE", "WALL","ROCK"], sizeOf _className];
 		if !(_shrubs isEqualTo []) then 
 		{
 			_hiddenObjs append _shrubs;
-			diag_log format["_spawnCompositionObjects: _hiddenObjs = %1",_hiddenObjs];
+			//diag_log format["_spawnCompositionObjects: _hiddenObjs = %1",_hiddenObjs];
 			{_x hideObjectGlobal true} forEach _shrubs;
 		};
 	};
@@ -57,7 +51,6 @@ private _hiddenObjs = [];
 		[_obj] call blck_fnc_configureMissionVehicle;
 	};	
 } forEach _objects;
-diag_log format["_spawnCompositionObjects: _objects = %1",_objects];
-diag_log format["_spawnCompositionObjects: _hiddenObjs = %1",_hiddenObjs];
+
 [_newObjs,_hiddenObjs];
 
