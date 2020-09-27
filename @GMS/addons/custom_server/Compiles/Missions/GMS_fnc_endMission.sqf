@@ -86,7 +86,7 @@ switch (_endCondition) do
 				if (local _x) then {deleteVehicle _x};
 			}forEach _crates;
 
-			[_coords,_mines,_objects,_simpleObjects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 			[format["Mission <TIMED OUT> | _coords %1 : _markerClass %2 :  _markerMissionName %3",_coords,_markerName,_markerLabel]] call blck_fnc_log;			
 	};
 	case 1: {  // Normal End
