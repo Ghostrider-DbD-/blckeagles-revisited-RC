@@ -35,7 +35,6 @@ private _hiddenObjs = [];
 		if !(_shrubs isEqualTo []) then 
 		{
 			_hiddenObjs append _shrubs;
-			//diag_log format["_spawnCompositionObjects: _hiddenObjs = %1",_hiddenObjs];
 			{_x hideObjectGlobal true} forEach _shrubs;
 		};
 	};
