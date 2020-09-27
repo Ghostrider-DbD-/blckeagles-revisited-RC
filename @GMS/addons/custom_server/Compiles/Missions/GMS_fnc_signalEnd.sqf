@@ -14,7 +14,6 @@
 
 private ["_start","_maxHeight","_smokeShell","_light","_lightSource"];
 params[["_crate",objNull],["_time",60]]; 
-//diag_log format["_signalEnd: _crate = %1 | _time = %2",_crate,_time];
 
 _smokeShell = selectRandom ["SmokeShellOrange","SmokeShellBlue","SmokeShellPurple","SmokeShellRed","SmokeShellGreen","SmokeShellYellow"];
 _lightSource = selectRandom ["Chemlight_green","Chemlight_red","Chemlight_yellow","Chemlight_blue"];
@@ -28,4 +27,5 @@ if(sunOrMoon < 0.2) then
 	_light setPosATL (getPosATL _crate);
 	_light attachTo [_crate,[0,0,(0.55)]];
 };
+
 blck_illuminatedCrates  pushBack [_crate,_smoke,_light,_smokeShell,_lightSource,diag_tickTime + 120, diag_tickTime + 300];	

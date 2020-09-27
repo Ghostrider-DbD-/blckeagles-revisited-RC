@@ -169,8 +169,9 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				_temp = [_coords, _missionLandscape] call blck_fnc_spawnCompositionObjects;
 			};
-			_objects append [_temp select 0];
-			_hiddenObjects append [_temp select 1];
+			_objects append (_temp select 0);
+			_hiddenObjects append (_temp select 1);
+			
 			uiSleep delayTime;	
 
 			_temp = [_coords,_simpleObjects,true] call blck_fnc_spawnSimpleObjects;
