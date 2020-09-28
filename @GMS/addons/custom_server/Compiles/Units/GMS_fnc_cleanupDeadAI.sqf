@@ -18,7 +18,8 @@
 
 	if (diag_tickTime > _unit getVariable ["blck_cleanupAt",0]) then 
 	{
-		if (_nearplayer isequalto []) then {
+		if (_nearplayer isequalto []) then 
+		{
 			{
 				deleteVehicle _x;
 			}forEach nearestObjects [getPos _unit,["WeaponHolderSimulated","GroundWeapoonHolder"],3];	
