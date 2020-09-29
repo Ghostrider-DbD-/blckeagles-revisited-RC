@@ -107,6 +107,7 @@ if !(_defaultMissionLocations isEqualTo []) then
 
 if (_coords isEqualTo []) exitWith 
 {
+	[format["No Safe Mission Spawn Position Found to spawn Mission %1",_markerMissionName],'warning'] call blck_fnc_log;
 	false;
 };
 
