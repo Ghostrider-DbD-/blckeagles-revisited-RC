@@ -7,7 +7,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private ["_coords","_coordArray","_return"];
-params["_missionCategoryDescriptors","_missionParameters"];
+params["_missionCategoryDescriptors","_missionParameters","_missionCount"];
  _missionCategoryDescriptors params [
 		"_difficulty",
 		"_noMissions",  // Max no missions of this category
@@ -107,6 +107,7 @@ if !(_defaultMissionLocations isEqualTo []) then
 
 if (_coords isEqualTo []) exitWith 
 {
+	[format["No Safe Mission Spawn Position Found to spawn Mission %1",_markerMissionName],'warning'] call blck_fnc_log;
 	false;
 };
 
@@ -161,7 +162,7 @@ if !(isClass(configFile >> "CfgMarkerColors" >> _markerColor)) then
 	_missionParameters set [1,_markerMissionName];		
 };
 
-private _markers = [_markerName,_markerPos,_markerMissionName,_markerColor,_markerType,_markerSize,_markerBrush] call blck_fnc_createMissionMarkers;
+private _markers = [format["%1:%2",_markerName,_missionCount],_markerPos,_markerMissionName,_markerColor,_markerType,_markerSize,_markerBrush] call blck_fnc_createMissionMarkers;
 
 /*
 	Send a message to players.
