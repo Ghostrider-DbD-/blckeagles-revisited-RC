@@ -11,7 +11,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_timer1sec","_timer5sec","_timer10Sec","_timer20sec","_timer5min","_timer5min"];
-_timer1sec = diag_tickTime;
+_timer2sec = diag_tickTime;
 _timer5sec = diag_tickTime;
 _timer10Sec = diag_tickTime;
 _timer20sec = diag_tickTime;
@@ -21,17 +21,22 @@ _timer5min = diag_tickTime;
 while {true} do
 {
 	uiSleep 1;
-	if (diag_tickTime > _timer1sec) then 
+	
+	if (diag_tickTime > _timer2sec) then 
 	{		
-		[] spawn blck_fnc_monitorInitializedMissions;	
+		//if !(blck_initializationInProgress) then 
+
+			[] spawn blck_fnc_monitorInitializedMissions;	
+
 		if (blck_showCountAliveAI) then
 		{
 			{
 				_x call blck_fnc_updateMarkerAliveCount;
 			} forEach blck_missionLabelMarkers;
 		};
-		_timer1sec = diag_tickTime + 1;
+		_timer2sec = diag_tickTime + 2;
 	};
+	
 	if (diag_tickTime > _timer5sec) then
 	{
 		_timer5sec = diag_tickTime + 5;
@@ -47,6 +52,7 @@ while {true} do
 		[] call blck_fnc_spawnPendingMissions; 	
 		_timer10Sec = diag_tickTime;
 	};
+	
 	if (diag_tickTime > _timer20sec) then
 	{
 		[] call blck_fnc_scanForPlayersNearVehicles;
@@ -54,6 +60,7 @@ while {true} do
 		[] call GMS_fnc_updateCrateSignals;				
 		_timer20sec = diag_tickTime + 20;
 	};
+	
 	if ((diag_tickTime > _timer1min)) then
 	{
 		_timer1min = diag_tickTime + 60;
@@ -68,15 +75,22 @@ while {true} do
 	};
 	if (diag_tickTime > _timer5min) then 
 	{
-		[format["Timstamp %8 |Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7",
-			blck_missionsRunning,
-			blck_dynamicUMS_MissionsRuning,
-			count blck_monitoredVehicles,
-			count blck_monitoredMissionAIGroups,
-			diag_FPS,floor(diag_tickTime/60),
-			blck_missionsRun, 
-			diag_tickTime]
+		_activeScripts = diag_activeScripts;
+
+		[
+			format["Timstamp %8 |Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7 | Threads [spawned %8, execVM %9]",
+				blck_missionsRunning,
+				blck_dynamicUMS_MissionsRuning,
+				count blck_monitoredVehicles,
+				count blck_monitoredMissionAIGroups,
+				diag_FPS,floor(diag_tickTime/60),
+				blck_missionsRun, 
+				diag_tickTime,
+				_activeScripts select 0,
+				_activeScripts select 1
+			]
 		] call blck_fnc_log;
+
 		[] call blck_fnc_cleanEmptyGroups;			
 		_timer5min = diag_tickTime + 300;
 	};
