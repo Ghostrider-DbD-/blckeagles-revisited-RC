@@ -186,7 +186,12 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				if !(_scubaGroupParameters isEqualTo []) then 
 				{
-					_temp = [_coords, _minNoAI,_maxNoAI,_noAIGroups,_scubaGroupParameters,_difficulty,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaMission] call blck_fnc_spawnMissionAI;
+					//_umsUniforms = blck_UMS_uniforms;
+					//_umsHeadgear = blck_UMS_headgear;
+					//_umsWeapons = blck_UMS_weapons;
+					//_umsVests = blck_UMS_vests;
+					
+					_temp = [_coords, _minNoAI,_maxNoAI,_noAIGroups,_scubaGroupParameters,_difficulty,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,_backpacks,blck_UMS_weapons,_sideArms,true] call blck_fnc_spawnMissionAI;
 					_temp params["_ai","_abort"];
 					if (_abort) throw 1;
 					_blck_AllMissionAI append (_ai);
