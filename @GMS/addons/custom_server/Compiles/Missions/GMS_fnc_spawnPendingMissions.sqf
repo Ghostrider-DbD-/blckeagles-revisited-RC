@@ -17,10 +17,10 @@ if (blck_missionsRunning >= blck_maxSpawnedMissions) exitWith {};
 
 	if (_noActiveMissions < _maxNoMissions && diag_tickTime > _waitTime && blck_missionsRunning < blck_maxSpawnedMissions) then 
 	{
-		
+		blck_dynamicMissionsSpawned = blck_dynamicMissionsSpawned + 1;
 		// time to reset timers and spawn something.
 		private _wt = diag_tickTime + _tmin + (random(_tMax - _tMin));
-		private _missionInitialized = [_x,selectRandom _missionsData] call blck_fnc_initializeMission;
+		private _missionInitialized = [_x,selectRandom _missionsData,blck_dynamicMissionsSpawned] call blck_fnc_initializeMission;
 		if (blck_debugLevel >= 3) then 
 		{
 			if !(_missionInitialized) then 

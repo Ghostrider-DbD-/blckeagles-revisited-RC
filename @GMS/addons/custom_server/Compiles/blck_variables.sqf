@@ -46,7 +46,7 @@ blck_temporaryMarkers = [];
 blck_illuminatedCrates = []; // [crate,duration,freq of replacement]
 blck_mainThreadUpdateInterval = 60;
 blck_revealMode = "detailed"; //""basic" /*group or vehicle level reveals*/,detailed /*unit by unit reveals*/";
-
+blck_dynamicMissionsSpawned = 0;
 blck_spawnerMode = 1;
 blck_missionData = [];
 blck_activeMissionsList = [];

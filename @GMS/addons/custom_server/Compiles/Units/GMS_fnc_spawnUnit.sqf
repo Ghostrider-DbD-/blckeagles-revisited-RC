@@ -63,7 +63,13 @@ if (_scuba) then
 _skin = "";
 _counter = 1;
 
-_unit forceAddUniform (selectRandom _uniforms);
+if (surfaceIsWater (getPos _unit)) then 
+{
+	_uniforms = blck_UMS_uniforms;
+	_headGear = blck_UMS_headgear;
+	_weaponList = blck_UMS_weapons;
+	_vests = blck_UMS_vests;
+};
  
 //Sets AI Tactics
 _unit enableAI "ALL";
