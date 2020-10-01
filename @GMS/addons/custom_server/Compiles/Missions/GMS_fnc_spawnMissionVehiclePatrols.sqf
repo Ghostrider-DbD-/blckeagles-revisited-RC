@@ -22,22 +22,22 @@ if (_backpacks  isEqualTo []) 		then {_backpacks = [_skillAI] call blck_fnc_sele
 if (_weaponList  isEqualTo []) 		then {_weaponList = [_skillAI] call blck_fnc_selectAILoadout};
 if (_sideArms isEqualTo []) 		then {[_skillAI] call blck_fnc_selectAISidearms};
 
+private["_vehGroup","_vehiclePatrolSpawns""_missiongroups","_vehiclePatrolSpawns","_vehicle","_spawnPos","_return"];
+private _vehicles = [];
+private _missionAI = [];
+private _abort = false;
+private _patrolsThisMission = +_missionPatrolVehicles;
 
-
-private["_vehGroup","_vehiclePatrolSpawns","_missionAI","_missiongroups","_vehicles","_return","_vehiclePatrolSpawns","_vehicle","_return","_abort","_spawnPos","_v"];
-_vehicles = [];
-_missionAI = [];
-_abort = false;
-
-if (_missionPatrolVehicles isEqualTo []) then
+if (_patrolsThisMission isEqualTo []) then
 {
 	_useRelativePos = false;
 	_vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
 	{
-		_v = [_skillAI] call blck_fnc_selectPatrolVehicle;
-		_missionPatrolVehicles pushBack [_v, _x];
+		private _v = [_skillAI] call blck_fnc_selectPatrolVehicle;
+		_patrolsThisMission pushBack [_v, _x];
 	}forEach _vehiclePatrolSpawns;
 };
+
 #define configureWaypoints false
 {
 	if (_useRelativePos) then
@@ -46,7 +46,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	} else {
 		_spawnPos = _x select 1;
 	};
-	_vehicle = _x select 0;	
+	private _vehicle = _x select 0;	
 	_vehGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
 	_patrolVehicle = objNull;
 
@@ -67,7 +67,8 @@ if (_missionPatrolVehicles isEqualTo []) then
 	} else {
 		_abort = true;
 	};
-} forEach _missionPatrolVehicles;
+} forEach _patrolsThisMission;
+
 if !(_abort) then 
 {
 	blck_monitoredVehicles append _vehicles;

@@ -21,10 +21,11 @@ switch (toLower worldName) do
 	case "taviana": {_mapCenter = [12000,12000,0];_maxDistance = 12000};
 	case "napf" : {_mapCenter = getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition");_maxDistance = 12000};
 	case "lythium": {_mapCenter = [10000,10000,0]; _maxDistance = 6000;};
+	case "vt7": {_mapCenter = [9000,9000,0]; _maxDistance = 9000};	
 	default {_mapCenter = [6000,6000,0]; _maxDistance = 6000;};	
 };
 
-_evaluate = true;
+private _evaluate = true;
  while {_evaluate} do
 {
 	_waterPos = [
@@ -35,33 +36,14 @@ _evaluate = true;
 		2, // water mode [2 = water only]
 		25, // max gradient
 		0  // shoreMode [0 = anywhere]
-		] call BIS_fnc_findSafePos;
-		/*
-	_priorUMSpositions = +blck_priorDynamicUMS_Missions;
+	] call BIS_fnc_findSafePos;
+
+	if (((getTerrainHeightASL _waterPos) < -4) &&  (getTerrainHeightASL _waterPos) > -10) then
 	{
-		if (diag_tickTime > ((_x select 1) + 1800) then 
-		{
-			blck_priorDynamicUMS_Missions = blck_priorDynamicUMS_Missions - _x;
-		} else {
-			if (_waterPos distance2D (_x select  0) < 2000) exitWith {_evaluate = false};
-		};
-	} forEach _priorUMSpositions;
-	*/
-	if (_evaluate) then
-	{
-		if (abs(getTerrainHeightASL _waterPos) < 30) then
-		{
-			if (abs(getTerrainHeightASL _waterPos) > 1) then
-			{
-				//_waterMarker = createMarker [format["water mission %1",getTerrainHeightASL _waterPos],_waterPos];
-				//_waterMarker setMarkerColor "ColorRed";
-				//_waterMarker setMarkerType "mil_triangle";
-				//_waterMarker setMarkerText format["Depth %1",getTerrainHeightASL _waterPos];
-				_evaluate = false;
-			};
-		};
+		_evaluate = false;
 	};
 };
+//diag_log format["_findShoreLocation: _waterPos = %1",_waterPos];
 _waterPos
 
 

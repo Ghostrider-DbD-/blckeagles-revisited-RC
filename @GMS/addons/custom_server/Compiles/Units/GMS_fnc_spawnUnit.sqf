@@ -12,7 +12,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private ["_i","_weap","_skin","_unit","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
+private ["_i","_weap","_unit","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
 params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", []],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false],["_garrison",false]];
 
 if (_weaponList isEqualTo []) then {_weaponList = [_skillLevel] call blck_fnc_selectAILoadout};
@@ -60,17 +60,6 @@ if (_scuba) then
 	_unit swiminDepth (([_pos] call blck_fnc_findWaterDepth) / 2);
 };
 
-_skin = "";
-_counter = 1;
-
-if (surfaceIsWater (getPos _unit)) then 
-{
-	_uniforms = blck_UMS_uniforms;
-	_headGear = blck_UMS_headgear;
-	_weaponList = blck_UMS_weapons;
-	_vests = blck_UMS_vests;
-};
- 
 //Sets AI Tactics
 _unit enableAI "ALL";
 if(_garrison) then
@@ -81,6 +70,14 @@ _unit allowDammage true;
 _unit setBehaviour "COMBAT";
 _unit setunitpos "AUTO";
 
+if (surfaceIsWater (getPos _unit)) then 
+{
+	_uniforms = blck_UMS_uniforms;
+	_headGear = blck_UMS_headgear;
+	_weaponList = blck_UMS_weapons;
+	_vests = blck_UMS_vests;
+};
+_unit forceAddUniform (selectRandom _uniforms);
 if !(_headGear isEqualTo []) then 
 {
 	_unit addHeadgear (selectRandom _headGear);

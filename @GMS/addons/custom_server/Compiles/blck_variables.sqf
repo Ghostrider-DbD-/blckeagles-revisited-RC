@@ -52,7 +52,7 @@ blck_missionData = [];
 blck_activeMissionsList = [];
 blck_initializedMissionsList = [];
 blck_blackListedLocations = []; // [ [marker, time]]
-
+blck_activeMonitorThreads = 0;
 blck_validEndStates = ["allUnitsKilled", "playerNear", "allKilledOrPlayerNear","assetSecured"];
 blck_validLootSpawnTimings = ["atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir"];
 blck_validLootLoadTimings = ["atMissionCompletion", "atMissionSpawn"];
