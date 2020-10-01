@@ -27,14 +27,15 @@ _units = [];
 _abort = false;
 _pos = [];
 
-// Define _missionEmplacedWeapons if not already configured.
-if (_missionEmplacedWeapons isEqualTo []) then
+private _emplacedWepData = +_missionEmplacedWeapons;
+// Define _emplacedWepData if not already configured.
+if (_emplacedWepData isEqualTo []) then
 {
 	_missionEmplacedWeaponPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
 
 	{
 		_static = selectRandom blck_staticWeapons;
-		_missionEmplacedWeapons pushback [_static,_x];
+		_emplacedWepData pushback [_static,_x];
 	} forEach _missionEmplacedWeaponPositions;
 	_useRelativePos = false;
 };
@@ -77,7 +78,7 @@ if (_missionEmplacedWeapons isEqualTo []) then
 		_return = grpNull;
 		["createGroup returned grpNull","warning"] call blck_fnc_log;
 	};
-} forEach _missionEmplacedWeapons;
+} forEach _emplacedWepData;
 if !(_abort) then 
 {
 	blck_monitoredVehicles append _emplacedWeps;
