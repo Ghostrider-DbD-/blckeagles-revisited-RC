@@ -31,12 +31,12 @@ private _emplacedWepData = +_missionEmplacedWeapons;
 // Define _emplacedWepData if not already configured.
 if (_emplacedWepData isEqualTo []) then
 {
-	_missionEmplacedWeaponPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
+	private _wepPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
 
 	{
 		_static = selectRandom blck_staticWeapons;
 		_emplacedWepData pushback [_static,_x];
-	} forEach _missionEmplacedWeaponPositions;
+	} forEach _wepPositions;
 	_useRelativePos = false;
 };
 

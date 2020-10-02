@@ -22,7 +22,7 @@ if (_backpacks  isEqualTo []) 		then {_backpacks = [_skillAI] call blck_fnc_sele
 if (_weaponList  isEqualTo []) 		then {_weaponList = [_skillAI] call blck_fnc_selectAILoadout};
 if (_sideArms isEqualTo []) 		then {[_skillAI] call blck_fnc_selectAISidearms};
 
-private["_vehGroup","_vehiclePatrolSpawns""_missiongroups","_vehiclePatrolSpawns","_vehicle","_spawnPos","_return"];
+private["_spawnPos","_return"];
 private _vehicles = [];
 private _missionAI = [];
 private _abort = false;
@@ -31,13 +31,16 @@ private _patrolsThisMission = +_missionPatrolVehicles;
 if (_patrolsThisMission isEqualTo []) then
 {
 	_useRelativePos = false;
-	_vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
+	private _spawnLocations = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
+	//diag_log format["_spawnMissionVehiclePatrols (35): _spawnLocations = %1",_spawnLocations];
 	{
+
 		private _v = [_skillAI] call blck_fnc_selectPatrolVehicle;
 		_patrolsThisMission pushBack [_v, _x];
-	}forEach _vehiclePatrolSpawns;
+		diag_log format["_spawnMissionVehiclePatrols(36): _v = %1 | _patrolsThisMission = %2",_v,_patrolsThisMission];
+	}forEach _spawnLocations;
 };
-
+//diag_log format["_spawnMissionVehiclePatrols(42): _patrolsThisMission = %1",_patrolsThisMission];
 #define configureWaypoints false
 {
 	if (_useRelativePos) then
@@ -47,9 +50,8 @@ if (_patrolsThisMission isEqualTo []) then
 		_spawnPos = _x select 1;
 	};
 	private _vehicle = _x select 0;	
-	_vehGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
+	private _vehGroup = [blck_AI_Side,true]  call blck_fnc_createGroup;
 	_patrolVehicle = objNull;
-
 	if !(isNull _vehGroup) then 
 	{
 		_vehGroup setVariable["soldierType","vehicle"];
