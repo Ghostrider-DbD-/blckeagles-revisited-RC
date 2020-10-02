@@ -43,6 +43,6 @@ switch (toLower worldName) do
 		case "lingor":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};	
 		case "takistan":{blck_mapCenter = [5500, 6500, 0];blck_mapRange = 5000;};
 		case "lythium":{blck_mapCenter = [10000,10000,0];blck_mapRange = 8500;};
-		case "vt7": {_mapCenter = [9000,9000,0]; _maxDistance = 9000};		
+		case "vt7": {blck_mapCenter = [9000,9000,0]; blck_mapRange = 9000};		
 		default {blck_mapCenter = [6322,7801,0]; blck_mapRange = 6000};
 };
