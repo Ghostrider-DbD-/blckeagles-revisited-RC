@@ -28,17 +28,21 @@ _abort = false;
 _pos = [];
 
 private _emplacedWepData = +_missionEmplacedWeapons;
+//diag_log format["_spawnEmplacedWeaponArray(30): _noEmplacedWeapons = %1 | _emplacedWepData = %2",_noEmplacedWeapons,_emplacedWepData];
+
 // Define _emplacedWepData if not already configured.
 if (_emplacedWepData isEqualTo []) then
 {
-	_missionEmplacedWeaponPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
+	private _wepPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
 
 	{
 		_static = selectRandom blck_staticWeapons;
 		_emplacedWepData pushback [_static,_x];
-	} forEach _missionEmplacedWeaponPositions;
+	} forEach _wepPositions;
 	_useRelativePos = false;
 };
+
+//diag_log format["_spawnEmplacedWeaponArray(45): _noEmplacedWeapons = %1 | _emplacedWepData = %2",_noEmplacedWeapons,_emplacedWepData];
 
 {
 	if (_useRelativePos) then 
