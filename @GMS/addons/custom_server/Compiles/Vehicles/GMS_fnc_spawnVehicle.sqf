@@ -12,8 +12,8 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-params["_vehType","_pos",["_special","NONE"],["_radius",30]];
-//diag_log format["_spawnVehicle: _vehType = %1 | _special = %2 | _radiu = %3",_vehType,_special,_radius];
+params["_vehType",["_pos",[]],["_special","NONE"],["_radius",30]];
+
 private _veh = createVehicle[_vehType, _pos, [], _radius, _special];
 _veh setVectorUp surfaceNormal position _veh;
 _veh allowDamage true;
