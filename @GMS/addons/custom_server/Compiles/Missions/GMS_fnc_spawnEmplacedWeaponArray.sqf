@@ -28,6 +28,8 @@ _abort = false;
 _pos = [];
 
 private _emplacedWepData = +_missionEmplacedWeapons;
+//diag_log format["_spawnEmplacedWeaponArray(30): _noEmplacedWeapons = %1 | _emplacedWepData = %2",_noEmplacedWeapons,_emplacedWepData];
+
 // Define _emplacedWepData if not already configured.
 if (_emplacedWepData isEqualTo []) then
 {
@@ -39,6 +41,8 @@ if (_emplacedWepData isEqualTo []) then
 	} forEach _wepPositions;
 	_useRelativePos = false;
 };
+
+//diag_log format["_spawnEmplacedWeaponArray(45): _noEmplacedWeapons = %1 | _emplacedWepData = %2",_noEmplacedWeapons,_emplacedWepData];
 
 {
 	if (_useRelativePos) then 

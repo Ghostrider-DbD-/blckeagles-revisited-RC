@@ -19,13 +19,22 @@
 for "_i" from 1 to (count blck_oldMissionObjects) do {
 	if (_i <= count blck_oldMissionObjects) then {
 		private _oldObjs = blck_oldMissionObjects deleteAt 0;
-		_oldObjs params ["_missionCenter","_objarr","_timer"];
+		_oldObjs params [["_missionCenter",[0,0,0]],["_objarr",[]],["_timer",0]];
 		if (diag_tickTime > _timer) then 
 		{
 			private _nearplayer = [_missionCenter,800] call blck_fnc_nearestPlayers;
 			if (_nearPlayer isEqualTo []) then 
 			{
-				{deleteVehicle _x}forEach _objarr;
+				{
+					if (typeName _x isEqualTo "OBJECT") then {deleteVehicle _x};
+					if (_x isEqualType []) then 
+					{
+						//[format["_fnc_cleanUpObjects:  case of _x is array: %1",_x]] call blck_fnc_log;
+						{
+							if (typeName _x isEqualTo "OBJECT") then {deleteVehicle _x};
+						} forEach _x;
+					};
+				} forEach _objarr;
 			} else {
 				blck_oldMissionObjects pushback _oldObjs;
 			};

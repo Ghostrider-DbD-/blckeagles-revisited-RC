@@ -468,15 +468,6 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				_missionData = [_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,_assetSpawned,_missionAIVehicles,_markers];
 				
-				/*
-				{
-						diag_log format["_monitorInitializedMissions (363): %1 = %2",_vars select _forEachIndex,_x];
-				} forEach [_objects,_hiddenObjects,_crates];
-				{
-					diag_log format["_monitorInitializedMission (369): _missionData %1 = %2",_vars select _foreachIndex,_missionData select _x];
-				} forEach [2,3,4,5];
-				*/
-
 				_el set[missionData, _missionData];
 
 				// If there were no throws then lets check on the mission in a bit.
@@ -570,4 +561,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 			blck_activeMissionsList pushBack _el;
 		};
 	};
+
 };
+
+blck_activeMonitorThreads = blck_activeMonitorThreads - 1;

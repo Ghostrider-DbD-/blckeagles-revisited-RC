@@ -27,7 +27,7 @@ private _vehicles = [];
 private _missionAI = [];
 private _abort = false;
 private _patrolsThisMission = +_missionPatrolVehicles;
-
+//diag_log format["_spawnMissionVehiclePatrols(30): _noVehiclePatrols = %1 | _patrolsThisMission = %2",_noVehiclePatrols,_patrolsThisMission];
 if (_patrolsThisMission isEqualTo []) then
 {
 	_useRelativePos = false;
