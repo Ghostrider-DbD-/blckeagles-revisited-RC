@@ -17,7 +17,8 @@ private ["_abort","_crates","_aiGroup","_objects","_groupPatrolRadius","_mission
 		"_AI_Vehicles","_timeOut","_aiDifficultyLevel","_missionPatrolVehicles","_missionGroups","_loadCratesTiming","_spawnCratesTiming","_assetSpawned","_hostageConfig",
 		"_chanceHeliPatrol","_noPara","_chanceLoot","_heliCrew","_loadCratesTiming","_useMines","_blck_AllMissionAI","_delayTime","_groupPatrolRadius","_simpleObjects",
 		"_wait","_missionStartTime","_playerInRange","_missionTimedOut","_temp","_patrolVehicles","_vehToSpawn","_noChoppers","_chancePara","_paraSkill","_marker","_vehicleCrewCount",
-		"_defaultMissionLocations","_garrisonedbuildings_buildingposnsystem","_garrisonedBuilding_ATLsystem", "_isScubaMission","_markerlabel","_missionLootBoxes","_airpatrols"];
+		"_defaultMissionLocations","_garrisonedbuildings_buildingposnsystem","_garrisonedBuilding_ATLsystem", "_isScubaMission","_markerlabel","_missionLootBoxes","_airpatrols",
+		"_submarinePatrols","_scubaPatrols"];
 		
 params["_markerName",["_aiDifficultyLevel","Red"]];
 if (isNil "_markerLabel") then {_markerLabel = _markerMissionName};
@@ -54,7 +55,9 @@ if (isNil "_garrisonedBuilding_ATLsystem") then {_garrisonedBuilding_ATLsystem =
 if (isNil "_garrisonedBuildings_BuildingPosnSystem") then {_garrisonedBuildings_BuildingPosnSystem = []};
 if (isNil "_vehicleCrewCount") then {_vehicleCrewCount = [_aiDifficultyLevel] call GMS_fnc_selectVehicleCrewCount};
 if (isNil "_airpatrols") then {_airpatrols = []};
+if (isNil "_submarinePatrols") then {_submarinePatrols = 0};
 if (isNil "_submarinePatrolParameters") then {_submarinePatrolParameters = []};
+if (isNil "_scubaPatrols") then {_scubaPatrols = 0};
 if (isNil "_scubagroupparameters") then {_scubagroupparameters = []};
 if (isNil "_markerMissionName") then {
 	diag_log format["_fnc_missionSpawner: _markerMissionName not defined, using default value"];
@@ -111,6 +114,7 @@ private _table = [
 	_missionLootBoxes,
 	_missionLootVehicles,
 	_missionPatrolVehicles,
+	_submarinePatrols,  //  Added Build 227
 	_submarinePatrolParameters,
 	_airPatrols,
 	_noVehiclePatrols, 
@@ -122,6 +126,7 @@ private _table = [
 	_maxNoAI, 
 	_noAIGroups, 		
 	_missionGroups,
+	_scubaPatrols,  //  Added Build 227
 	_scubaGroupParameters,		
 	_hostageConfig,
 	_enemyLeaderConfig,

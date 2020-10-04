@@ -50,60 +50,62 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 	];
 
 	_missionParameters params[
-		"_markerName",
-		"_markerMissionName",
-		"_endMsg",
-		"_startMsg",
-		"_defaultMissionLocations",	
-		"_crateLoot", 				
-		"_lootCounts", 				
-		"_markerType", 
-		"_markerColor", 
-		"_markerSize",
-		"_markerBrush",	
-		"_missionLandscapeMode", 	
-		"_garrisonedBuildings_BuildingPosnSystem", 
-		"_garrisonedBuilding_ATLsystem",
-		"_missionLandscape",
-		"_simpleObjects",
-		"_missionLootBoxes",
-		"_missionLootVehicles",
-		"_missionPatrolVehicles",
-		"_submarinePatrolParameters",
-		"_airPatrols",
-		"_noVehiclePatrols", 
-		"_vehicleCrewCount",
-		"_missionEmplacedWeapons",
-		"_noEmplacedWeapons", 
-		"_useMines", 
-		"_minNoAI", 
-		"_maxNoAI", 
-		"_noAIGroups", 		
-		"_missionGroups",
-		"_scubaGroupParameters",		
-		"_hostageConfig",
-		"_enemyLeaderConfig",
-		"_assetKilledMsg",	
-		"_uniforms", 
-		"_headgear", 
-		"_vests", 
-		"_backpacks", 
-		"_weaponList",
-		"_sideArms", 
-		"_chanceHeliPatrol", 
-		"_noChoppers", 
-		"_missionHelis", 
-		"_chancePara", 
-		"_noPara", 
-		"_paraTriggerDistance",
-		"_paraSkill",
-		"_chanceLoot", 
-		"_paraLoot", 
-		"_paraLootCounts",
-		"_spawnCratesTiming", 
-		"_loadCratesTiming", 
-		"_endCondition",
-		"_isScubaMission"
+	"_markerName",
+	"_markerMissionName",
+	"_endMsg",
+	"_startMsg",
+	"_defaultMissionLocations",	
+	"_crateLoot", 				
+	"_lootCounts", 				
+	"_markerType", 
+	"_markerColor", 
+	"_markerSize",
+	"_markerBrush",	
+	"_missionLandscapeMode", 	
+	"_garrisonedBuildings_BuildingPosnSystem", 
+	"_garrisonedBuilding_ATLsystem",
+	"_missionLandscape",
+	"_simpleObjects",
+	"_missionLootBoxes",
+	"_missionLootVehicles",
+	"_missionPatrolVehicles",
+	"_submarinePatrols",
+	"_submarinePatrolParameters",
+	"_airPatrols",
+	"_noVehiclePatrols", 
+	"_vehicleCrewCount",
+	"_missionEmplacedWeapons",
+	"_noEmplacedWeapons", 
+	"_useMines", 
+	"_minNoAI", 
+	"_maxNoAI", 
+	"_noAIGroups", 		
+	"_missionGroups",
+	"_scubaPatrols",
+	"_scubaGroupParameters",		
+	"_hostageConfig",
+	"_enemyLeaderConfig",
+	"_assetKilledMsg",	
+	"_uniforms", 
+	"_headgear", 
+	"_vests", 
+	"_backpacks", 
+	"_weaponList",
+	"_sideArms", 
+	"_chanceHeliPatrol", 
+	"_noChoppers", 
+	"_missionHelis", 
+	"_chancePara", 
+	"_noPara", 
+	"_paraTriggerDistance",
+	"_paraSkill",
+	"_chanceLoot", 
+	"_paraLoot", 
+	"_paraLootCounts",
+	"_spawnCratesTiming", 
+	"_loadCratesTiming", 
+	"_endCondition",
+	"_isScubaMission"
 	];	
 	
 	private _playerInRange = [_coords, blck_TriggerDistance, false] call blck_fnc_playerInRange;
@@ -187,14 +189,14 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 				_blck_AllMissionAI append (_ai);
 				uiSleep delayTime;
 
-				if !(_scubaGroupParameters isEqualTo []) then 
+				if !(_scubaGroupParameters isEqualTo [] || _scubaPatrols > 0) then 
 				{
 					//_umsUniforms = blck_UMS_uniforms;
 					//_umsHeadgear = blck_UMS_headgear;
 					//_umsWeapons = blck_UMS_weapons;
 					//_umsVests = blck_UMS_vests;
 					
-					_temp = [_coords, _minNoAI,_maxNoAI,_noAIGroups,_scubaGroupParameters,_difficulty,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,_backpacks,blck_UMS_weapons,_sideArms,true] call blck_fnc_spawnMissionAI;
+					_temp = [_coords, _minNoAI,_maxNoAI,_scubaPatrols,_scubaGroupParameters,_difficulty,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,_backpacks,blck_UMS_weapons,_sideArms,true] call blck_fnc_spawnMissionAI;
 					_temp params["_ai","_abort"];
 					if (_abort) throw 1;
 					_blck_AllMissionAI append (_ai);
@@ -277,7 +279,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 						_blck_AllMissionAI append (units (_temp select 0));
 					};
 				};		
-				uiSleep 15;
+				uiSleep 5;
 
 				private _userelativepos = true;
 				private _emplacedWeaponsThisMission = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
@@ -293,7 +295,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 						_blck_AllMissionAI append (_temp select 1);
 					};
 				};	
-				uisleep 10;
+				uisleep 5;
 
 				private _noPatrols = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
 				diag_log format["_monitorInitializeMissions(299): __noVehiclePatrols %1 | _noPatrols %2 | _missionPatrolVehicles %3",_noVehiclePatrols,_noPatrols,_missionPatrolVehicles];
