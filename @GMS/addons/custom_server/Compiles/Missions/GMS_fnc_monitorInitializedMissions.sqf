@@ -397,6 +397,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 			};
 
 			try {
+				if (blck_debugLevel >= 4) throw 5;
 				private _playerIsNear = [_crates,20,true] call blck_fnc_playerInRangeArray;
 				private _minNoAliveForCompletion = (count _blck_AllMissionAI) - (round(blck_killPercentage * (count _blck_AllMissionAI)));			
 				private _aiKilled = if (({alive _x} count _blck_AllMissionAI) <= _minNoAliveForCompletion)  then {true} else {false}; // mission complete
@@ -555,6 +556,9 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 					case 4: {  // Reserved for grpNull errors in the future
 
 					};
+					case 5: {
+						[_coords,_mines,_objects,_hiddenObjects,_crates,_blck_AllMissionAI,_assetKilledMsg,_markers,markerPos (_markers select 1),_markerName,_markerMissionName, _exception] call blck_fnc_endMission;						
+					}
 				};
 			};
 		};
