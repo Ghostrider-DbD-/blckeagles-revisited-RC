@@ -27,13 +27,7 @@ for "_i" from 1 to (count blck_oldMissionObjects) do {
 			{
 				{
 					if (typeName _x isEqualTo "OBJECT") then {deleteVehicle _x};
-					if (_x isEqualType []) then 
-					{
-						//[format["_fnc_cleanUpObjects:  case of _x is array: %1",_x]] call blck_fnc_log;
-						{
-							if (typeName _x isEqualTo "OBJECT") then {deleteVehicle _x};
-						} forEach _x;
-					};
+					if (typeName _x isEqualTo "STRING") then {deleteVehicle (objectFromNetId _x)};
 				} forEach _objarr;
 			} else {
 				blck_oldMissionObjects pushback _oldObjs;
