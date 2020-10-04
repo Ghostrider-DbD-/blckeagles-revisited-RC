@@ -35,9 +35,10 @@ if (blck_modType isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Stati
 for "_i" from 1 to (count blck_recentMissionCoords) do 
 {
 	if (_i > (count blck_recentMissionCoords)) exitWith {};
-	if (diag_tickTime < ((_x select 1) + 900)) then
+	private _oldMission = blck_recentMissionCoords deleteAt 0;
+	if (diag_tickTime < ((_oldMission select 1) + 900)) then
 	{
-		blck_recentMissionCoords pushBack _x;
+		blck_recentMissionCoords pushBack _oldMission;
 	};
 };
 
