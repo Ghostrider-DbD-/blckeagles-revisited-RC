@@ -308,8 +308,8 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 					_blck_AllMissionAI append (_temp select 1);
 				};		
 				uiSleep  delayTime;
-		
-				if (blck_useVehiclePatrols && ((_noPatrols > 0) || !(_submarinePatrolParameters isEqualTo []))) then
+				//diag_log format["_monitorInitializedMissions(320): count _submarinePatrolParameters = %1 | _submarinePatrolParameters = %2",count _submarinePatrolParameters,_submarinePatrolParameters];
+				if (blck_useVehiclePatrols && ((_submarinePatrols > 0) || !(_submarinePatrolParameters isEqualTo []))) then
 				{
 					_temp = [_coords,_noPatrols,_difficulty,_submarinePatrolParameters,_userelativepos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaMission,_vehicleCrewCount] call blck_fnc_spawnMissionVehiclePatrols;
 					// TODO: add grpNull checks to missionVehicleSpawner
