@@ -38,7 +38,7 @@ private _hiddenObjs = [];
 	_obj enableSimulationGlobal false;
 	_obj enableDynamicSimulation false;
 	_obj setDir (_obj getRelDir _coords);
-	_newObjs pushback _obj;
+	_newObjs pushback (netID _obj);
 	sleep 0.1;
 } forEach _missionLandscape;
 

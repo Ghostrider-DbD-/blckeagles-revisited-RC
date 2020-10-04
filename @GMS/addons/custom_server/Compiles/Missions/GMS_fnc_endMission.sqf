@@ -161,6 +161,16 @@ switch (_endCondition) do
 
 			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 	};
+	case 5: {
+			#define	cleanupCompositionTimer  0
+			#define	cleanupAliveAITimer  0
+			
+			{
+				if (local _x) then {deleteVehicle _x};
+			}forEach _crates;
+
+			[_coords,_mines,_objects,_hiddenObjects,_blck_AllMissionAI,_markerName,cleanupAliveAITimer,cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
+	};	
 };
 
 blck_missionsRun = blck_missionsRun + 1;

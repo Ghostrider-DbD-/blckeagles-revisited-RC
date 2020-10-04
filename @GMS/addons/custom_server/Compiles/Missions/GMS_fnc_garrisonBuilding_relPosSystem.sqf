@@ -43,7 +43,7 @@ if !(isNull _group) then
         _x params["_bldClassName","_bldRelPos","_bldDir","_s","_d","_p","_noStatics","_typesStatics","_noUnits"];
         if (_typesStatics isEqualTo []) then {_typesStatics = ["B_HMG_01_high_F"]};
         _building = createVehicle[_bldClassName,[0,0,0],[],0,"CAN_COLLIDE"];
-        _buildingsSpawned pushBack _building;
+        _buildingsSpawned pushBack (netID _building);
         _building setPosATL (_bldRelPos vectorAdd _center);
         [_building, _bldDir] call blck_fnc_setDirUp;
         _staticsSpawned = [_building,_group,_noStatics,_typesStatics,_noUnits,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,"none",_weaponList,_sideArms] call blck_fnc_spawnGarrisonInsideBuilding_relPos;
