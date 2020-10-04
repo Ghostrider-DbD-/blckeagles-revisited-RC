@@ -13,12 +13,12 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
+private _startTime = diag_tickTime;
 private _minDistFromBases = blck_minDistanceToBases;
 private _minDistFromMission = blck_MinDistanceFromMission;
 private _minDistanceFromTowns = blck_minDistanceFromTowns;
 private _minDistanceFromPlayers = blck_minDistanceToPlayer;
-//private _blacklistedLocations = +blck_minDistanceFromTowns;
+
 private _weightBlckList = 0.95;
 private _weightBases = 0.9;
 private _weightMissions = 0.8;
@@ -26,10 +26,6 @@ private _weightTowns = 0.7;
 private _weightPlayers = 0.6;
 private _weightRecentMissions = 0.6;
 private _minDistanceRecentMissions = 500;
-
-private _pole = "";
-if (blck_modType isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
-if (blck_modType isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
 
 // remove any recent mission locations that have timed out
 for "_i" from 1 to (count blck_recentMissionCoords) do 
@@ -61,10 +57,11 @@ while {_coords isEqualTo []} do
 		private _searchCenter = blck_mapCenter getPos[_searchDist, random(359)];
 		_coords = [_searchCenter,0,_searchDist,_minObjDist,_waterMode,_maxGrad,_shoreMode] call BIS_fnc_findSafePos;
 		_tries = _tries + 1;
-		[format["_fnc_findSafePosn(57): _tries = %1 | _coords = %2",_tries,_coords]] call blck_fnc_log;
+		//[format["_fnc_findSafePosn(57): _tries = %1 | _coords = %2",_tries,_coords]] call blck_fnc_log;
 	};
 	
 	{
+		//diag_log format["_fnc_findSafePosn(67): _recentMissionCoords %1 = %2",_forEachIndex,_x];
 		if (((_x select 0) distance2D _coords) < _minDistanceRecentMissions) then 
 		{
 			_findNew = true;
@@ -75,7 +72,7 @@ while {_coords isEqualTo []} do
 	//diag_log format["_fnc_findSafePosn (61): _coords = %1 | _tries = %2 | count blck_locationBlackList = %1",_coords,_tries, count blck_locationBlackList];
 	{
 		
-		diag_log format["_fnc_findSafePosn (77): location _x = %1",_x];
+		//diag_log format["_fnc_findSafePosn (77): location _x = %1",_x];
 		if ( ((_x select 0) distance2D _coords) < (_x select 1)) exitWith
 		{
 			_findNew = true;
@@ -96,13 +93,17 @@ while {_coords isEqualTo []} do
 
 	if !(_findNew) then
 	{
+		private _poles = [];
+		if (blck_modType isEqualTo "Epoch") then {_poles = allMissionObjects "PlotPole_EPOCH"};
+		if (blck_modType isEqualTo "Exile") then {_poles = allMissionObjects "Exile_Construction_Flag_Static"};		
+		//diag_log format["_fnc_findSafePosn: count _poles = %1 | _poles = %2",count _poles,_poles];
 		{
 			if ((_x distance2D _coords) < blck_minDistanceToBases) then
 			{
 				_findNew = true;
 				if (blck_debugLevel >= 3) then {[format["_findSafePosn(98): too close to bases"]] call blck_fnc_log};
 			};
-		}forEach (allmissionobjects _pole);		
+		}forEach _poles;		
 	};
 	
 	if !(_findNew) then
@@ -163,7 +164,6 @@ while {_coords isEqualTo []} do
 		_minDistanceRecentMissions = _minDistanceRecentMissions * _weightRecentMissions;
 		_coords = [];		
 	};
-
 	[format["_fnc_findSafePosn(140) end of cycle logging: _tries = %1 | _coords = %2 | _findNew = %3",_tries,_coords,_findNew]] call blck_fnc_log;	
 };
 
@@ -173,7 +173,7 @@ if ((count _coords) > 2) then
 	_temp = [_coords select 0, _coords select 1];
 	_coords = _temp;
 };
-[format["_fnc_findSafePosn(148) final logging: _tries = %1 | _coords = %2",_tries,_coords]] call blck_fnc_log;
+[format["_fnc_findSafePosn(148) final logging: _elapsedTime %3 | _tries = %1 | _coords = %2",_tries,_coords,diag_tickTime - _startTime]] call blck_fnc_log;
 _coords;
 
 
