@@ -40,7 +40,8 @@ private _hiddenObjs = [];
 	};
 	_obj = createVehicle[_className,[0,0,0],[],0,"CAN_COLLIDE"];
 	_obj setPosATL _objPos;
-	_newObjs pushback _obj;
+
+	_newObjs pushback (netID _obj);
 	[_obj, _dir] call blck_fnc_setDirUp;
 	_obj setVectorUp [0,0,1];	
 	_obj enableDynamicSimulation _sim;
