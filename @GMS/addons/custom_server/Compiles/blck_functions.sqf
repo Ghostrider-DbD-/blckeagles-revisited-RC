@@ -16,8 +16,7 @@ private _functions = [
 	// General functions
 	["blck_fnc_waitTimer","\q\addons\custom_server\Compiles\Functions\GMS_fnc_waitTimer.sqf"],
 	["blck_fnc_restoreHiddenObjects","\q\addons\custom_server\Compiles\Functions\GMS_fnc_restoreHiddenObjects.sqf"],
-	["blck_fnc_FindSafePosn","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn.sqf"],
-	["blck_fnc_findSafePosn_2","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn_2.sqf"],
+	["blck_fnc_FindSafePosn","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn_4.sqf"],
 	["blck_fnc_randomPosition","\q\addons\custom_server\Compiles\Functions\GMS_fnc_randomPosn.sqf"],							// find a randomPosn. see script for details.
 	["blck_fnc_findPositionsAlongARadius","\q\addons\custom_server\Compiles\Functions\GMS_fnc_findPositionsAlongARadius.sqf"],
 	["blck_fnc_giveTakeCrypto","\q\addons\custom_server\Compiles\Functions\GMS_fnc_giveTakeCrypto.sqf"],
