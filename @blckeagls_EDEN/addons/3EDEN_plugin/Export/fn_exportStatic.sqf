@@ -291,7 +291,6 @@ _lines pushBack "";
 _lines pushBack "/*";
 _lines pushBack "	Use the parameters below to customize your mission - see the template or blck_configs.sqf for details about each them";
 _lines pushBack "*/";
-
 _linse pushBack "_useMines = blck_useMines;";  
 _lines pushBack "_uniforms = blck_SkinList;";  
 _lines pushBack "_headgear = blck_headgear;";  

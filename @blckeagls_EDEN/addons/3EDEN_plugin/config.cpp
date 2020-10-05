@@ -52,8 +52,8 @@ class CfgBlck3DEN
 	class CfgVersion 
 	{
 		version = 1.0;
-		build = 7;
-		date = "09/21/20";
+		build = 8;
+		date = "10/05/20";
 	};
 };
 
