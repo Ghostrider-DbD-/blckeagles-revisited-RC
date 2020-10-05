@@ -101,9 +101,10 @@ if !(_defaultMissionLocations isEqualTo []) then
 	if (_isScubaMission) then 
 	{
 		_coords = [] call blck_fnc_findShoreLocation;
+		diag_log format["_initializeMission (102): _coords = %1",_coords];
 	} else {
 		_coords =  [] call blck_fnc_findSafePosn;
-
+		diag_log format["_initializeMission (105): _coords = %1",_coords];
 	};
 };
 
@@ -165,10 +166,12 @@ if !(isClass(configFile >> "CfgMarkerColors" >> _markerColor)) then
 };
 
 private _markers = [format["%1:%2",_markerName,_missionCount],_markerPos,_markerMissionName,_markerColor,_markerType,_markerSize,_markerBrush] call blck_fnc_createMissionMarkers;
+if (blck_debugLevel >= 3) then {[format["_initializeMissions (167): _marker = %1 | _markerMissionName = %2 | _difficulty = %3",_markers,_markerMissionName,_difficulty]] call blck_fnc_log};
 
 /*
 	Send a message to players.
 */
+
 [["start",_startMsg,_markerMissionName]] call blck_fnc_messageplayers;
 
 private _missionTimeoutAt = diag_tickTime + blck_MissionTimeout;
