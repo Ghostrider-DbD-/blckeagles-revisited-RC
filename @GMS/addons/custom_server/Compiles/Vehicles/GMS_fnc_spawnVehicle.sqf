@@ -15,6 +15,14 @@
 params["_vehType",["_pos",[]],["_special","NONE"],["_radius",30]];
 
 private _veh = createVehicle[_vehType, _pos, [], _radius, _special];
+if (count _pos == 2) then {
+	_pos pushBack 0;
+	[format["_fnc_spawnVehicle(20): _pos had only 2 parameters, new value = %1",_pos],'warning'] call blck_fnc_log;
+};
+if (_pos isEqualTo []) then 
+{
+	[format["_fnc_spawnVehicle(20): _pos undefined, now set to [0,0,0]"],'warning'] call blck_fnc_log;
+};
 _veh setVectorUp surfaceNormal position _veh;
 _veh allowDamage true;
 _veh enableRopeAttach true;

@@ -11,12 +11,12 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_timer1sec","_timer5sec","_timer10Sec","_timer20sec","_timer5min","_timer5min"];
-_timer2sec = diag_tickTime;
-_timer5sec = diag_tickTime;
-_timer10Sec = diag_tickTime;
-_timer20sec = diag_tickTime;
-_timer1min = diag_tickTime;
-_timer5min = diag_tickTime;
+_timer2sec = diag_tickTime + 2;
+_timer5sec = diag_tickTime + 5;
+_timer10Sec = diag_tickTime + 10;
+_timer20sec = diag_tickTime + 20;
+_timer1min = diag_tickTime + 10;
+_timer5min = diag_tickTime + 300;
 
 while {true} do
 {
@@ -51,10 +51,6 @@ while {true} do
 	{
 		[] call blck_fnc_spawnPendingMissions; 	
 		_timer10Sec = diag_tickTime;
-	};
-	
-	if (diag_tickTime > _timer20sec) then
-	{
 		[] call blck_fnc_scanForPlayersNearVehicles;
 		[] call GMS_fnc_cleanupTemporaryMarkers;
 		[] call GMS_fnc_updateCrateSignals;				
@@ -63,7 +59,7 @@ while {true} do
 	
 	if ((diag_tickTime > _timer1min)) then
 	{
-		_timer1min = diag_tickTime + 60;
+		_timer1min = diag_tickTime + 10;
 		[] call blck_fnc_restoreHiddenObjects;
 		[] call blck_fnc_groupWaypointMonitor;
 		[] call blck_fnc_cleanupAliveAI;

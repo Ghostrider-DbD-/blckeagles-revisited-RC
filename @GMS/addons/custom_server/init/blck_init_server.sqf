@@ -107,7 +107,7 @@ switch (blck_simulationManager) do
 if ( !(blck_debugON) && (blck_debugLevel isEqualTo 0)) then
 {
 	waitUntil{{isPlayer _x}count allPlayers > 0};
-	["]Player Connected, spawning missions"] call blck_fnc_log;
+	["Player Connected, spawning missions"] call blck_fnc_log;
 } else {
 	["Debug mode ON, proceding without players"] call blck_fnc_log;
 };
@@ -163,9 +163,6 @@ private _other = ["NameLocal"] call _fn_setupLocationType;
 private _airport = ["Airport"] call _fn_setupLocationType;
 
 blck_townLocations = _villages + _cites + _capitals + _marine + _other + _airport;
-{
-	blck_locationBlackList pushBack [locationPosition _x, blck_minDistanceFromTowns];
-} forEach blck_townLocations;
 
 //Start the mission timers
 if (blck_enableOrangeMissions > 0) then
