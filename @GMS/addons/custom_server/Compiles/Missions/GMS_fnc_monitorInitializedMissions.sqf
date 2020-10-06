@@ -270,6 +270,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				if !(_garrisonedBuildings_BuildingPosnSystem isEqualTo []) then
 				{
+					//  params["_building","_group",["_noStatics",0],["_typesStatics",blck_staticWeapons],["_noUnits",0],["_aiDifficultyLevel","Red"],	["_uniforms",[]],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_launcher","none"],["_weaponList",[]],["_sideArms",[]]];
 					private _temp = [_coords, _garrisonedBuildings_BuildingPosnSystem, _difficulty,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_garrisonBuilding_RelPosSystem;
 					if (_temp isEqualTo grpNull) then {throw 1} else 
 					// TODO: add error checks for grpNull to the RelPosSystem
@@ -283,7 +284,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				private _userelativepos = true;
 				private _emplacedWeaponsThisMission = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
-				[format["_monitorInitializedMissions(284): _noEmplacedWeapons = %1 | _emplacedWeaponsThisMission = %2 | _missionEmplacedWeapons = %3",_noEmplacedWeapons,_emplacedWeaponsThisMission,_missionEmplacedWeapons]] call blck_fnc_log;
+				//[format["_monitorInitializedMissions(284): _noEmplacedWeapons = %1 | _emplacedWeaponsThisMission = %2 | _missionEmplacedWeapons = %3",_noEmplacedWeapons,_emplacedWeaponsThisMission,_missionEmplacedWeapons]] call blck_fnc_log;
 				if (blck_useStatic && ((_emplacedWeaponsThisMission > 0) || !(_missionEmplacedWeapons isEqualTo []))) then
 				// TODO: add error checks for grpNull to the emplaced weapon spawner
 				{
@@ -298,7 +299,16 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 				uisleep 5;
 
 				private _noPatrols = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
-
+				//diag_log format["_monitorInitializedMissions(299): _markerMissionName = %2 | count _missionAIVehicles = %1",count _missionAIVehicles,_markerMissionName];
+				/*
+				diag_log format[
+					"_monitorInitializeMissions(300): __noVehiclePatrols %1 | _noPatrols %2 | count _missionPatrolVehicles %3 | _missionPatrolVehicles = %4",
+					_noVehiclePatrols,
+					_noPatrols,
+					count _missionPatrolVehicles,
+					_missionPatrolVehicles
+				];
+				*/
 				if (blck_useVehiclePatrols && ((_noPatrols > 0) || !(_missionPatrolVehicles isEqualTo []))) then
 				{
 					_temp = [_coords,_noPatrols,_difficulty,_missionPatrolVehicles,_userelativepos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,false,_vehicleCrewCount] call blck_fnc_spawnMissionVehiclePatrols;

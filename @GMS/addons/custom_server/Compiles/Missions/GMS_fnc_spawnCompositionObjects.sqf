@@ -40,7 +40,7 @@ private _hiddenObjs = [];
 	};
 	_obj = createVehicle[_className,[0,0,0],[],0,"CAN_COLLIDE"];
 	_obj setPosATL _objPos;
-
+	//diag_log format["_spawnCompositionObjects: _obj = %1 | netID _obj = %2",_obj,netID _obj];
 	_newObjs pushback (netID _obj);
 	[_obj, _dir] call blck_fnc_setDirUp;
 	_obj setVectorUp [0,0,1];	
