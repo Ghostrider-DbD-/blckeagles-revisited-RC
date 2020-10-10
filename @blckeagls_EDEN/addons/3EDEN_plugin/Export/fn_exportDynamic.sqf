@@ -152,7 +152,21 @@ for "_i" from 1 to (count _landscape) do
 		private _allowDamage = (_building get3DENAttribute "allowDamage") select 0;
 		private _enableSimulation = (_building get3DENAttribute "enableSimulation") select 0;	
 		diag_log format["_exportDynamic-garisonedPos: _building %1 | damage %2 | simulation %3",_building,_allowDamage,_enableSimulation];	
-		_garisonedPos pushBack format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',typeOf _building,(getPosATL _building) vectorDiff CENTER,getDir _building,_allowDamage,_enableSimulation,oddsOfGarrison,maxGarrisonStatics,typesGarrisonStatics,maxGarrisonUnits];
+		/*
+		// From blck_fnc_garrisonBuilding_RelPosSystem
+        //       ["Land_Unfinished_Building_02_F",[-21.8763,-45.978,-0.00213432],0,true,true,0.67,3,[],4],
+        _x params["_bldClassName","_bldRelPos","_bldDir","_s","_d","_p","_noStatics","_typesStatics","_noUnits"];
+		*/
+		_garisonedPos pushBack format['     ["%1",%2,%3,%4,%5,%6,%7,%8,%9]',
+			typeOf _building,
+			(getPosATL _building) vectorDiff CENTER,
+			getDir _building,
+			_allowDamage,
+			_enableSimulation,
+			oddsOfGarrison,
+			maxGarrisonStatics,
+			typesGarrisonStatics,
+			maxGarrisonUnits];
 	} else {
 		_landscape pushBack _building;
 	};
@@ -400,6 +414,8 @@ _lines pushBack format["_maxNoAI = blck_MaxAI_%1;",blck_MissionDifficulty];
 _lines pushBack format["_noAIGroups = blck_AIGrps_%1;",blck_MissionDifficulty];  
 _lines pushBack format["_noVehiclePatrols = blck_SpawnVeh_%1;",blck_MissionDifficulty];  
 _lines pushBack format["_noEmplacedWeapons = blck_SpawnEmplaced_%1;",blck_MissionDifficulty];
+_lines pushBack "_submarinePatrols = 0; // Default number of submarine patrols at pirate missions";
+_lines pushBack "_scubaPatrols = 0; // Default number of scuba diver patrols at pirate missions";
 _lines pushBack "";
 _lines pushBack '#include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";';
 
