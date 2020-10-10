@@ -283,7 +283,6 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				private _userelativepos = true;
 				private _emplacedWeaponsThisMission = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
-				//[format["_monitorInitializedMissions(284): _noEmplacedWeapons = %1 | _emplacedWeaponsThisMission = %2 | _missionEmplacedWeapons = %3",_noEmplacedWeapons,_emplacedWeaponsThisMission,_missionEmplacedWeapons]] call blck_fnc_log;
 				if (blck_useStatic && ((_emplacedWeaponsThisMission > 0) || !(_missionEmplacedWeapons isEqualTo []))) then
 				// TODO: add error checks for grpNull to the emplaced weapon spawner
 				{
@@ -298,52 +297,26 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 				uisleep 5;
 
 				private _noPatrols = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
-<<<<<<< Updated upstream
-				//diag_log format["_monitorInitializeMissions(299): __noVehiclePatrols %1 | _noPatrols %2 | _missionPatrolVehicles %3",_noVehiclePatrols,_noPatrols,_missionPatrolVehicles];
-=======
-				//diag_log format["_monitorInitializedMissions(299): _markerMissionName = %2 | count _missionAIVehicles = %1",count _missionAIVehicles,_markerMissionName];
-				/*
-				diag_log format[
-					"_monitorInitializeMissions(300): __noVehiclePatrols %1 | _noPatrols %2 | count _missionPatrolVehicles %3 | _missionPatrolVehicles = %4",
-					_noVehiclePatrols,
-					_noPatrols,
-					count _missionPatrolVehicles,
-					_missionPatrolVehicles
-				];
-				*/
->>>>>>> Stashed changes
+
 				if (blck_useVehiclePatrols && ((_noPatrols > 0) || !(_missionPatrolVehicles isEqualTo []))) then
 				{
 					_temp = [_coords,_noPatrols,_difficulty,_missionPatrolVehicles,_userelativepos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,false,_vehicleCrewCount] call blck_fnc_spawnMissionVehiclePatrols;
 					// TODO: add grpNull checks to missionVehicleSpawner
 					if (_temp isEqualTo grpNull) throw 1; 
 					_missionAIVehicles append (_temp select 0);
-					//diag_log format ["_monitorInitializedMissions(306): count (_temp select 0)/no mission vehicles spawned = %1",count (_temp select 0)];
 					_blck_AllMissionAI append (_temp select 1);
 				};	
-				//diag_log format["_monitorInitializedMissions(310): _count _missionAIVehicles = %1",count _missionAIVehicles];					
-				/*
-				{
-					diag_log format["_monitorInitializedMissions(318): spawned vehicle %1 of type %2 object %2",_forEachIndex,typeOf _x, _x];
-				} forEach _missionAIVehicles;				
-				*/
+	
 				uiSleep  delayTime;
-				//diag_log format["_monitorInitializedMissions(320): count _submarinePatrolParameters = %1 | _submarinePatrolParameters = %2",count _submarinePatrolParameters,_submarinePatrolParameters];
 				if (blck_useVehiclePatrols && ((_submarinePatrols > 0) || !(_submarinePatrolParameters isEqualTo []))) then
 				{
 					_temp = [_coords,_noPatrols,_difficulty,_submarinePatrolParameters,_userelativepos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaMission,_vehicleCrewCount] call blck_fnc_spawnMissionVehiclePatrols;
 					// TODO: add grpNull checks to missionVehicleSpawner
 					if (_temp isEqualTo grpNull) throw 1;
 					_missionAIVehicles append (_temp select 0);
-					//diag_log format ["_monitorInitializedMissions(327): count (_temp select 0)/no mission vehicles spawned = %1",count (_temp select 0)];					
 					_blck_AllMissionAI append (_temp select 1);
 				};		
-				//diag_log format["_monitorInitializedMissions(330): count _missionAIVehicles = %1",count _missionAIVehicles];
-				/*
-				{
-					diag_log format["_monitorInitializedMissions(332): spawned vehicle %1 of type %2 object %2",_forEachIndex,typeOf _x, _x];
-				} forEach _missionAIVehicles;
-				*/
+
 				uiSleep  delayTime;
 
 				if (_spawnCratesTiming in ["atMissionSpawnGround","atMissionSpawnAir"]) then
@@ -356,7 +329,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 					{
 						_crates = [_coords,_missionLootBoxes,_loadCratesTiming, _spawnCratesTiming, "start", _difficulty] call blck_fnc_spawnMissionCrates;						
 					};
-					//diag_log format["_monitorInitializeMissions (318): crates spawned = %1",_crates];
+
 					if (blck_cleanUpLootChests) then
 					{
 						_objects append _crates;
