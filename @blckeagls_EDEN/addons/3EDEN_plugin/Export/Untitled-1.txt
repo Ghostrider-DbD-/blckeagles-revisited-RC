@@ -1,16 +1,11 @@
 
-
-private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car" || (typeOf _x) isKindOf "Ship"};  //
-if (count _objects == 1) then 
+all3DENEntities params ["_objects"];
 {
-	private _obj = _objects select 0;
-	private _marker = create3DENEntity ["object","Sign_Arrow_Blue_F",getPos _obj];
-	private _bbr = boundingBoxReal vehicle player;
-	_p1 = _bbr select 0;
-	_p2 = _bbr select 1;
-	_height = abs ((_p2 select 2) - (_p1 select 2));	
-	_markerPos = getPos _marker;
-	_marker setPosATL [_markerPos select 0, _markerPos select 1, (_markerPos select 2) + _height];
-} else {
-	systemChat "no vehicles selected";
-};
+     diag_log format [
+               "classname %1 | position %2 | direction %3 | isSimple = %4",
+               (_x get3DENAttribute "ItemClass") select 0, 
+               (_x get3DENAttribute "position") select 0, 
+               ((_x get3DENAttribute "rotation") select 0) select 2,
+               (_x get3DENAttribute "objectIsSimple") select 0
+          ];
+} forEach _objects;

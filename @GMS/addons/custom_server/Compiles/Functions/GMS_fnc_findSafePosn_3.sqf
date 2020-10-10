@@ -99,6 +99,7 @@ while { !_validspot} do
 		_count = _count - 1;
 		_slope = _slope + 0.02;
 		uiSleep 0.1; // to give the server a chance to handle other jobs for a moment
+		diag_log format["_findSafePosn: _count = %1 | _slope = %2 | _coords = %3",_count,_slope,_coords];
 	} else {
 
 		//uiSleep 1;
@@ -175,6 +176,7 @@ while { !_validspot} do
 		};		
 
 	};
+
 	//diag_log format["_fnc_findSafePosn: _coords = %1 | _flatCoords = %2 | _searchCenter = %3 | _angle %4 | _count = %5 | _validSpot = %6",_coords,_flatCoords,_searchCenter,_angle,_count,_validspot];
 };
 

@@ -1,7 +1,13 @@
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+*/
 params["_state"];
 all3DENEntities params ["_objects"];
 _objects = _objects select {_x getVariable["garrisoned",false]};
-diag_log format["displayGarrisonMarkers: _state = %2 | _objects = %1",_objects,_state];
+
 missionNameSpace setVariable["blck_displayGarrisonMarkerOn",_state];
 {
 	if (_state) then // if the request was to show the markers then .... 

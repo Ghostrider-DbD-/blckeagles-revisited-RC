@@ -40,5 +40,5 @@ _smoke setVariable ["LAST_CHECK", (diag_tickTime + 14400)];
 _smoke setPos _posWreck;
 _smoke attachto [_fire, [0,0,1.5]]; 
 
-_objs = [_fire,_smoke];
+_objs = [netID _fire,netID _smoke];
 _objs

@@ -8,6 +8,8 @@
 */
 
 params["_state"];
+private _markerStateON = missionNameSpace getVariable["blck_displayLootMarkerOn",false];
+[false] call blck3DEN_fnc_displayLootMarkers;
 private "_message";
 private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car" || (typeOf _x) isKindOf "Ship"};  // 
 if (_objects isEqualTo []) exitWith 
@@ -38,5 +40,10 @@ if (_objects isEqualTo []) exitWith
 		systemChat _message;
 	};
 } forEach _objects;
+
+if (_markerStateON) then 
+{
+	[true] call blck3DEN_fnc_displayLootMarkers;
+};
 _message = format["Loot Vehicle State of %1 objects updated to %2",count _objects,_state];
 systemChat _m;

@@ -40,7 +40,7 @@ if !(isNull _group) then
         _building = createVehicle[_bldClassName,[0,0,0],[],0,"CAN_COLLIDE"];
         _building setPosATL (_bldRelPos vectorAdd _center);
         _building setDir _bldDir;
-        _buildingsSpawned pushBack _building;
+        _buildingsSpawned pushBack (netID _building);
         _staticsSpawned = [_building,_group,_statics,_men,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,"none",_weaponList,_sideArms] call blck_fnc_spawnGarrisonInsideBuilding_ATL;
     }forEach _garrisonedBuilding_ATLsystem;
 };

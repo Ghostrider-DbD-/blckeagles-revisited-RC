@@ -14,11 +14,11 @@
 	#include "\q\addons\custom_server\Configs\blck_defines.hpp"
 	#include "\q\addons\custom_server\init\build.sqf"
 	/*
-		changing any of these variables may break the mission systemChat
+		changing any of these variables may break the mission system
 	*/
 	blck_locationBlackList = [];  // Do not touch ...
-	blck_debugON = false;  //  Do not touch ... 
-	blck_debugLevel = 0;  //  Do not touch ... 
+	blck_debugON = false;  //  should be set to false;  ... 
+	blck_debugLevel = 0;  //  should be set to 0 ... 
 	#ifdef blck_milServer
 	if (true) exitWith 
 	{
@@ -45,7 +45,8 @@
 	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
 	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	blck_simulationManager = blck_useBlckeaglsSimulationManager; 
-	//diag_log format["[blckeagls] blck_configs:  blck_simulationManager = %1",blck_simulationManager];
+	blck_hideRocksAndPlants = true; //  When true, any rocks, trees or bushes under enterable buildings will be 'hidden'
+
 	/*
 		blck_simulationManagementOff  - no simulation management occurs
 		blck_useBlckeaglsSimulationManager - simulation is enabled/disabled by periodic checks for nearby players; a 'wake' function is included when a units simulation is turned on

@@ -1,6 +1,13 @@
-
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+*/
 
 params["_state"];
+private _markersStateON = missionNamespace getVariable["blck_displayGarrisonMarkerOn",false];
+[false] call blck3DEN_fnc_displayGarrisonMarkers;
 private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "House"};
 private "_message";
 if (_objects isEqualTo []) exitWith 
@@ -8,6 +15,7 @@ if (_objects isEqualTo []) exitWith
 	_message = "Select one or more buildings to configure";
 	systemChat _message;
 	diag_log _message;
+	[_message,"Status"] call BIS_fnc_3DENShowMessage;
 };
 
 {
@@ -24,10 +32,16 @@ if (_objects isEqualTo []) exitWith
 		};
 	} else {
 		_message = format["Object type %1 ignored: only enterable buildings can be garrisoned",typeOf _x];
-		systemChat _x;
-		diag_log _x;
+		systemChat _message;
+		diag_log _message;
+		[_message,"Status"] call BIS_fnc_3DENShowMessage;
 	};
 
 } forEach _objects;
 _message = format["Garrison State of %1 buildings updated to %2",count _objects,_state];
 systemChat _message;
+if (_markersStateON) then 
+{
+	[true] call blck3DEN_fnc_displayGarrisonMarkers;
+};
+[_message,"Status"] call BIS_fnc_3DENShowMessage;

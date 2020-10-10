@@ -26,6 +26,7 @@ blck_TriggerDistance = 1500;
 ////////////////////////////////////////////////
 //  Do Not Touch Anything Below This Line
 ///////////////////////////////////////////////
+
 blck_townLocations = []; //nearestLocations [blck_mapCenter, ["NameCity","NameCityCapital"], 30000];
 blck_ActiveMissionCoords = [];
 blck_recentMissionCoords = [];
@@ -33,6 +34,7 @@ blck_monitoredVehicles = [];
 blck_livemissionai = [];
 blck_monitoredMissionAIGroups = [];  //  Used to track groups in active missions for whatever purpose
 blck_oldMissionObjects = [];
+blck_hiddenTerrainObjects = [];
 blck_pendingMissions = [];
 blck_missionsRunning = 0;
 blck_missionsRun = 0;
@@ -45,13 +47,13 @@ blck_temporaryMarkers = [];
 blck_illuminatedCrates = []; // [crate,duration,freq of replacement]
 blck_mainThreadUpdateInterval = 60;
 blck_revealMode = "detailed"; //""basic" /*group or vehicle level reveals*/,detailed /*unit by unit reveals*/";
-
+blck_dynamicMissionsSpawned = 0;
 blck_spawnerMode = 1;
 blck_missionData = [];
 blck_activeMissionsList = [];
 blck_initializedMissionsList = [];
 blck_blackListedLocations = []; // [ [marker, time]]
-
+blck_activeMonitorThreads = 0;
 blck_validEndStates = ["allUnitsKilled", "playerNear", "allKilledOrPlayerNear","assetSecured"];
 blck_validLootSpawnTimings = ["atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir"];
 blck_validLootLoadTimings = ["atMissionCompletion", "atMissionSpawn"];

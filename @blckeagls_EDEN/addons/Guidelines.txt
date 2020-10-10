@@ -1,0 +1,7 @@
+Features: 
+
+Exports static or dynamic missions preformated in .sqf code. Simply paste the output of the editor into a new .sqf file, edit entires to refine mission parameters and add the name of the mission file to GMS_missionLists.
+Captures simple objects, sets allow dammage and allow similation according to editor settings, and captures marker configurations.
+
+
+

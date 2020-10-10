@@ -47,6 +47,7 @@ class CfgFunctions
 
 			class about {};
 			class buildingContainer {};
+			class configureGarrisonATL {};
 			class createLootMarker {};
 			class createGarrisonMarker {};
 			class display {};			
@@ -54,11 +55,6 @@ class CfgFunctions
 			class displayLootMarkers {};
 			class getGarrisonInfo {};
 			class getLootVehicleInfo {};
-			//class getMissionGarrisonInfo {};
-			//class getMissionLootVehicleInfo {};
-			class help {};			
-			class initializeAttributes {};
-			class isInfantry {};
 			class isInside {};
 			class loadCratesTiming {};
 			class onDrag {};
@@ -71,10 +67,6 @@ class CfgFunctions
 			class setLootVehicle {};
 			class setSpawnLocations {};
 			class spawnCratesTiming {};
-
-			//class endMessage {};
-			//class startMessage {};
-			//class configureGarrisonATL {};
             class versionInfo {};
 		};
 	};

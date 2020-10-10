@@ -1,7 +1,10 @@
 
-
-
-
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+*/
 private _objects = get3DENSelected "object" select {(typeOf _x) isKindOf "Car" || (typeOf _x) isKindOf "Ship" || (typeOf _x) isKindOf "ThingX"};
 private "_message";
 

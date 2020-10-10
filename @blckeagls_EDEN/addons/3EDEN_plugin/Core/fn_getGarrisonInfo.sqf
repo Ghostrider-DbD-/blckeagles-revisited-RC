@@ -1,4 +1,9 @@
-
+/*
+	blckeagls 3EDEN Editor Plugin
+	by Ghostrider-GRG-
+	Copyright 2020
+	
+*/
 private _objects = get3DENSelected "object";
 private "_message";
 diag_log format["getGarrisonInfo: _object = %1",format["%1",_object]];

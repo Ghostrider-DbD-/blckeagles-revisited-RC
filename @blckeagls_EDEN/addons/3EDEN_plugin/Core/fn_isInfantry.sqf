@@ -8,5 +8,4 @@
 
 	private _u = _this select 0;
 	private _isInfantry = if ((_u isKindOf "Man") && (vehicle _u) isEqualTo _u) then {true} else {false};
-	//diag_log format["_fn_isInfantry: _isInfantry = %1",_isInfantry];
 	_isInfantry
