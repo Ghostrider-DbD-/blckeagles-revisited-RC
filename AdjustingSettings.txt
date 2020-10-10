@@ -11,7 +11,7 @@ Second, if your rpt log shows errors after a change, revert to the defaults and 
 Third, settings that determine how messages are displayed can be configured in your mission file (i.e, epoch.Altis.pbo) in debug\blckClient.sqf.
 Here you can use dynamic messages, hints, Toasts or titleText/cutText to display your messages.
 
-Lastly, settings for the missions themselves have been moved to @epochhive\custom_server\configs.
+Lastly, settings for the missions themselves are found in a general settings file and a mod-specific file. The latter contains configurations for vehicles, weapons, and other gear that might be mod specific. 
 There are two different config files, one for exile and a second for epoch.
 There is a third config file which you can use to add additional map-specific or mod-specific settings. 
 For example, you might want only some missions to be running on a small map like Namalsk.

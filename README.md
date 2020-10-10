@@ -2,9 +2,8 @@ Blckegls mission system
 
 Included is an updated version of blckeagls mission system. This began as an effort to fix bugs in and upgrade version 2.0.2 as updated by Narines and has now evolved to a complete reworking of almost all code. 
 
-
 * Installation: Please refer to Installation.txt for a detailed description of installation and what you need to add to BE filters.
-* Loading crates on SDV at underwater missions. For epoch, please feel free to use the modified IgiLoad on my github.
+* Loading crates on SDV at underwater missions. For epoch, please feel free to use R3F or the modified IgiLoad on my github.
   For exile users, modify your misionfil.pbo/config.sys as described below.
   http://www.exilemod.com/topic/17352-bigfoots-shipwrecks/
   infiSTAR Users: you may need to whitelist _MainMarker depending on your settings.
@@ -23,6 +22,8 @@ Included is an updated version of blckeagls mission system. This began as an eff
 	Bill (DBD Clan) for example compositions.
 	cyncrwler, Grahamme and many others for help with troubleshooting and testing
 	Brian Soanes for helpful bug fixes, testing, performance fixes and general guidance.
+	Porkeld for CBA compatibility fixes and texting.
+	Thomas_TKO for extensive testing of the editor plugin and many new missions.
 	
 
 	
