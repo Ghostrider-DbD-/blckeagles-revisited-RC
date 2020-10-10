@@ -101,10 +101,8 @@ if !(_defaultMissionLocations isEqualTo []) then
 	if (_isScubaMission) then 
 	{
 		_coords = [] call blck_fnc_findShoreLocation;
-		diag_log format["_initializeMission (102): _coords = %1",_coords];
 	} else {
 		_coords =  [] call blck_fnc_findSafePosn;
-		diag_log format["_initializeMission (105): _coords = %1",_coords];
 	};
 };
 
