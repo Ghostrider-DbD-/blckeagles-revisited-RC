@@ -1,21 +1,7 @@
-Variables to define
-marker parameters
-Marker Text
+Features: 
 
-Mission start message
-Mission end message
-Mission level
-
-To pull units:
-private _units = allUnits;
+Exports static or dynamic missions preformated in .sqf code. Simply paste the output of the editor into a new .sqf file, edit entires to refine mission parameters and add the name of the mission file to GMS_missionLists.
+Captures simple objects, sets allow dammage and allow similation according to editor settings, and captures marker configurations.
 
 
-To pull objects:
-_center = allMissionObejcts "RoadCone_L_F";
-_buildings = allMissionObjects "Building";
-_things = allMissionObjects "ThingX";
-_baseObjects = _buildings append _things;
 
-_static = allMissionObejcts "StaticWeapon";
-_vehicles = allMissionObejcts "Car" + allMissionObejcts "Tank" + allMissionObejcts "Ship";
-_air = allMissionObejcts "Air";
