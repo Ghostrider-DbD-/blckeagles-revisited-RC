@@ -41,10 +41,6 @@ params[
 	["_sideArms",[]]
 ];
 
-{
-	diag_log format["_fnc_spawnGarrisonInsideBuilding_relPos: _this %1 = %2",_forEachIndex,_x];
-} forEach _this;
-
 if (_weaponList isEqualTo []) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
 if (_sideArms  isEqualTo [])  then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
 if (_uniforms  isEqualTo [])  then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
@@ -65,7 +61,7 @@ for "_i" from 1 to _statics do
 {
 	if (_allBldPsn isEqualTo []) exitWith {};	
 	_pos = _allBldPsn deleteAt 0;
-	//diag_log format["_fnc_spawnGarrisonInsideBuilding_relPos: _pos = %1",_pos];
+	diag_log format["_fnc_spawnGarrisonInsideBuilding_relPos: _pos = %1",_pos];
 	_locsUsed pushBack _pos;
 	_staticClassName = selectRandom _typesStatics;
 	_obj = [_staticClassName, [0,0,0]] call blck_fnc_spawnVehicle;  
