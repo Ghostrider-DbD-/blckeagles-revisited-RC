@@ -45,7 +45,7 @@ http://www.exilemod.com/topic/9779-releasetool-bem-battleye-filter-manager-by-th
 http://www.exilemod.com/topic/9256-battleye-filter-tool/
 http://www.exilemod.com/topic/9708-battleye-filter-editor/
 
-If you would let me know what exceptions you need to add I will start a list in this document.
+If you would let me know what exceptions you needed to add I will start a list in this document.
 	
 11) Start your server and join. By default missions will start spawning in around 5-10 min. 
 

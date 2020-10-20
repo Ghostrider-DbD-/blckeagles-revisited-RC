@@ -2,7 +2,7 @@
 Known issues
 
 7.02
-There is no consistent check for the case in which the call to createGroup returns grpNull because the max number of groups on that side has been spawned.
+There is no consistent check for the case in which the call to createGroup returns grpNull which happens the max number of groups on that side has been spawned.
 Some AI vehicles may still wander some distance from the mission center.
 
 

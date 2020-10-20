@@ -30,6 +30,7 @@ General settings include:
 	Whether players are penalized for running over AI or shootting them with OP weapons.
 	
 	Loot can also be configured for each mission class or mission. You can modify the number of weapons, magazines, items, construction materials, etc. 
+		TO do this, add these custom loot paramters to the particular missions you wish to use them in, or define the tables in a config then refer to them in the mission(s).
 	You can also adjust the choices for each of these types of items.
 	The equipment selected for each class of mission can also be specified(uniforms, vests, headgear, backpcks, weapons, pistols).
 	Alternatively, AI loadouts can be determined by the mission system based on what is available at server startup. When loadouts are dynamically configured the items spawned in CfgLoot are used. Note that an upper limit on price is available.
@@ -53,7 +54,7 @@ The missions themselves are spawned from templates which can be used to define m
  
  To create and run new missions simply: 
 	layout an AI base in the Arma 3 editor, 
-	define commonly adjusted setting using the editor plugin.
+	define commonly adjusted settings using the editor plugin.
 	export the base as an .sqf using the editor plugin provided.
 	Define the above parameters (nu. AI groups, No AI, etc)
 	Add the name of the file (e.g., "newAImission" to the list of missions to be spawned of that class in ...\custom)server\missions\GMS_missionLists.sqf
