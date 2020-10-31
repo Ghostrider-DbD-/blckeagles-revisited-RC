@@ -13,7 +13,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private ["_i","_weap","_unit","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
-params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", []],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false],["_garrison",false]];
+params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", []],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false],["_garrison",false]];
 
 if (_weaponList isEqualTo []) then {_weaponList = [_skillLevel] call blck_fnc_selectAILoadout};
 if (_sideArms  isEqualTo [])  then {_sideArms = [_skillLevel] call blck_fnc_selectAISidearms};
@@ -92,17 +92,11 @@ _weap = selectRandom _weaponList;
 _unit addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 _unit addMagazines[selectRandom _ammochoices,3];
-/*
-_optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
-_pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "PointerSlot" >> "compatibleItems");
-_muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
-_underbarrel = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "UnderBarrelSlot" >> "compatibleItems");
-*/
 
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 101] call BIS_fnc_compatibleItems))};  // muzzles
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 201] call BIS_fnc_compatibleItems))};  // optics
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 301] call BIS_fnc_compatibleItems))};  // pointers
-if (random 1 < 0.4) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 302] call BIS_fnc_compatibleItems))};  // underbarrel
+if (random 1 < blck_chanceMuzzle) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 101] call BIS_fnc_compatibleItems))};  // muzzles
+if (random 1 < blck_chanceOptics) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 201] call BIS_fnc_compatibleItems))};  // optics
+if (random 1 < blck_chancePointer) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 301] call BIS_fnc_compatibleItems))};  // pointers
+if (random 1 < blck_chanceUnderbarrel) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 302] call BIS_fnc_compatibleItems))};  // underbarrel
 if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then 
 {
 	_unit addMagazine "1Rnd_HE_Grenade_shell";
@@ -126,23 +120,6 @@ if (round(random 10) <= 5) then
 	_unit addItem selectRandom blck_specialItems;
 };
 
-/*
-if ( !(_Launcher isEqualTo "none") && !(_backpacks  isEqualTo [])) then
-{
-	_unit addWeaponGlobal _Launcher;
-	_unit addBackpack (selectRandom _backpacks);
-	for "_i" from 1 to 3 do 
-	{
-		_unit addItemToBackpack (getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines") select 0); // call BIS_fnc_selectRandom;
-	};
-	_unit setVariable["Launcher",_launcher,true];
-} else {
-	if ( random (1) < blck_chanceBackpack && !(_backpacks  isEqualTo [])) then
-	{ 
-		_unit addBackpack selectRandom _backpacks;
-	};
-};
-*/
 if !(_backpacks isEqualTo []) then 
 {
 	if (_Launcher isEqualTo "none") then 
@@ -152,14 +129,17 @@ if !(_backpacks isEqualTo []) then
 			_unit addBackpack selectRandom _backpacks;
 		};
 	} else {
-		_unit addWeaponGlobal _Launcher;
+		_unit addWeaponGlobal _launcher;
 		_unit addBackpack (selectRandom _backpacks);
+		private _roundsAdded = [];
 		private _mags = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines");
 		for "_i" from 1 to 3 do 
 		{
-			_unit addItemToBackpack (_mags select 0); // call BIS_fnc_selectRandom;
+			private _lr = selectRandom _mags; // call BIS_fnc_selectRandom;
+			_roundsAdded pushBack _lr;
+			_unit addItemToBackpack _lr;
 		};
-		_unit setVariable["Launcher",_launcher,true];		
+		_unit setVariable["Launcher",[_launcher,_roundsAdded],true];		
 	};
 };
 

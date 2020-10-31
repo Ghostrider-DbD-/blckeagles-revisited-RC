@@ -439,6 +439,12 @@
 	blck_maxMoneyRed = 15;
 	blck_maxMoneyBlue = 10;
 
+	// Define the chance of attachments 
+	blck_chanceOptics = 0.4;
+	blck_chanceMuzzle = 0.3;
+	blck_chancePointer = 0.25;
+	blck_chanceUnderbarrel = 0.25;
+
 	#ifdef GRGserver
 	blck_AIAlertDistance = [250,450,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
