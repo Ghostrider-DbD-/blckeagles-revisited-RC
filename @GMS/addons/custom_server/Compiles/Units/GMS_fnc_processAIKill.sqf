@@ -15,6 +15,15 @@
 
 params["_unit","_killer","_instigator"];
 
+// the blck_graveyardGroup is always owned by the server.
+// which makes some cleanup easier
+[_unit] joinSilent blck_graveyardGroup;
+
+if (count(units (group _unit)) isEqualTo 0) then 
+{
+	deleteGroup _group;
+};
+
 if (local _unit) then 
 {
 	if !((vehicle _unit) isKindOf "Man") then 
@@ -35,12 +44,7 @@ _unit disableAI "ALL";
 {
 	_unit removeAllEventHandlers _x;
 }forEach["FiredNear","Reloaded"];
-[_unit] joinSilent blck_graveyardGroup;
 
-if (count(units (group _unit)) isEqualTo 0) then 
-{
-	deleteGroup _group;
-};
 
 if !((vehicle _unit) isKindOf "Man") then 
 {
