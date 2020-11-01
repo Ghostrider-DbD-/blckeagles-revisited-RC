@@ -70,6 +70,8 @@ _unit allowDammage true;
 _unit setBehaviour "COMBAT";
 _unit setunitpos "AUTO";
 
+/*
+// 
 if (surfaceIsWater (getPos _unit)) then 
 {
 	_uniforms = blck_UMS_uniforms;
@@ -77,6 +79,7 @@ if (surfaceIsWater (getPos _unit)) then
 	_weaponList = blck_UMS_weapons;
 	_vests = blck_UMS_vests;
 };
+*/
 _unit forceAddUniform (selectRandom _uniforms);
 if !(_headGear isEqualTo []) then 
 {

@@ -13,9 +13,15 @@
 
 params["_unit"];  // = _this select 0;
 private _loadout = _unit getVariable["launcher",[[],[]]];
-
+//diag_log format["_removeLaunchers: _loadout = %1",_loadout];
+private _mags = magazines _unit;
+//diag_log format["_removeLaunchers: _mags = %1",_mags];
 {
-	unit removeMagazineGlobal _x;
+	if (_forEachIndex > 0) then 
+	{
+		//diag_log format["_removeLaunchers: _x = %1",_x];
+		_unit removeMagazines _x;
+	};
 } forEach (_loadout select 1);
 
 private _launcher = _loadout select 0;
