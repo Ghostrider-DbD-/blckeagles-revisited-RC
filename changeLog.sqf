@@ -10,6 +10,13 @@ Many thanks for new Coding and ideas from Grahame.
 Significant Changes:
 
 =====================
+7.04 Build 233
+
+New: Player stats updated for each AI kill on Epoch.
+Fixed: Launchers and Launcher rounds were not being deleted.
+AI at Turrets were spawned with scubba loadouts.
+
+
 7.02 Build 230
 
 New: Option to hide bushes and trees that happen to be under the location in which an enterable building is spawned 
