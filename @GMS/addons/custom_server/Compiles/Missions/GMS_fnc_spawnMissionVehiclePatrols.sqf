@@ -37,7 +37,7 @@ if (_patrolsThisMission isEqualTo []) then
 
 		private _v = [_skillAI] call blck_fnc_selectPatrolVehicle;
 		_patrolsThisMission pushBack [_v, _x];
-		diag_log format["_spawnMissionVehiclePatrols(36): _v = %1 | _patrolsThisMission = %2",_v,_patrolsThisMission];
+		//diag_log format["_spawnMissionVehiclePatrols(36): _v = %1 | _patrolsThisMission = %2",_v,_patrolsThisMission];
 	}forEach _spawnLocations;
 };
 //diag_log format["_spawnMissionVehiclePatrols(42): _patrolsThisMission = %1",_patrolsThisMission];

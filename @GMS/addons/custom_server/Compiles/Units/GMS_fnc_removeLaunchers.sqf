@@ -11,21 +11,27 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_launcher","_launcherRounds"];
 params["_unit"];  // = _this select 0;
-_launcher = _unit getVariable ["Launcher",""];
-_unit removeWeapon _Launcher;
-if (_launcher != "") then 
+private _loadout = _unit getVariable["launcher",[[],[]]];
+//diag_log format["_removeLaunchers: _loadout = %1",_loadout];
+private _mags = magazines _unit;
+//diag_log format["_removeLaunchers: _mags = %1",_mags];
 {
-	_unit removeWeapon _Launcher;
+	if (_forEachIndex > 0) then 
 	{
-		if (_launcher in weaponCargo _x) exitWith {
-			deleteVehicle _x;
-		};
-	} forEach ((getPosATL _unit) nearObjects ["WeaponHolderSimulated",10]);	
-	_launcherRounds = getArray (configFile >> "CfgWeapons" >> _Launcher >> "magazines"); //0;
-	{
-		if(_x in _launcherRounds) then {_unit removeMagazine _x;};
-	} count magazines _unit;
-};
+		//diag_log format["_removeLaunchers: _x = %1",_x];
+		_unit removeMagazines _x;
+	};
+} forEach (_loadout select 1);
 
+private _launcher = _loadout select 0;
+if !(_launcher isEqualTo []) then 
+{
+	if (_launcher in (weapons _unit)) then {
+			_unit removeWeapon _launcher;
+	} else {	
+		{
+			if (_launcher in (weaponCargo _x)) exitWith {deleteVehicle _x};
+		} forEach (_unit nearObjects ["WeaponHolderSimulated",10]);
+	};
+};

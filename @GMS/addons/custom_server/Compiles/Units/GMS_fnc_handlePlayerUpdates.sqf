@@ -34,6 +34,9 @@ _fn_doUpdates = {
 		{
 			[["showScore",[_reward,"",_kills],""],[_player]] call blck_fnc_messageplayers;
 		};
+
+		// SUggestion to update Epoch player stats from He-Man
+		[_killer, "AIKills", 1, true] call EPOCH_server_updatePlayerStats;		
 	};
 	if (toLower(blck_modType) isEqualTo "exile") then
 	{

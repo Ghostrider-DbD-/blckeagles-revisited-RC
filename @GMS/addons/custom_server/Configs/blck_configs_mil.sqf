@@ -24,13 +24,13 @@
 		3) A time acceleration module.
 	*/
 
-	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	blck_simulationManager = blck_useBlckeaglsSimulationManagement; 
 	blck_hideRocksAndPlants = true;  //  When true, any rocks, trees or bushes under enterable buildings will be 'hidden'
 
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 2;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
@@ -78,7 +78,7 @@
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 2000;
-	blck_minDistanceToBases = 800;
+	blck_minDistanceToBases = 500;
 	blck_minDistanceToPlayer = 500;
 	blck_minDistanceFromTowns = 300;
 	blck_minDistanceFromDMS = 500;  // minimum distance for a blackeagls mission from any nearby DMS missions. set to -1 to disable this check.
@@ -420,7 +420,11 @@
 	blck_maxMoneyGreen = 40;
 	blck_maxMoneyRed = 30;
 	blck_maxMoneyBlue = 20;
-
+	// Define the chance of attachments 
+	blck_chanceOptics = 0.4;
+	blck_chanceMuzzle = 0.3;
+	blck_chancePointer = 0.25;
+	blck_chanceUnderbarrel = 0.25;
 	if (toLower(blck_modType) isEqualTo "epoch") then
 	{
 		[format[" Loading Mission System using Parameters for %1 for militarized servers",blck_modType]] call blck_fnc_log;

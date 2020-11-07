@@ -270,7 +270,6 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				if !(_garrisonedBuildings_BuildingPosnSystem isEqualTo []) then
 				{
-					//  params["_building","_group",["_noStatics",0],["_typesStatics",blck_staticWeapons],["_noUnits",0],["_aiDifficultyLevel","Red"],	["_uniforms",[]],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_launcher","none"],["_weaponList",[]],["_sideArms",[]]];
 					private _temp = [_coords, _garrisonedBuildings_BuildingPosnSystem, _difficulty,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_garrisonBuilding_RelPosSystem;
 					if (_temp isEqualTo grpNull) then {throw 1} else 
 					// TODO: add error checks for grpNull to the RelPosSystem
@@ -298,6 +297,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 				uisleep 5;
 
 				private _noPatrols = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
+
 				if (blck_useVehiclePatrols && ((_noPatrols > 0) || !(_missionPatrolVehicles isEqualTo []))) then
 				{
 					_temp = [_coords,_noPatrols,_difficulty,_missionPatrolVehicles,_userelativepos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,false,_vehicleCrewCount] call blck_fnc_spawnMissionVehiclePatrols;

@@ -5,7 +5,7 @@
 */
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
+// Need to debug for GM map
 private ["_coords","_coordArray","_return"];
 params["_missionCategoryDescriptors","_missionParameters","_missionCount"];
  _missionCategoryDescriptors params [
