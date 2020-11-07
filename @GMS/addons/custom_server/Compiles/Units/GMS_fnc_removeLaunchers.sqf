@@ -35,4 +35,3 @@ if !(_launcher isEqualTo []) then
 		} forEach (_unit nearObjects ["WeaponHolderSimulated",10]);
 	};
 };
-
