@@ -77,10 +77,10 @@
 	blck_showCountAliveAI = true;	
 
 	//Minimum distance between missions
-	blck_MinDistanceFromMission = 2000;
-	blck_minDistanceToBases = 500;
+	blck_MinDistanceFromMission = 1000;
+	blck_minDistanceToBases = 300;
 	blck_minDistanceToPlayer = 500;
-	blck_minDistanceFromTowns = 300;
+	blck_minDistanceFromTowns = 200;
 	blck_minDistanceFromDMS = 500;  // minimum distance for a blackeagls mission from any nearby DMS missions. set to -1 to disable this check.
 	
 	///////////////////////////////
@@ -359,9 +359,6 @@
 	
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 80*60; // time in seconds after which dead AI bodies are deleted
-	#ifdef blck_milServer
-	blck_bodyCleanUpTimer = 80*60;  //  Trying to reduce lag with player counts > 20
-	#endif
 	
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];

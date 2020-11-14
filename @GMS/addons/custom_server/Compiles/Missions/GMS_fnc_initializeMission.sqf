@@ -103,6 +103,7 @@ if !(_defaultMissionLocations isEqualTo []) then
 		_coords = [] call blck_fnc_findShoreLocation;
 	} else {
 		_coords =  [] call blck_fnc_findSafePosn;
+		_coords = [_coords select 0, _coords select 1, 0];
 	};
 };
 

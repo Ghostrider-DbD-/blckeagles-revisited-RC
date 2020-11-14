@@ -191,11 +191,6 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				if !(_scubaGroupParameters isEqualTo [] || _scubaPatrols > 0) then 
 				{
-					//_umsUniforms = blck_UMS_uniforms;
-					//_umsHeadgear = blck_UMS_headgear;
-					//_umsWeapons = blck_UMS_weapons;
-					//_umsVests = blck_UMS_vests;
-					
 					_temp = [_coords, _minNoAI,_maxNoAI,_scubaPatrols,_scubaGroupParameters,_difficulty,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,_backpacks,blck_UMS_weapons,_sideArms,true] call blck_fnc_spawnMissionAI;
 					_temp params["_ai","_abort"];
 					if (_abort) throw 1;
@@ -419,7 +414,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 						_el set[3,_spawnPara];
 						if (random(1) < _chancePara) then  //  
 						{
-							private _paratroops = [_coords,_noPara,_difficulty,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnParaUnits;
+							private _paratroops = [_coords,_noPara,_difficulty,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaMission] call blck_fnc_spawnParaUnits;
 							if !(isNull _paratroops) then 
 							{
 								_blck_AllMissionAI append (units _paratroops);

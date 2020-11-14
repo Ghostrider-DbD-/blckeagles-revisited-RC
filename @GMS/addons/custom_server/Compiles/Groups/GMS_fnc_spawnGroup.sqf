@@ -43,7 +43,12 @@ if !(isNull _group) then
 			_launcherType = "none";
 		};
 		private _unitPos = [_pos,3,6] call blck_fnc_findRandomLocationWithinCircle;
-	 	[_unitPos,_group,_skillLevel,_uniforms,_headGear,_vests,_backpacks,_launcherType, _weaponList, _sideArms, _scuba] call blck_fnc_spawnUnit;
+		if (surfaceIsWater _unitPos && _scuba) then 
+		{
+			[_unitPos,_group,_skillLevel,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,_backpacks,_launcherType, blck_UMS_weapons, _sideArms, _scuba] call blck_fnc_spawnUnit;
+		} else { 
+	 		[_unitPos,_group,_skillLevel,_uniforms,_headGear,_vests,_backpacks,_launcherType, _weaponList, _sideArms, _scuba] call blck_fnc_spawnUnit;
+		};
 		//diag_log format["_fnc_spawnGroup: _unit %1 spawned at %2 at a distance from the group center of %3 and _vector of %4",_unit,_unitPos,_unitPos distance _pos,_pos getRelDir _unitPos];
 	};
 	_group selectLeader ((units _group) select 0);

@@ -27,7 +27,7 @@ _units = [];
 _abort = false;
 _pos = [];
 
-private _emplacedWepData = +_missionEmplacedWeapons;
+private _emplacedWepData = +_missionEmplacedWeapons;  //  So we dont overwrite this for the next instance of the mission
 //diag_log format["_spawnEmplacedWeaponArray(30): _noEmplacedWeapons = %1 | _emplacedWepData = %2",_noEmplacedWeapons,_emplacedWepData];
 
 // Define _emplacedWepData if not already configured.

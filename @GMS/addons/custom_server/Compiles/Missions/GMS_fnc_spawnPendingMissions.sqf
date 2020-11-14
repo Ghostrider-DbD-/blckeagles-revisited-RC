@@ -8,7 +8,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
+// Need to debug for GM
 if (blck_missionsRunning >= blck_maxSpawnedMissions) exitWith {};
 
 {	
