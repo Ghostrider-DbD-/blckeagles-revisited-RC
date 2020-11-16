@@ -182,10 +182,11 @@ private _mines = [];
 private _crates = [];
 private _missionAIVehicles = [];
 private _blck_AllMissionAI = [];
+private _spawnedLootVehicles = [];
 private _AI_Vehicles = [];
 private _assetSpawned = objNull;
 
-private _missionData = [_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,_assetSpawned,_missionAIVehicles,_markers];
+private _missionData = [_coords,_mines,_objects,_hiddenObjects,_crates, _blck_AllMissionAI,_assetSpawned,_missionAIVehicles,_spawnedLootVehicles,_markers];
 blck_activeMissionsList pushBack [_missionCategoryDescriptors,_missionTimeoutAt,_triggered,_spawnPara,_missionData,_missionParameters];
 
 [format["Initialized Mission %1 | description %2 | difficulty %3 at %4",_markerName, _markerMissionName, _difficulty, diag_tickTime]] call blck_fnc_log;
