@@ -12,13 +12,5 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_aiDifficultyLevel"];
-private["_vests"];
-switch (toLower (_aiDifficultyLevel)) do
-{
-	case "blue": 	{_vests = blck_vests_blue};
-	case "red": 	{_vests = blck_vests_red};
-	case "green": 	{_vests = blck_vests_green};
-	case "orange": 	{_vests = blck_vests_orange};
-	default 		{_vests = blck_vests};
-};
+private _vests = missionNamespace getVariable [format["blck_vests_%1",_aiDifficultyLevel],[]];
 _vests

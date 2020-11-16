@@ -16,14 +16,6 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_weaponList","_missionColor"];
-
-_missionColor = _this select 0;
-switch (_missionColor) do {
-			case "blue": {_weaponList = blck_WeaponList_Blue;};
-			case "red": {_weaponList = blck_WeaponList_Red;};
-			case "green": {_weaponList = blck_WeaponList_Green;};
-			case "orange": {_weaponList = blck_WeaponList_Orange;};
-			default {_weaponList = blck_WeaponList_Blue;};
-};
+params["_missionColor"];
+private _weaponList = missionNamespace getVariable [format["blck_WeaponList_%1",_missionColor],[]];
 _weaponList	

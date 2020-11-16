@@ -70,31 +70,23 @@ _unit allowDammage true;
 _unit setBehaviour "COMBAT";
 _unit setunitpos "AUTO";
 
-_unit forceAddUniform (selectRandom _uniforms);
-if !(_headGear isEqualTo []) then 
-{
-	_unit addHeadgear (selectRandom _headGear);
+if !(_uniforms isEqualTo []) then {_unit forceAddUniform (selectRandom _uniforms)};
+if !(_headGear isEqualTo []) then {_unit addHeadgear (selectRandom _headGear)};
+if !(_vests  isEqualTo []) then {_unit addVest (selectRandom _vests)};
+if (_weaponList isEqualTo []) then {
+	_weap = selectRandom _weaponList; 
+	_unit addWeaponGlobal  _weap; 
+	_ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
+	_unit addMagazines[selectRandom _ammochoices,3];
+	if (random 1 < blck_chanceMuzzle) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 101] call BIS_fnc_compatibleItems))};  // muzzles
+	if (random 1 < blck_chanceOptics) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 201] call BIS_fnc_compatibleItems))};  // optics
+	if (random 1 < blck_chancePointer) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 301] call BIS_fnc_compatibleItems))};  // pointers
+	if (random 1 < blck_chanceUnderbarrel) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 302] call BIS_fnc_compatibleItems))};  // underbarrel
+	if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then 
+	{
+		_unit addMagazine "1Rnd_HE_Grenade_shell";
+	};
 };
-if !(_vests  isEqualTo []) then 
-{
-	_unit addVest (selectRandom _vests);
-};
-
-if (_weaponList isEqualTo []) then {_weaponList = call blck_fnc_selectAILoadout};
-_weap = selectRandom _weaponList;  
-_unit addWeaponGlobal  _weap; 
-_ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
-_unit addMagazines[selectRandom _ammochoices,3];
-
-if (random 1 < blck_chanceMuzzle) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 101] call BIS_fnc_compatibleItems))};  // muzzles
-if (random 1 < blck_chanceOptics) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 201] call BIS_fnc_compatibleItems))};  // optics
-if (random 1 < blck_chancePointer) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 301] call BIS_fnc_compatibleItems))};  // pointers
-if (random 1 < blck_chanceUnderbarrel) then {_unit addPrimaryWeaponItem (selectRandom ([_weap, 302] call BIS_fnc_compatibleItems))};  // underbarrel
-if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then 
-{
-	_unit addMagazine "1Rnd_HE_Grenade_shell";
-};
-
 if !(_sideArms  isEqualTo []) then
 {
 	_weap = selectRandom _sideArms;
@@ -102,17 +94,21 @@ if !(_sideArms  isEqualTo []) then
 	_ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 	_unit addMagazines [selectRandom _ammoChoices, 2];
 };
-for "_i" from 1 to (1+floor(random(4))) do 
+if !(blck_ConsumableItems isEqualTo []) then 
 {
-	_unit addItem (selectRandom blck_ConsumableItems);
+	for "_i" from 1 to (1+floor(random(4))) do 
+	{
+		_unit addItem (selectRandom blck_ConsumableItems);
+	};
 };
-
-// Add  First Aid or Grenade 50% of the time
-if (round(random 10) <= 5) then 
+if !(blck_specialItems isEqualTo []) then 
 {
-	_unit addItem selectRandom blck_specialItems;
+	// Add  First Aid or Grenade 50% of the time
+	if (round(random 10) <= 5) then 
+	{
+		_unit addItem selectRandom blck_specialItems;
+	};
 };
-
 if !(_backpacks isEqualTo []) then 
 {
 	if (_Launcher isEqualTo "none") then 
@@ -132,18 +128,18 @@ if !(_backpacks isEqualTo []) then
 			_roundsAdded pushBack _lr;
 			_unit addItemToBackpack _lr;
 		};
-		_unit setVariable["Launcher",[_launcher,_roundsAdded],true];		
+		_unit setVariable["Launcher",[_launcher,_roundsAdded]];		
 	};
 };
 
 if(sunOrMoon < 0.2 && blck_useNVG)then
 {
 	_unit addWeapon selectRandom blck_NVG;
-	_unit setVariable ["hasNVG", true,true];
+	_unit setVariable ["hasNVG", true];
 }
 else
 {
-	_unit setVariable ["hasNVG", false,true];
+	_unit setVariable ["hasNVG", false];
 };
 
 _unit addWeapon selectRandomWeighted["",4,"Binocular",3,"Rangefinder",1];
@@ -153,20 +149,12 @@ _unit addEventHandler ["Reloaded", {_this call blck_EH_unitWeaponReloaded;}];
 _unit addMPEventHandler ["MPKilled", {[(_this select 0), (_this select 1)] call blck_EH_AIKilled;}];
 _unit addMPEventHandler ["MPHit",{[_this] call blck_EH_AIHit;}];
 
-switch (_skillLevel) do 
-{
-	case "blue": {_index = 0;_aiSkills = blck_SkillsBlue;};
-	case "red": {_index = 1;_aiSkills = blck_SkillsRed;};
-	case "green": {_index = 2;_aiSkills = blck_SkillsGreen;};
-	case "orange": {_index = 3;_aiSkills = blck_SkillsOrange;};
-	default {_index = 0;_aiSkills = blck_SkillsBlue;};
-};
-
-[_unit,_aiSkills] call blck_fnc_setSkill;
-_unit setVariable ["alertDist",blck_AIAlertDistance select _index,true];
-_unit setVariable ["intelligence",blck_AIIntelligence select _index,true];
-_unit setVariable ["GMS_AI",true,true];
-
+[_unit, missionNamespace getVariable[format["blck_Skills%1",_skillLevel],blck_SkillsRed]] call blck_fnc_setSkill;
+_index = missionNamespace getVariable[format["blck_skillsIndex_%1",_skillLevel],1];
+_unit setVariable ["alertDist",blck_AIAlertDistance select _index];
+_unit setVariable ["intelligence",blck_AIIntelligence select _index];
+_unit setVariable ["GMS_AI",true];
+//diag_log format["_spawnUnit: _index = %1 | _aiSkills = %2",_index,_aiSkills];
 _unit
 
 

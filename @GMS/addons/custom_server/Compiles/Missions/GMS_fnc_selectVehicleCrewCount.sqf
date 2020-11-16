@@ -11,13 +11,5 @@
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_diff"];
-private ["_count"];
-switch (toLower(_diff)) do
-{
-	case "blue": {_count = blck_vehCrew_blue};
-	case "red": {_count = blck_vehCrew_red};
-	case "green": {_count = blck_vehCrew_green};
-	case "orange": {_count = blck_vehCrew_orange};
-};
-
+private _count = missionNamespace getVariable [format["blck_vehCrew_%1",_diff],0];
 _count

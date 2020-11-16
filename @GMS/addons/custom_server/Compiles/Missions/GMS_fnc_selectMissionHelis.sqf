@@ -12,13 +12,5 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_aiDifficultyLevel"];
-private["_missionHelis"];
-switch (toLower (_aiDifficultyLevel)) do
-{
-	case "blue":	{_missionHelis = blck_patrolHelisBlue};
-	case "red":		{_missionHelis = blck_patrolHelisRed};
-	case "green": 	{_missionHelis = blck_patrolHelisGreen};
-	case "orange": 	{_missionHelis = blck_patrolHelisOrange};
-	default			{_missionHelis = blck_patrolHelisBlue};
-};
+private _missionHelis = missionNamespace getVariable[format["blck_patrolHelis%1",_aiDifficultyLevel],[]];
 _missionHelis

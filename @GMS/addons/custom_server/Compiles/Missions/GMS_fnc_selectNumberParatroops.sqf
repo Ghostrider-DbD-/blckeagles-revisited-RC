@@ -12,13 +12,5 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_aiDifficultyLevel"];
-private["_noPara"];
-switch (toLower (_aiDifficultyLevel)) do
-{
-		case "blue": 	{_noPara = blck_noParaBlue};
-		case "red": 	{_noPara = blck_noParaRed};
-		case "green": 	{_noPara = blck_noParaGreen};
-		case "orange": 	{_noPara = blck_noParaOrange};
-		default 		{_noPara = 0};
-};
+private _noPara = missionNamespace getVariable [format["blck_noPara%1",_aiDifficultyLevel],0];
 _noPara

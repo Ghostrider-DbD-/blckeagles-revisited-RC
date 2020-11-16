@@ -12,13 +12,5 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_aiDifficultyLevel"];
-private["_noChoppers"];
-switch (toLower (_aiDifficultyLevel)) do
-{
-	case "blue": 	{_noChoppers = blck_noPatrolHelisBlue};
-	case "red": 	{_noChoppers = blck_noPatrolHelisRed};
-	case "green": 	{_noChoppers = blck_noPatrolHelisGreen};
-	case "orange": 	{_noChoppers = blck_noPatrolHelisOrange};
-	default 		{_noChoppers = 0};
-};
+private _noChoppers = missionNamespace getVariable [format["blck_noPatrolHelis%1",_aiDifficultyLevel],0];
 _noChoppers

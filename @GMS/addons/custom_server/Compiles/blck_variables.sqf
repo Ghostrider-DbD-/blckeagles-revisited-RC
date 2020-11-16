@@ -57,6 +57,10 @@ blck_activeMonitorThreads = 0;
 blck_validEndStates = ["allUnitsKilled", "playerNear", "allKilledOrPlayerNear","assetSecured"];
 blck_validLootSpawnTimings = ["atMissionSpawnGround","atMissionSpawnAir","atMissionEndGround","atMissionEndAir"];
 blck_validLootLoadTimings = ["atMissionCompletion", "atMissionSpawn"];
+blck_skillsIndex_Blue = 0;
+blck_skillsIndex_Red = 1;
+blck_skillsIndex_Green = 2;
+blck_skillsIndex_Orange = 3;
 
 if (blck_debugOn) then {diag_log "[blckeagls] Variables Loaded"};
 
