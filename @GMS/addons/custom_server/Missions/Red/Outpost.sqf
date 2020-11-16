@@ -111,7 +111,7 @@ _missionLootVehicles = [
 ];
 
 _missionPatrolVehicles = [
-     ["B_G_Offroad_01_armed_F",[35.8379,4.96387,0.00813246],0.00104452]
+     [selectRandom blck_AIPatrolVehicles,[35.8379,4.96387,0.00813246],0.00104452]
 ];
 
 _submarinePatrolParameters = [

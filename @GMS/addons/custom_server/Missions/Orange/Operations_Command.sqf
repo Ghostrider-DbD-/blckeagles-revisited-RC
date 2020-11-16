@@ -43,6 +43,7 @@ _garrisonedBuilding_ATLsystem = [
 
 
 _missionLandscape = [
+     ["RoadCone_L_F",[0.914063,-0.908203,-0.00143838],0,true,true],      
      ["CamoNet_OPFOR_open_F",[-31.8352,-29.0081,-0.00143909],235.13,true,true],
      ["CamoNet_OPFOR_open_F",[-43.8352,-16.6941,-0.00143909],181.375,true,true],
      ["Land_HBarrier_Big_F",[-37.4087,-8.59814,-0.00143909],286.375,true,true],

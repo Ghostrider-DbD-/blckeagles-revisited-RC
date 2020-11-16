@@ -44,6 +44,7 @@ _missionLandscape = [
      //["Sign_Arrow_Green_F",[-5049.41,-2726.72,-0.00143862],0,true,true],
      //["Sign_Arrow_Yellow_F",[-5049.41,-2726.72,-0.00143862],0,true,true],
      //["babe_helper",[-5051.91,-2726.22,-0.00143862],78.6345,true,true],
+     ["RoadCone_L_F",[0.914063,-0.908203,-0.00143838],0,true,true],     
      ["Land_HBarrier_Big_F",[-28.8394,-8.42627,-0.00143862],91.041,true,true],
      ["Land_CncShelter_F",[-10.0513,-26.2283,-0.00143862],0.0913576,true,true],
      ["Land_HBarrierWall6_F",[0.581543,-12.7048,-0.00143862],91.041,true,true],
