@@ -67,7 +67,6 @@ private _cratesSpawned = [];
 		[_crate] call blck_fnc_loadMissionCrate;
 	};
 	_cratesSpawned pushback _crate;
-	
 }forEach _cratesToSpawn;
 
 if (_spawnCrateTiming in ["atMissionEndAir","atMissionSpawnAir"]) then 
