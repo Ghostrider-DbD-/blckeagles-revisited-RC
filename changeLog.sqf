@@ -10,12 +10,16 @@ Many thanks for new Coding and ideas from Grahame.
 Significant Changes:
 
 =====================
-7.04 Build 234
+7.04 Build 235
 
 New: Player stats updated for each AI kill on Epoch.
 Fixed: Launchers and Launcher rounds were not being deleted.
-AI at Turrets were spawned with scubba loadouts.
-Units at UMS missions (Pirate missions) now spawn with scuba gear if spawned over water .
+Fixed: AI at Turrets were spawned with scubba loadouts.
+Fixed: Units at UMS missions (Pirate missions) now spawn with scuba gear if spawned over water .
+Fixed: Mission Loot Vehicles were not being spawned. 
+Fixed: Missions that were aborted (hostage or leader killed, other reasons) were not being respawned.
+Fixed: Money not being added to some mission crates.
+Changed: Some improvements in coding efficiency were implemented for frequently called functions.
 
 7.02 Build 230
 
