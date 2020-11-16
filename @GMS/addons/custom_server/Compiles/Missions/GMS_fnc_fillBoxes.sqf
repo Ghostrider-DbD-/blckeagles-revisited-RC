@@ -14,7 +14,7 @@
 
 	private["_a1","_item","_diff","_tries"];
 	params["_crate","_boxLoot","_itemCnts"];
-
+	
 	_itemCnts params["_wepCnt","_magCnt","_opticsCnt","_materialsCnt","_itemCnt","_bkcPckCnt"];
 	_boxLoot params["_weapons","_magazines","_optics","_materials","_items","_backpacks"];
 
