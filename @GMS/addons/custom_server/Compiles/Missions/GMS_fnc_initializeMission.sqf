@@ -35,62 +35,23 @@ if (blck_debugLevel >= 3) then
 if (_noActive > _noMissions) exitWith {if (blck_debugOn) then {}};
 
 _missionParameters params[
+	"_markerData",
+	"_missionMessages",
+	"_paraData",
+	"_endCondition",	
+	"_isscubamission",	
+	"_missionLoot",
+	"_aiData",
+	"_defaultMissionLocations"
+];
+
+_markerData params[
 	"_markerName",
-	"_markerMissionName",
-	"_endMsg",
-	"_startMsg",
-	"_defaultMissionLocations",	
-	"_crateLoot", 				
-	"_lootCounts", 				
+	"_markerMissionName", // Name used for setMarkerText and also for the root name for all markers	
 	"_markerType", 
 	"_markerColor", 
 	"_markerSize",
-	"_markerBrush",	
-	"_missionLandscapeMode", 	
-	"_garrisonedBuildings_BuildingPosnSystem", 
-	"_garrisonedBuilding_ATLsystem",
-	"_missionLandscape",
-	"_simpleObjects",
-	"_missionLootBoxes",
-	"_missionLootVehicles",
-	"_missionPatrolVehicles",
-	"_submarinePatrols",
-	"_submarinePatrolParameters",
-	"_airPatrols",
-	"_noVehiclePatrols", 
-	"_vehicleCrewCount",
-	"_missionEmplacedWeapons",
-	"_noEmplacedWeapons", 
-	"_useMines", 
-	"_minNoAI", 
-	"_maxNoAI", 
-	"_noAIGroups", 		
-	"_missionGroups",
-	"_scubaPatrols",
-	"_scubaGroupParameters",		
-	"_hostageConfig",
-	"_enemyLeaderConfig",
-	"_assetKilledMsg",	
-	"_uniforms", 
-	"_headgear", 
-	"_vests", 
-	"_backpacks", 
-	"_weaponList",
-	"_sideArms", 
-	"_chanceHeliPatrol", 
-	"_noChoppers", 
-	"_missionHelis", 
-	"_chancePara", 
-	"_noPara", 
-	"_paraTriggerDistance",
-	"_paraSkill",
-	"_chanceLoot", 
-	"_paraLoot", 
-	"_paraLootCounts",
-	"_spawnCratesTiming", 
-	"_loadCratesTiming", 
-	"_endCondition",
-	"_isScubaMission"
+	"_markerBrush"
 ];
 
 _coordsArray = [];
@@ -170,9 +131,15 @@ if (blck_debugLevel >= 3) then {[format["_initializeMissions (167): _marker = %1
 /*
 	Send a message to players.
 */
+ _missionMessages params [
+	"_assetKilledMsg",	
+	"_endMsg",
+	"_startMsg"
+ ];
 
 [["start",_startMsg,_markerMissionName]] call blck_fnc_messageplayers;
 
+private _chancePara = _paraData param [6];
 private _missionTimeoutAt = diag_tickTime + blck_MissionTimeout;
 private _triggered = 0;
 private _spawnPara = if (random(1) < _chancePara) then {true} else {false};

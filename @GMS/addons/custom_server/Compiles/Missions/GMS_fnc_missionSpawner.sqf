@@ -94,25 +94,46 @@ if !(_endCondition in blck_validEndStates) then
 	_endCondition = "allKilledOrPlayerNear";
 };
 
-private _table = [
+private _markerData = [
 	_markerName,
-	_markerMissionName, // Name used for setMarkerText and also for the root name for all markers
-	_endMsg,	
-	_startMsg,
-	_defaultMissionLocations,		
-	_crateLoot, 
-	_lootCounts, 	
+	_markerMissionName, // Name used for setMarkerText and also for the root name for all markers	
 	_markerType, 
 	_markerColor, 
 	_markerSize,
-	_markerBrush,
+	_markerBrush
+];
+
+private _paraData = [
+	_noPara, 
+	_paraTriggerDistance,
+	_paraSkill,
+	_chanceLoot, 
+	_paraLoot, 
+	_paraLootCounts,
+	_chancePara	
+],
+
+private _missionLoot = [
+	_spawnCratesTiming, 
+	_loadCratesTiming,		
+	_crateLoot, 
+	_lootCounts,
+	_missionLootBoxes,
+	_missionLootVehicles	
+];
+
+private _aiData = [
+	_uniforms, 
+	_headgear, 
+	_vests, 
+	_backpacks, 
+	_weaponList,
+	_sideArms, 	
 	_missionLandscapeMode, 	
 	_garrisonedBuildings_BuildingPosnSystem, 
 	_garrisonedBuilding_ATLsystem,
 	_missionLandscape,
 	_simpleObjects,
-	_missionLootBoxes,
-	_missionLootVehicles,
 	_missionPatrolVehicles,
 	_submarinePatrols,  //  Added Build 227
 	_submarinePatrolParameters,
@@ -130,27 +151,26 @@ private _table = [
 	_scubaGroupParameters,		
 	_hostageConfig,
 	_enemyLeaderConfig,
-	_assetKilledMsg,
-	_uniforms, 
-	_headgear, 
-	_vests, 
-	_backpacks, 
-	_weaponList,
-	_sideArms, 
 	_chanceHeliPatrol, 
 	_noChoppers, 
-	_missionHelis, 
-	_chancePara, 
-	_noPara, 
-	_paraTriggerDistance,
-	_paraSkill,
-	_chanceLoot, 
-	_paraLoot, 
-	_paraLootCounts,
-	_spawnCratesTiming, 
-	_loadCratesTiming, 
-	_endCondition,
-	_isScubaMission 										
+	_missionHelis	
+];
+
+private _missionMessages = [
+	_assetKilledMsg,	
+	_endMsg,
+	_startMsg	
+];
+
+private _table = [
+	_markerData,
+	_missionMessages,
+	_paraData,
+	_endCondition,	
+	_isscubamission,	
+	_missionLoot,
+	_aiData,
+	_defaultMissionLocations				
 ];
 
 _table
