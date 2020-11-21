@@ -16,7 +16,7 @@
 */
 
 #include "privateVars.sqf";
-
+_crateMoney = 10000;
 _mission = "static mission example #2";  //  Included for additional documentation. Not intended to be spawned as a mission per se.
 _missionCenter = [22907,16789,0];  // I pulled this from the position of the marker.
 _difficulty = "red";  // Skill level of AI (blue, red, green etc)

@@ -111,7 +111,7 @@ _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
 	//["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"green",600,0],
-	["B_G_Offroad_01_armed_EPOCH",[22809.5,16699.2,0],"blue",600,10,1]	
+	[selectRandom blck_AIPatrolVehicles,[22809.5,16699.2,0],"blue",600,10,1]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
