@@ -73,7 +73,7 @@ _unit setunitpos "AUTO";
 if !(_uniforms isEqualTo []) then {_unit forceAddUniform (selectRandom _uniforms)};
 if !(_headGear isEqualTo []) then {_unit addHeadgear (selectRandom _headGear)};
 if !(_vests  isEqualTo []) then {_unit addVest (selectRandom _vests)};
-if (_weaponList isEqualTo []) then {
+if !(_weaponList isEqualTo []) then {
 	_weap = selectRandom _weaponList; 
 	_unit addWeaponGlobal  _weap; 
 	_ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
