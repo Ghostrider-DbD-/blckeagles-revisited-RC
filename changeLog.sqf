@@ -10,9 +10,8 @@ Many thanks for new Coding and ideas from Grahame.
 Significant Changes:
 
 =====================
-7.04 Build 235
-
 New: Player stats updated for each AI kill on Epoch.
+New: added support for Mull of Kyntire.
 Fixed: Launchers and Launcher rounds were not being deleted.
 Fixed: AI at Turrets were spawned with scubba loadouts.
 Fixed: Units at UMS missions (Pirate missions) now spawn with scuba gear if spawned over water .
@@ -20,6 +19,9 @@ Fixed: Mission Loot Vehicles were not being spawned.
 Fixed: Missions that were aborted (hostage or leader killed, other reasons) were not being respawned.
 Fixed: Money not being added to some mission crates.
 Changed: Some improvements in coding efficiency were implemented for frequently called functions.
+Changed: all constants used for searching for mission locations on land or at sea are defined in GMS_fnc_findWorld.sqf 
+Changed: maps without water have the search range for missions at sea set to 0.
+Changed: No searches for missions at sea will be done when the search range is 0.
 
 7.02 Build 230
 
