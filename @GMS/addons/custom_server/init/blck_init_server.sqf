@@ -38,7 +38,7 @@ private _blck_loadingStartTime = diag_tickTime;
 // Load Configs
 [] call compile preprocessfilelinenumbers "\q\addons\custom_server\Configs\blck_configs.sqf";
 waitUntil{(!isNil "blck_useHC") && (!isNil "blck_simulationManager") && (!isNil "blck_debugOn") && (!isNil "blck_AI_Side")};
-if (blck_debugOn) then {diag_log format["[blckeagls]  blck_AI_Side = %1",blck_AI_Side]};
+if (blck_debugOn) then {[format["blck_AI_Side = %1",blck_AI_Side]] call blck_fnc_log};
 
 // This block waits for the mod to start but is disabled for now
 if ((tolower blck_modType) isEqualto "epoch") then {
@@ -54,15 +54,15 @@ if ((toLower blck_modType) isEqualTo "exile") then
 };
 if ((toLower blck_modType) isEqualTo "default") then 
 {
-	diag_log "[blckeagls] Configuring Mission System for Default Settings...";
+	["[blckeagls] Configuring Mission System for Default Settings..."] call blck_fnc_log;
 };
 
 // Load any user-defined specifications or overrides
 //  HINT: Use these for map-specific settings
 #include "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
-if (blck_debugOn) then {diag_log format["[blckeagls] Custom Configurations Loaded at %1",diag_tickTime]};
-if (blck_debugOn) then {diag_log format["[blckeagls] debug mode settings:blck_debugON = %1 | blck_debugLevel = %2",blck_debugON,blck_debugLevel]};
+if (blck_debugOn) then {[format["[blckeagls] Custom Configurations Loaded at %1",diag_tickTime]] call blck_fnc_log};
+if (blck_debugOn) then {[format["[blckeagls] debug mode settings:blck_debugON = %1 | blck_debugLevel = %2",blck_debugON,blck_debugLevel]] call blck_fnc_log};
 
 // Load vaariables used to store information for the mission system.
 [] call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
@@ -183,8 +183,11 @@ if (blck_enableBlueMissions > 0) then
 };
 if (blck_numberUnderwaterDynamicMissions > 0) then 
 {
-	[_missionListUMS,_pathUMS,"UMSMarker","Red",blck_TMin_UMS,blck_TMax_UMS,blck_numberUnderwaterDynamicMissions] call blck_fnc_addMissionToQue;
+	if !(blck_maxSeaSearchDistance == 0) then {
+		[_missionListUMS,_pathUMS,"UMSMarker","Red",blck_TMin_UMS,blck_TMax_UMS,blck_numberUnderwaterDynamicMissions] call blck_fnc_addMissionToQue;
+	};
 };
+
 
 
 // Setup a group for AI corpses
