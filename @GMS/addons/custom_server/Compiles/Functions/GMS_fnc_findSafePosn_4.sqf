@@ -40,7 +40,7 @@ for "_i" from 1 to (count blck_recentMissionCoords) do
 
 private _waterMode = 0;
 private _shoreMode = 0;
-private _maxGrad = 0.20;
+private _maxGrad = blck_maxGradient;
 private _minObjDist = 30;
 private _searchDist = blck_mapRange / 2;
 private _coords = [];
