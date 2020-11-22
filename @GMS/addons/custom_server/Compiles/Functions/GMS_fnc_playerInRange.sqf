@@ -11,7 +11,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-params[["_coords",[]],["_range",0],["_onFootOnly",false]];
+params[["_coords",[0,0,0]],["_range",0],["_onFootOnly",false]];
 private ["_result","_players"];
 
 private "_players";
