@@ -420,8 +420,12 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 
 				_missionLoot params [
 					"_spawnCratesTiming", 
-					"_loadCratesTiming"
-				];
+					"_loadCratesTiming",		
+					"_crateLoot", 
+					"_lootCounts",
+					"_missionLootBoxes",
+					"_missionLootVehicles"
+				];	
 
 				private _missionComplete = -1;
 				private ["_secureAsset","_endIfPlayerNear","_endIfAIKilled"];
@@ -546,7 +550,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 							{
 								if (!(_secureAsset) || (_secureAsset && (alive _assetSpawned))) then
 								{
-									if (count _missionLootBoxes > 0) then
+									if !(_missionLootBoxes isEqualTo []) then
 									{
 										_crates = [_coords,_missionLootBoxes,_loadCratesTiming,_spawnCratesTiming, "end", _difficulty] call blck_fnc_spawnMissionCrates;
 									}
