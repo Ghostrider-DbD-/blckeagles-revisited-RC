@@ -295,16 +295,19 @@
 	// lists of black-listed items to be excluded from dynamic loadouts
 
 	blck_blackListedMods = [
-		"Kart",
-		"TANK",
-		"ORANGE",
-		"Heli",
-		"Contact",
-		"Enoch",
-		"Orange",
-		"Jets",
-		"Mark",
-		"Expansion"
+		// Uncomment to exclude items/weapons/uniforms/vest/headgear from being included.
+		// Add DLC names you wish to exluded as appropriate
+		// DLC names will be added to your server.RPT
+		//"Kart",
+		//"TANK",
+		//"ORANGE",
+		//"Heli",
+		//"Contact",
+		//"Enoch",
+		//"Orange",
+		//"Jets",
+		//"Mark",
+		//"Expansion"
 	];	
 		blck_blacklistedVests = [
 			//"V_Press_F"
