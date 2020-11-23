@@ -150,12 +150,13 @@ diag_log format["_fnc_dynamicConfigsConfigurator: count _classnameList = %1",cou
 	};
 } forEach _classnameList;
 private _allWep =  _wpnAR + _wpnLMG + _wpnSMG + _wpnShotGun + _wpnSniper + _wpnHandGun;
+
+/*
+	// Example of code you can use to: a) list DLCs; b) list items from specific DLCs 
 {
 	diag_log format["_dlcList %1 = %2",_forEachIndex,_x];
 } forEach _dlcList;
-/*
-	Below are some examples of how you can use information collected to verify that the correct items were included 
-*/
+
 {
 	diag_log format["_ffaa %1 = %2",_forEachIndex,_x];
 }forEach _ffaa;
@@ -163,8 +164,9 @@ private _allWep =  _wpnAR + _wpnLMG + _wpnSMG + _wpnShotGun + _wpnSniper + _wpnH
 	diag_log format["_lago %1 = %2",_forEachIndex,_x];
 } forEach _lago;
 {
-	diag_log format["_cupv %1 = %2",_forEachIndex,_x];
-} forEach _cupv; 
+	diag_log format["_cupw %1 = %2",_forEachIndex,_x];
+} forEach _cupw; 
+*/
 
 blck_primaryWeapons = _wpnAR + _wpnLMG + _wpnSMG + _wpnShotGun + _wpnSniper;
 blck_WeaponList_Blue = blck_primaryWeapons;
@@ -173,12 +175,13 @@ blck_WeaponList_Green = blck_primaryWeapons;
 blck_WeaponList_Orange = blck_primaryWeapons;
 
 /*
-	here is an example for checking that weapons in the FFAA mod were added 
-*/
+	//here is an example for checking that weapons in the FFAA mod were added to the list of primary weapons
+
 private _absentWep = [];
 {
 	if !(_x in _allWep) then {diag_log format["_absentWep %1 = %2",_forEachIndex,_x];};
 } forEach _ffaa + _lago + _cupw;
+*/
 
 blck_pistols = _wpnHandGun;
 blck_Pistols_blue = blck_Pistols;
