@@ -178,7 +178,7 @@ blck_WeaponList_Orange = blck_primaryWeapons;
 private _absentWep = [];
 {
 	if !(_x in _allWep) then {diag_log format["_absentWep %1 = %2",_forEachIndex,_x];};
-} forEach _ffaa + _lago _cupw;
+} forEach _ffaa + _lago + _cupw;
 
 blck_pistols = _wpnHandGun;
 blck_Pistols_blue = blck_Pistols;
