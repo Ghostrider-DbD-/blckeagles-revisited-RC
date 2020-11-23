@@ -293,6 +293,19 @@
 	blck_logblacklisteditems = true;
 	//blck_maximumitempriceinai_loadouts = 1000;
 	// lists of black-listed items to be excluded from dynamic loadouts
+
+	blck_blackListedMods = [
+		"Kart",
+		"TANK",
+		"ORANGE",
+		"Heli",
+		"Contact",
+		"Enoch",
+		"Orange",
+		"Jets",
+		"Mark",
+		"Expansion"
+	];	
 		blck_blacklistedVests = [
 			//"V_Press_F"
 		];

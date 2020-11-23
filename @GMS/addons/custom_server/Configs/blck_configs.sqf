@@ -312,6 +312,25 @@
 	blck_logBlacklistedItems = true;
 	//blck_maximumitempriceinai_loadouts = 1000;
 	// lists of black-listed items to be excluded from dynamic loadouts
+
+	/* 
+		A list of dlcs will be dumped during server start up.
+		You can comment out those you dont want to exclude 
+		or identify and add others from the list generated when the dynamicConfigs script is run 
+	*/
+
+	blck_blackListedMods = [
+		"Kart",
+		"TANK",
+		"ORANGE",
+		"Heli",
+		"Contact",
+		"Enoch",
+		"Orange",
+		"Jets",
+		"Mark",
+		"Expansion"
+	];
 		blck_blacklistedVests = [
 			//"V_Press_F"
 		];
