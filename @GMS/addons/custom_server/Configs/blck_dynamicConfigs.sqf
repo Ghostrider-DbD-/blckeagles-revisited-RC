@@ -65,12 +65,30 @@ if (toLower(blck_modType) isEqualTo "exile") then
 };
 //diag_log format["_fnc_dynamicConfigsConfigurator: count _classnameList = %1",count _classnameList];
 {
+<<<<<<< Updated upstream
 	private _temp = [_x] call bis_fnc_itemType;
 	//diag_log _temp;
 	_itemCategory = _temp select 0;
 	_itemType = _temp select 1;
 	_price = blck_maximumItemPriceInAI_Loadouts;
 	if (toLower(blck_modType) isEqualTo "epoch") then
+=======
+	private _configName = "";
+	switch (true) do
+	{
+		case isClass(configFile >> "CfgMagazines" >> _x): 	{ _configName = "CfgMagazines"; };
+		case isClass(configFile >> "CfgVehicles" >> _x): 	{ _configName = "CfgVehicles"; };
+		case isClass(configFile >> "CfgAmmo" >> _x): 		{ _configName = "CfgAmmo"; };
+		case isClass(configFile >> "CfgGlasses" >> _x): 	{ _configName = "CfgGlasses"; };
+		default 											     	{ _configName = "CfgWeapons"; };
+	};
+	private _dlc = getText(configFile >> _configName >> _x >> "DLC");
+	_dlcList pushBackUnique _dlc;
+	if (_dlc isEqualTo "LAGO") then {_lago pushBackUnique _x};
+	if (_dlc isEqualTo "FFAA" || _dlc isEqualTo "FFAAMOD") then {_ffaa pushBackUnique _x};
+	if (_dlc isEqualTo "CUP_Vehicles") then {_cupv pushBackUnique _x};
+	if !(_dlc in blck_blackListedMods) then 
+>>>>>>> Stashed changes
 	{
 		_price = getNumber(missionConfigFile >> "CfgPricing" >> _x >> "price");
 	};
@@ -134,7 +152,17 @@ blck_WeaponList_Blue = blck_primaryWeapons;
 blck_WeaponList_Red = blck_primaryWeapons;
 blck_WeaponList_Green = blck_primaryWeapons;
 blck_WeaponList_Orange = blck_primaryWeapons;
+<<<<<<< Updated upstream
 
+=======
+private _absentWep = [];
+{
+	if !(_x in blck_primaryWeapons) then {_absentWep pushBackUnique _x};
+} forEach _ffaa;
+{
+	diag_log format["_absentWep %1 = %2",_forEachIndex,_x];
+} forEach _absentWep;
+>>>>>>> Stashed changes
 blck_pistols = _wpnHandGun;
 blck_Pistols_blue = blck_Pistols;
 blck_Pistols_red = blck_Pistols;
