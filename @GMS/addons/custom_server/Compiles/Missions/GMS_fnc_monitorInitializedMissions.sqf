@@ -351,7 +351,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 						{
 							_crates = [_coords,_missionLootBoxes,_loadCratesTiming, _spawnCratesTiming, "start", _difficulty] call blck_fnc_spawnMissionCrates;						
 						};
-
+						//diag_log format["monitorInitializedMission: _spawnCrates Timing = %1 / crates spawned = %2",_spawnCratesTiming,_crate];
 						if (blck_cleanUpLootChests) then
 						{
 							_objects append _crates;
@@ -362,6 +362,9 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 							{
 								[_x,missionNamespace getVariable (format["blck_crateMoney%1",_difficulty])] call blck_fnc_addMoneyToObject;
 							} forEach _crates;
+							//diag_log format["monitorInitializedMission: Loot LOADED _loadCrates Timing = %1",_loadCratesTiming];
+						} else {
+							//diag_log format["monitorInitializedMission: NO Loot LOADED _loadCrates Timing = %1",_loadCratesTiming];
 						};
 					};
 					
@@ -496,7 +499,7 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 									_objects append _extraCrates;
 								};		
 							};	
-							diag_log format["_monitorInitializedMissions: para spawned at %1",diag_tickTime];
+							//diag_log format["_monitorInitializedMissions: para spawned at %1",diag_tickTime];
 						};
 					};
 
@@ -580,11 +583,13 @@ for "_i" from 1 to (count blck_activeMissionsList) do
 										[_x] call blck_fnc_loadMissionCrate;											
 										[_x, missionNamespace getVariable (format["blck_crateMoney%1",_difficulty])] call blck_fnc_addMoneyToObject;											
 									} forEach _crates;
+									//diag_log format["monitorInitializedMission (586): Loot LOADED _loadCrates Timing = %1",_loadCratesTiming];									
 									private _crateMoney = missionNamespace getVariable (format["blck_crateMoney%1",_difficulty]);
 									{
 										[_x] call blck_fnc_loadMissionCrate;											
 										[_x, missionNamespace getVariable (format["blck_crateMoney%1",_difficulty])] call blck_fnc_addMoneyToObject;											
-									} forEach _spawnedLootVehicles;										
+									} forEach _spawnedLootVehicles;		
+									//diag_log format["monitorInitializedMission (592): Loot LOADED _loadCrates Timing = %1",_loadCratesTiming];																	
 								};
 							};
 							_missionAIVehicles append _spawnedLootVehicles;  //  So these are deleted if no player enters the driver's seat.

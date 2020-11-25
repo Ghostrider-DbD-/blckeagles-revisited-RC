@@ -143,6 +143,7 @@ private _chancePara = _paraData param [6];
 private _missionTimeoutAt = diag_tickTime + blck_MissionTimeout;
 private _triggered = 0;
 private _spawnPara = if (random(1) < _chancePara) then {true} else {false};
+//diag_log format["_initializeMission: _spawnPara = %1 | _chancePara = %2",_spawnPara,_chancePara];
 private _objects = [];
 private _hiddenObjects = [];
 private _mines = [];
