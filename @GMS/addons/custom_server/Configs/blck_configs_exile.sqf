@@ -235,8 +235,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_tws"
 		//"optic_tws_mg",
 		];
-		
-	#ifdef useAPEX	
+	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes;		
 	blck_Optics_Apex = [
 		//Apex
 		"optic_Arco_blk_F",	"optic_Arco_ghex_F",
@@ -247,7 +246,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_LRPS_tna_F","optic_LRPS_ghex_F",
 		"optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"
 		];	
-	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes;
+	#ifdef useAPEX	
 	blck_Optics = blck_Optics + blck_Optics_Apex;
 	#endif
 
@@ -313,24 +312,23 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 + blck_RifleAsault_650;
 	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG;
 
-	#ifdef useAPEX
 	blck_apexWeapons = ["arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
 						"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
 						"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
 						"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"];
-			
+	#ifdef useAPEX			
 	blck_WeaponList_Orange = blck_WeaponList_Orange + blck_apexWeapons;
 	blck_WeaponList_Green = blck_WeaponList_Green + blck_apexWeapons;	
 	#endif
 	
 	blck_backpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
 		
-	#ifdef useAPEX
 	blck_ApexBackpacks = [
 		"B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
 		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
 		"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"
 		];	
+	#ifdef useAPEX
 	blck_backpacks = blck_ApexBackpacks + blck_backpacks;
 	#endif
 	blck_backpacks_blue = blck_backpacks;
