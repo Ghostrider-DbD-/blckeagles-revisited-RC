@@ -164,7 +164,7 @@ while {_coords isEqualTo []} do
 		_minDistanceRecentMissions = _minDistanceRecentMissions * _weightRecentMissions;
 		_coords = [];		
 	};
-	[format["_fnc_findSafePosn(140) end of cycle logging: _tries = %1 | _coords = %2 | _findNew = %3",_tries,_coords,_findNew]] call blck_fnc_log;	
+	//[format["_fnc_findSafePosn(140) end of cycle logging: _tries = %1 | _coords = %2 | _findNew = %3",_tries,_coords,_findNew]] call blck_fnc_log;	
 };
 
 if ((count _coords) > 2) then 
@@ -173,7 +173,7 @@ if ((count _coords) > 2) then
 	_temp = [_coords select 0, _coords select 1];
 	_coords = _temp;
 };
-[format["_fnc_findSafePosn(148) final logging: _elapsedTime %3 | _tries = %1 | _coords = %2",_tries,_coords,diag_tickTime - _startTime]] call blck_fnc_log;
+//[format["_fnc_findSafePosn(148) final logging: _elapsedTime %3 | _tries = %1 | _coords = %2",_tries,_coords,diag_tickTime - _startTime]] call blck_fnc_log;
 _coords;
 
 
