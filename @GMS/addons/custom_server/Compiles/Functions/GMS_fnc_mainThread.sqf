@@ -71,8 +71,6 @@ while {true} do
 	};
 	if (diag_tickTime > _timer5min) then 
 	{
-		_activeScripts = diag_activeScripts;
-
 		[
 			format["Timstamp %8 |Dynamic Missions Running %1 | Vehicles %2 | Groups %3 | Missions Run %4 | Server FPS %5 | Server Uptime %6 Min",
 				blck_missionsRunning,
@@ -83,17 +81,21 @@ while {true} do
 				diag_tickTime
 			]
 		] call blck_fnc_log;
-		[
-			format["count diag_activeSQFScripts %1 | Threads [spawned %2, execVM %3] | monitorThreads %4",
-				count diag_activeSQFScripts,
-				_activeScripts select 0,
-				_activeScripts select 1,
-				blck_activeMonitorThreads	
-			]
-		] call blck_fnc_log;
+		if (blck_debugON) then 
 		{
-			[format["file %1 | running %2",(_x select 1),(_x select 2)]] call blck_fnc_log;
-		} forEach diag_activeSQFScripts;
+			private _activeScripts = diag_activeScripts;
+			[
+				format["count diag_activeSQFScripts %1 | Threads [spawned %2, execVM %3] | monitorThreads %4",
+					count diag_activeSQFScripts,
+					_activeScripts select 0,
+					_activeScripts select 1,
+					blck_activeMonitorThreads	
+				]
+			] call blck_fnc_log;
+			{
+				[format["file %1 | running %2",(_x select 1),(_x select 2)]] call blck_fnc_log;
+			} forEach diag_activeSQFScripts;
+		};
 		[] call blck_fnc_cleanEmptyGroups;			
 		_timer5min = diag_tickTime + 300;
 	};
